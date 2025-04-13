@@ -1,0 +1,52 @@
+﻿@page "/employeeList"
+<h3>EmployeeListPage</h3>
+
+@if (employeeModels is null)
+{
+    <div class="d-flex flex-column justify-content-center align-items-center vh-60">
+        <div class="spinner-border text-warning mb-4" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+        <div>
+            <h5>Loading ... </h5>
+        </div>
+    </div>
+}
+else if (employeeModels is not null && employeeModels.Any())
+{
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Employee Code</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Address</th>
+                <th>Department</th>
+                <th>Position</th>
+                <th>DateOfBirth</th>
+                <th>DateOfJoining</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var employee in employeeModels)
+            {
+                <tr>
+                    <td>@employee.EmployeeCode</td>
+                    <td>@($"{employee.FirstName} {employee.LastName}")</td>
+                    <td>@employee.Email</td>
+                    <td>@employee.PhoneNumber</td>
+                    <td>@employee.Address</td>
+                    <td>@employee.DepartmentCode</td>
+                    <td>@employee.PositionCode</td>
+                    <td>@employee.DateOfBirth.ToShortDateString()</td>
+                    <td>@employee.DateOfJoining.ToShortDateString()</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <div>No employees found.</div>
+}
