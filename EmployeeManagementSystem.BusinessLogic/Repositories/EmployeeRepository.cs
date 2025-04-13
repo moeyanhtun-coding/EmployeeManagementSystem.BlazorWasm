@@ -12,6 +12,7 @@ namespace EmployeeManagementSystem.BusinessLogic.Repositories
     public interface IEmployeeRepository
     {
         Task<List<EmployeeModel>> GetEmployeeList();
+        Task<int> CreateEmployee(EmployeeModel employeeModel);
     }
     public class EmployeeRepository(AppDbContext _context) : IEmployeeRepository
     {
@@ -19,5 +20,11 @@ namespace EmployeeManagementSystem.BusinessLogic.Repositories
         {
           return await _context.Employees.ToListAsync();
         }
+        public async Task<int> CreateEmployee(EmployeeModel employeeModel)
+        {
+            await _context.Employees.AddAsync(employeeModel);
+            return await _context.SaveChangesAsync();
+        }
+
     }
 }
