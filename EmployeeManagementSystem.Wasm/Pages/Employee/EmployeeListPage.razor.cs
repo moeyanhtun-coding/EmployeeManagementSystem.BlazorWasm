@@ -24,7 +24,6 @@ namespace EmployeeManagementSystem.Wasm.Pages.Employee
             if (response.IsSuccessStatusCode)
             {
                 var jsonResponse = await response.Content.ReadAsStringAsync();
-                Console.WriteLine(jsonResponse);
                 baseResponseModel = JsonConvert.DeserializeObject<BaseResponseModel>(jsonResponse)!;
                 if (baseResponseModel!.IsSuccess)
                 {
