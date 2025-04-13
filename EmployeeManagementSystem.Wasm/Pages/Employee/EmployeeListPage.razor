@@ -26,6 +26,9 @@ else if (employeeModels is not null && employeeModels.Any())
                 <th>Position</th>
                 <th>DateOfBirth</th>
                 <th>DateOfJoining</th>
+                <th>
+                    <NavLink href="employee/create" class="btn btn-primary">Add Employee</NavLink>
+                </th>
             </tr>
         </thead>
         <tbody>
@@ -41,6 +44,7 @@ else if (employeeModels is not null && employeeModels.Any())
                     <td>@employee.PositionCode</td>
                     <td>@employee.DateOfBirth.ToShortDateString()</td>
                     <td>@employee.DateOfJoining.ToShortDateString()</td>
+                    <td></td>
                 </tr>
             }
         </tbody>
