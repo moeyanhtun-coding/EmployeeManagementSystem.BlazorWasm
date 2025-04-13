@@ -13,6 +13,7 @@ namespace EmployeeManagementSystem.BusinessLogic.Services
     public interface IEmployeeService
     {
         Task<List<EmployeeModel>> GetEmployeeListAsync();
+        Task<int> CreateEmployee(EmployeeModel employeeModel);
     }
     public class EmployeeService : IEmployeeService
     {
@@ -26,6 +27,11 @@ namespace EmployeeManagementSystem.BusinessLogic.Services
         public async Task<List<EmployeeModel>> GetEmployeeListAsync()
         {
             return await employeeRepository.GetEmployeeList();
+        }
+
+        public async Task<int> CreateEmployee(EmployeeModel employeeModel)
+        {
+            return await employeeRepository.CreateEmployee(employeeModel);
         }
     }
 }
