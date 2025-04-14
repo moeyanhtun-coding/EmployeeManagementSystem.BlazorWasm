@@ -1,3 +1,78 @@
 ﻿@page "/employee/update/{Id:int}"
 
 <h3>EmployeeUpdate</h3>
+
+<EditForm Model="employee" OnValidSubmit="Submit">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <div class="container">
+        <div class="row mb-3">
+            <div class="col-8 offset-2">
+                <label for="employeeCode" class="form-label">Employee Code</label>
+                <InputText id="employeeCode" class="form-control" @bind-Value="employee.EmployeeCode" />
+                <ValidationMessage For="() => employee.EmployeeCode" />
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-4 offset-2">
+                <label for="FirstName" class="form-label">First Name</label>
+                <InputText id="FirstName" class="form-control" @bind-Value="employee.FirstName" />
+                <ValidationMessage For="() => employee.FirstName" />
+            </div>
+            <div class="col-4">
+                <label for="LastName" class="form-label">Last Name</label>
+                <InputText id="LastName" class="form-control" @bind-Value="employee.LastName" />
+                <ValidationMessage For="() => employee.LastName" />
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-4 offset-2">
+                <label for="Email" class="form-label">Email</label>
+                <InputText id="Email" class="form-control" @bind-Value="employee.Email" />
+                <ValidationMessage For="() => employee.Email" />
+            </div>
+            <div class="col-4">
+                <label for="PhoneNumber" class="form-label">Phone Number</label>
+                <InputText id="PhoneNumber" class="form-control" @bind-Value="employee.PhoneNumber" />
+                <ValidationMessage For="() => employee.PhoneNumber" />
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-8 offset-2">
+                <label for="Address" class="form-label">Address</label>
+                <InputText id="Address" class="form-control" @bind-Value="employee.Address" />
+                <ValidationMessage For="() => employee.Address" />
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-4 offset-2">
+                <label for="PositionCode" class="form-label">Department</label>
+                <InputText id="DepartmentCode" class="form-control" @bind-Value="employee.DepartmentCode" />
+                <ValidationMessage For="() => employee.DepartmentCode" />
+            </div>
+            <div class="col-4">
+                <label for="PositionCode" class="form-label">Position</label>
+                <InputText id="PositionCode" class="form-control" @bind-Value="employee.PositionCode" />
+                <ValidationMessage For="() => employee.PositionCode" />
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-4 offset-2">
+                <label for="DateOfJoining" class="form-label">Date of Joining</label>
+                <InputDate id="DateOfJoining" class="form-control" @bind-Value="employee.DateOfJoining" />
+                <ValidationMessage For="() => employee.DateOfJoining" />
+            </div>
+            <div class="col-4">
+                <label for="DateOfBirth" class="form-label">Date of Birth</label>
+                <InputDate id="DateOfBirth" class="form-control" @bind-Value="employee.DateOfBirth" />
+                <ValidationMessage For="() => employee.DateOfBirth" />
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-8 offset-2 text-end">
+                <button type="submit" class="btn btn-primary">Create Employee</button>
+            </div>
+        </div>
+    </div>
+</EditForm>
