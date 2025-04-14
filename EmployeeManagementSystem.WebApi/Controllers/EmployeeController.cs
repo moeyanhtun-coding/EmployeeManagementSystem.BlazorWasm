@@ -44,7 +44,7 @@ namespace EmployeeManagementSystem.WebApi.Controllers
         }
 
         [HttpPatch("updateEmployee/{id}")]
-        public async Task<ActionResult<BaseResponseModel>> UpdateEmployee(, int id, EmployeeModel employee)
+        public async Task<ActionResult<BaseResponseModel>> UpdateEmployee( int id, EmployeeModel employee)
         {
             var res = await employeeService.UpdateEmployee(id, employee);
             if (res is 0)
