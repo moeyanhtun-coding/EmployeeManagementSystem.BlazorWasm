@@ -1,4 +1,5 @@
 ﻿@page "/employeeList"
+
 <PageTitle>Employee List</PageTitle>
 
 <h3>EmployeeListPage</h3>
@@ -47,14 +48,19 @@ else if (employeeModels is not null && employeeModels.Any())
                     <td>@employee.DateOfJoining.ToShortDateString()</td>
                     <td>
                         <NavLink href="@editUrl" class="btn btn-warning">Edit</NavLink>
-                        <button class="btn btn-danger">Delete</button>
+                        <button class="btn btn-danger" @onclick="() => {DeleteId = employee.EmployeeId; Modal.Show();}">Delete</button>
                     </td>
                 </tr>
             }
         </tbody>
     </table>
-}
-else
-{
-    <div>No employees found.</div>
+
+    <AppModal @ref="Modal">
+        <Title>Delete Notification</Title>
+        <Body>Are you sure to remove this Employee?</Body>
+        <Footer>
+            <button class="btn btn-secondary" @onclick="() => Modal.Hide()">Cancel</button>
+            <button class="btn btn-danger" @onclick="Delete">Delete</button>
+        </Footer>
+    </AppModal>
 }
