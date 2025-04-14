@@ -51,6 +51,15 @@ namespace EmployeeManagementSystem.WebApi.Controllers
                 return BadRequest(new BaseResponseModel { Data = employee, IsSuccess = false, Message = "Employee Updating Failed" });
             return Ok(new BaseResponseModel { Message = "Employee Updating Successful", IsSuccess = true, Data = employee });
         }
+
+        [HttpDelete("deleteEmployee/{id}")]
+        public async Task<ActionResult<BaseResponseModel>> DeleteEmployee( int id)
+        {
+            var res = await employeeService.DeleteEmployee(id);
+            if (res is 0)
+                return BadRequest(new BaseResponseModel { Data = null, IsSuccess = false, Message = "Employee Delete Failed" });
+            return Ok(new BaseResponseModel { IsSuccess = true, Message = "Employee Delete Successful" });
+        }
     }
 }
 
