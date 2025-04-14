@@ -16,6 +16,7 @@ namespace EmployeeManagementSystem.BusinessLogic.Services
         Task<int> CreateEmployee(EmployeeModel employeeModel);
         Task<EmployeeModel> GetEmployeeById(int id);
         Task<int> UpdateEmployee(int id, EmployeeModel employeeModel);
+        Task<int> DeleteEmployee(int id);
     }
     public class EmployeeService : IEmployeeService
     {
@@ -43,6 +44,11 @@ namespace EmployeeManagementSystem.BusinessLogic.Services
         public async Task<int> UpdateEmployee(int id, EmployeeModel employeeModel)
         {
             return await employeeRepository.UpdateEmployee(id, employeeModel);
+        }
+
+        public async Task<int> DeleteEmployee(int id)
+        {
+            return await employeeRepository.DeleteEmployee(id);
         }
     }
 }
