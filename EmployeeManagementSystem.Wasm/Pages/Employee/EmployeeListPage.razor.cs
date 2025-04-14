@@ -1,5 +1,6 @@
 ﻿using EmployeeManagementSystem.Model.Entities;
 using EmployeeManagementSystem.Model.Models;
+using EmployeeManagementSystem.Wasm.Compoments.BaseCompoments;
 using Microsoft.AspNetCore.Components;
 using Microsoft.EntityFrameworkCore.Storage.Json;
 using Newtonsoft.Json;
@@ -12,6 +13,8 @@ namespace EmployeeManagementSystem.Wasm.Pages.Employee
     {
         private List<EmployeeModel>? employeeModels;
         private BaseResponseModel? baseResponseModel = new();
+        private int DeleteId;
+        private AppModal Modal;
 
         protected override async Task OnInitializedAsync()
         {
@@ -29,6 +32,34 @@ namespace EmployeeManagementSystem.Wasm.Pages.Employee
                 {
                     employeeModels = JsonConvert.DeserializeObject<List<EmployeeModel>>(baseResponseModel.Data.ToString()!)!;
                 }
+            }
+            else
+            {
+                var error = await response.Content.ReadAsStringAsync();
+                toastService.ShowError("One or more field is required");
+                Console.WriteLine("Error occurred: " + error);
+            }
+        }
+
+        private async Task Delete()
+        {
+            var res = await httpClient.DeleteAsync($"api/Employee/deleteEmployee/{DeleteId}");
+            if(res.IsSuccessStatusCode)
+            {
+                var jsonStr = await res.Content.ReadAsStringAsync();
+                var result = JsonConvert.DeserializeObject<BaseResponseModel>(jsonStr);
+                if (result.IsSuccess)
+                {
+                    Modal.Hide();
+                    await GetEmployees();
+                    toastService.ShowError(result.Message);
+                }
+            }
+            else
+            {
+                var error = await res.Content.ReadAsStringAsync();
+                toastService.ShowError("One or more field is required");
+                Console.WriteLine("Error occurred: " + error);
             }
         }
     }
