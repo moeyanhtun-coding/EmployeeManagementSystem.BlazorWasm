@@ -14,6 +14,8 @@ namespace EmployeeManagementSystem.BusinessLogic.Repositories
         Task<List<EmployeeModel>> GetEmployeeList();
         Task<int> CreateEmployee(EmployeeModel employeeModel);
         Task<EmployeeModel> GetEmployeeById(int id);
+        Task<int> UpdateEmployee(int id, EmployeeModel employeeModel);
+
     }
     public class EmployeeRepository(AppDbContext _context) : IEmployeeRepository
     {
@@ -33,6 +35,25 @@ namespace EmployeeManagementSystem.BusinessLogic.Repositories
             if (emoloyee is null)
                 return null;
             return emoloyee;
+        }
+
+        public async Task<int> UpdateEmployee(int id, EmployeeModel employeeModel)
+        {
+            var employee = await GetEmployeeById(id);
+
+            employee.EmployeeCode = employeeModel.EmployeeCode;
+            employee.FirstName = employeeModel.FirstName;
+            employee.LastName = employeeModel.LastName;
+            employee.Email = employeeModel.Email;
+            employee.Address = employeeModel.Address;
+            employee.PhoneNumber = employeeModel.PhoneNumber;
+            employee.DepartmentCode = employeeModel.DepartmentCode;
+            employee.PositionCode = employeeModel.PositionCode;
+            employee.DateOfBirth = employeeModel.DateOfBirth;
+            employee.DateOfJoining = employeeModel.DateOfJoining;
+
+            _context.Entry(employee).State = EntityState.Modified;
+            return await _context.SaveChangesAsync();
         }
     }
 }
