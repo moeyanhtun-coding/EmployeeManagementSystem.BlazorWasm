@@ -22,11 +22,12 @@ namespace EmployeeManagementSystem.Wasm.Pages.Employee
                 var res = JsonConvert.DeserializeObject<BaseResponseModel>(result);
                 if (res.IsSuccess)
                     nav.NavigateTo("/employeeList");
-                toastService.ShowSuccess(res.Message);
+                toastService.ShowInfo(res.Message);
             }
             else
             {
                 var error = await response.Content.ReadAsStringAsync();
+                toastService.ShowError("One or more field is required");
                 Console.WriteLine("Error occurred: " + error);
             }
         }
