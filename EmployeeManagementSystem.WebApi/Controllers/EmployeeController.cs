@@ -38,9 +38,19 @@ namespace EmployeeManagementSystem.WebApi.Controllers
         public async Task<ActionResult<BaseResponseModel>> EditEmployee(int id)
         {
             var res = await employeeService.GetEmployeeById(id);
-            if(res is null)
+            if (res is null)
                 return BadRequest(new BaseResponseModel { Data = null, IsSuccess = false, Message = "Employee Not Found" });
             return Ok(new BaseResponseModel { Data = res, IsSuccess = true, Message = "Employee Found" });
         }
+
+        [HttpPatch("updateEmployee/{id}")]
+        public async Task<ActionResult<BaseResponseModel>> UpdateEmployee(, int id, EmployeeModel employee)
+        {
+            var res = await employeeService.UpdateEmployee(id, employee);
+            if (res is 0)
+                return BadRequest(new BaseResponseModel { Data = employee, IsSuccess = false, Message = "Employee Updating Failed" });
+            return Ok(new BaseResponseModel { Message = "Employee Updating Successful", IsSuccess = true, Data = employee });
+        }
     }
 }
+
