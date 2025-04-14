@@ -28,7 +28,6 @@ namespace EmployeeManagementSystem.Wasm.Pages.Employee
             {
                 var error = await response.Content.ReadAsStringAsync();
                 Console.WriteLine("Error occurred: " + error);
-                // Handle the error appropriately (e.g., show error to user)
             }
         }
     }
