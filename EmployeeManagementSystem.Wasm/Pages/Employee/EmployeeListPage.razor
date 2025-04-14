@@ -17,7 +17,6 @@ else if (employeeModels is not null && employeeModels.Any())
     <table class="table table-hover">
         <thead>
             <tr>
-                <th>Employee Code</th>
                 <th>Name</th>
                 <th>Email</th>
                 <th>Phone</th>
@@ -34,8 +33,8 @@ else if (employeeModels is not null && employeeModels.Any())
         <tbody>
             @foreach (var employee in employeeModels)
             {
+                var editUrl = $"/employee/update/{employee.EmployeeId}";
                 <tr>
-                    <td>@employee.EmployeeCode</td>
                     <td>@($"{employee.FirstName} {employee.LastName}")</td>
                     <td>@employee.Email</td>
                     <td>@employee.PhoneNumber</td>
@@ -44,7 +43,10 @@ else if (employeeModels is not null && employeeModels.Any())
                     <td>@employee.PositionCode</td>
                     <td>@employee.DateOfBirth.ToShortDateString()</td>
                     <td>@employee.DateOfJoining.ToShortDateString()</td>
-                    <td></td>
+                    <td>
+                        <NavLink href="@editUrl" class="btn btn-warning">Edit</NavLink>
+                        <button class="btn btn-danger">Delete</button>
+                    </td>
                 </tr>
             }
         </tbody>
