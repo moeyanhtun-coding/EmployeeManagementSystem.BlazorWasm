@@ -13,12 +13,12 @@ namespace EmployeeManagementSystem.Wasm.Pages.Employee
 
         protected override async Task OnInitializedAsync()
         {
-            
+            await GetEmployeeData();
         }
         
         public async Task GetEmployeeData()
         {
-            var res = await httpClient.GetAsync($"api/Employee/getEmployeeById/{Id}");
+            var res = await httpClient.GetAsync($"api/Employee/getEmployee/{Id}");
             if (res.IsSuccessStatusCode)
             {
                 var result = await res.Content.ReadAsStringAsync();
@@ -28,6 +28,11 @@ namespace EmployeeManagementSystem.Wasm.Pages.Employee
                     employee = JsonConvert.DeserializeObject<EmployeeModel>(data.Data.ToString()!)!;
                 }
             }
+        }
+
+        public async Task Submit()
+        {
+
         }
     }
 }
