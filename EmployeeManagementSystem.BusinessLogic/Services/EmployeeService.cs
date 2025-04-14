@@ -14,11 +14,11 @@ namespace EmployeeManagementSystem.BusinessLogic.Services
     {
         Task<List<EmployeeModel>> GetEmployeeListAsync();
         Task<int> CreateEmployee(EmployeeModel employeeModel);
+        Task<EmployeeModel> GetEmployeeById(int id);
     }
     public class EmployeeService : IEmployeeService
     {
         private readonly IEmployeeRepository employeeRepository;
-
         public EmployeeService(IEmployeeRepository employeeRepository)
         {
             this.employeeRepository = employeeRepository;
@@ -27,6 +27,11 @@ namespace EmployeeManagementSystem.BusinessLogic.Services
         public async Task<List<EmployeeModel>> GetEmployeeListAsync()
         {
             return await employeeRepository.GetEmployeeList();
+        }
+
+        public async Task<EmployeeModel> GetEmployeeById(int id)
+        {
+            return await employeeRepository.GetEmployeeById(id);
         }
 
         public async Task<int> CreateEmployee(EmployeeModel employeeModel)
