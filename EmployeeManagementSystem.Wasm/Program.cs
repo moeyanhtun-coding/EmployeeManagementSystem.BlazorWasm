@@ -1,4 +1,5 @@
-﻿using EmployeeManagementSystem.Wasm;
+﻿using Blazored.Toast;
+using EmployeeManagementSystem.Wasm;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 
@@ -7,5 +8,6 @@ builder.RootComponents.Add<App>("#app");
 builder.RootComponents.Add<HeadOutlet>("head::after");
 
 builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("https://localhost:7230") });
+builder.Services.AddBlazoredToast();
 
 await builder.Build().RunAsync();
