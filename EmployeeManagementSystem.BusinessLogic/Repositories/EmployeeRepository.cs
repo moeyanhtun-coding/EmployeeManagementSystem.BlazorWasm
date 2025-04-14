@@ -13,12 +13,13 @@ namespace EmployeeManagementSystem.BusinessLogic.Repositories
     {
         Task<List<EmployeeModel>> GetEmployeeList();
         Task<int> CreateEmployee(EmployeeModel employeeModel);
+        Task<EmployeeModel> GetEmployeeById(int id);
     }
     public class EmployeeRepository(AppDbContext _context) : IEmployeeRepository
     {
         public async Task<List<EmployeeModel>> GetEmployeeList()
         {
-          return await _context.Employees.ToListAsync();
+            return await _context.Employees.ToListAsync();
         }
         public async Task<int> CreateEmployee(EmployeeModel employeeModel)
         {
@@ -26,5 +27,12 @@ namespace EmployeeManagementSystem.BusinessLogic.Repositories
             return await _context.SaveChangesAsync();
         }
 
+        public async Task<EmployeeModel> GetEmployeeById(int id)
+        {
+            var emoloyee = await _context.Employees.AsNoTracking().FirstOrDefaultAsync(x => x.EmployeeId == id);
+            if (emoloyee is null)
+                return null;
+            return emoloyee;
+        }
     }
 }
