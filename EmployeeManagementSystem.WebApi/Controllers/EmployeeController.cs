@@ -33,5 +33,14 @@ namespace EmployeeManagementSystem.WebApi.Controllers
             if (res > 0) return Ok(new BaseResponseModel { Data = employeeModel, IsSuccess = true, Message = "Employee Creation Successful" });
             return BadRequest(new BaseResponseModel { Data = null, IsSuccess = false, Message = "Employee Creation Failed" });
         }
+
+        [HttpGet("getEmployee/{id}")]
+        public async Task<ActionResult<BaseResponseModel>> EditEmployee(int id)
+        {
+            var res = await employeeService.GetEmployeeById(id);
+            if(res is null)
+                return BadRequest(new BaseResponseModel { Data = null, IsSuccess = false, Message = "Employee Not Found" });
+            return Ok(new BaseResponseModel { Data = res, IsSuccess = true, Message = "Employee Found" });
+        }
     }
 }
