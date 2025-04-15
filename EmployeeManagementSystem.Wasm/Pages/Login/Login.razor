@@ -1,0 +1,25 @@
+﻿@page "/login"
+@using EmployeeManagementSystem.Model.Models
+@using EmployeeManagementSystem.Wasm.Layout
+@layout EmptyLayout
+
+<EditForm Model="_loginModel" FormName="Login" OnValidSubmit="Login">
+    <DataAnnotationsValidator/>
+    <div class="form-group">
+        <label for="username">Username</label>
+        <InputText id="username" class="form-control" @bind-Value="_loginModel.Username" />
+    </div>
+    <div class="form-group">
+        <label for="password">Password</label>
+        <InputText id="password" class="form-control" type="password" @bind-Value="_loginModel.Password" />
+    </div>
+    <button type="submit" class="btn btn-primary mt-3">Login</button>
+</EditForm>
+
+@code {
+    private LoginModel _loginModel = new LoginModel();
+
+    private async Task  Login()
+    {
+    }
+}
