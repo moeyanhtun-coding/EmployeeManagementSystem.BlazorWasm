@@ -1,0 +1,11 @@
+﻿@page "/logout"
+@using EmployeeManagementSystem.Wasm.Authentication
+@inject AuthenticationStateProvider AuthStateProvider
+
+@code {
+    protected async override Task OnInitializedAsync()
+    {
+        await ((CustomAuthStateProvider)AuthStateProvider).MarkUserAsLogout();
+        nav.NavigateTo("/login");
+    }
+}
