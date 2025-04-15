@@ -45,7 +45,7 @@ namespace EmployeeManagementSystem.WebApi.Controllers
                 issuer: "moeYan",
                 audience: "moeYan",
                 claims: claims,
-                expires: DateTime.UtcNow.AddMinutes(20),
+                expires: DateTime.UtcNow.AddMinutes(1),
                 signingCredentials: creds
                 );
             return new JwtSecurityTokenHandler().WriteToken(token);
