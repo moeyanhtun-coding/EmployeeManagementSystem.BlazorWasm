@@ -18,11 +18,16 @@
         {
            await localStorage.SetItemAsync("authToken", token);
            var identity = GetClaimsIdentity(token);
+            var user = new ClaimsPrincipal(identity);
+            NotifyAuthenticationStateChanged(Task.FromResult(new AuthenticationState(user)));
         }
 
         private ClaimsIdentity GetClaimsIdentity(string token)
         {
             var handler = new JwtSecurityTokenHandler();
+            var jwtToken = handler.ReadJwtToken(token);
+            var claims = jwtToken.Claims;
+            return new ClaimsIdentity(claims, "jwt");
         }
     }
 }
