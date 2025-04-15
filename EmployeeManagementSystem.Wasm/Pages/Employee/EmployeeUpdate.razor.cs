@@ -13,6 +13,8 @@ namespace EmployeeManagementSystem.Wasm.Pages.Employee
         [Parameter]
         public int Id { get; set; }
         private EmployeeModel employee = new();
+        [Inject]
+        private DevCode devCode { get; set; }
 
         protected override async Task OnInitializedAsync()
         {
@@ -21,6 +23,7 @@ namespace EmployeeManagementSystem.Wasm.Pages.Employee
 
         public async Task GetEmployeeData()
         {
+            await devCode.SetAuthorizeHeader();
             var res = await httpClient.GetAsync($"api/Employee/getEmployee/{Id}");
             var result = await res.Content.ReadAsStringAsync();
             var data = JsonConvert.DeserializeObject<BaseResponseModel>(result);
@@ -33,6 +36,7 @@ namespace EmployeeManagementSystem.Wasm.Pages.Employee
 
         public async Task Submit()
         {
+            await devCode.SetAuthorizeHeader();
             var res = await httpClient.PatchAsJsonAsync<EmployeeModel>($"api/Employee/updateEmployee/{Id}", employee);
             if (res.IsSuccessStatusCode)
             {
