@@ -1,5 +1,6 @@
 ﻿@inherits LayoutComponentBase
 @using Blazored.Toast.Configuration
+@using Microsoft.AspNetCore.Components.Authorization
 <div class="page">
     <div class="sidebar">
         <NavMenu />
@@ -7,7 +8,15 @@
 
     <main>
         <div class="top-row px-4">
-            <a href="https://learn.microsoft.com/aspnet/core/" target="_blank">About</a>
+            <AuthorizeView>
+                <Authorized>
+                    <a href="" class="btn btn-link">Hello, @context.User.Identity.Name!</a>
+                    <a href="/logout" class="btn btn-link">Logout</a>
+                </Authorized>
+                <NotAuthorized>
+                    <a href="login" class="btn btn-link">Login</a>
+                </NotAuthorized>
+            </AuthorizeView>
         </div>
 
         <article class="content px-4">
