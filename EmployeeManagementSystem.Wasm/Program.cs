@@ -9,5 +9,6 @@ builder.RootComponents.Add<HeadOutlet>("head::after");
 
 builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("https://localhost:7230") });
 builder.Services.AddBlazoredToast();
+builder.Services.AddBlazoredLocalStorage();
 
 await builder.Build().RunAsync();
