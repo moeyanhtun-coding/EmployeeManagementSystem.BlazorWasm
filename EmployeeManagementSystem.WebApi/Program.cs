@@ -18,6 +18,7 @@ builder.Services.AddCors(options =>
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(
      swagger =>
@@ -38,7 +39,7 @@ builder.Services.AddSwaggerGen(
              Scheme = "Bearer"
          });
          swagger.AddSecurityRequirement(new OpenApiSecurityRequirement
-        {
+         {
             {
                 new OpenApiSecurityScheme
                 {
@@ -50,7 +51,7 @@ builder.Services.AddSwaggerGen(
                 },
                 Array.Empty<string>()
             }
-        });
+         });
      }
     );
 
