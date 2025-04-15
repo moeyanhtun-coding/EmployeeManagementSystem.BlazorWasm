@@ -2,6 +2,7 @@
 using EmployeeManagementSystem.BusinessLogic.Services;
 using EmployeeManagementSystem.Database.Data;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
@@ -54,6 +55,7 @@ namespace EmployeeManagementSystem.WebApi
                     ValidAudience = "moeYan",
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secret))
                 });
+
             return services;
         }
     }
