@@ -9,11 +9,14 @@ namespace EmployeeManagementSystem.Wasm.Pages.Employee
 {
     public partial class EmployeeCreate
     {
+        [Inject]
+        private DevCode devCode { get; set; }
         public EmployeeModel EmployeeModel { get; set; } = new();
 
         public BaseResponseModel? BaseResponseModel { get; set; } = new();
         public async Task Submit()
         {
+            await devCode.SetAuthorizeHeader();
             var response = await httpClient.PostAsJsonAsync("api/Employee/createEmployee", EmployeeModel);
 
             if (response.IsSuccessStatusCode)
