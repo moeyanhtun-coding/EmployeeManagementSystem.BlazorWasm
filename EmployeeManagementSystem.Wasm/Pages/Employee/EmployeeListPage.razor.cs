@@ -15,6 +15,8 @@ namespace EmployeeManagementSystem.Wasm.Pages.Employee
         private BaseResponseModel? baseResponseModel = new();
         private int DeleteId;
         private AppModal Modal;
+        [Inject]
+        private DevCode devCode { get; set; }
 
         protected override async Task OnInitializedAsync()
         {
@@ -23,6 +25,7 @@ namespace EmployeeManagementSystem.Wasm.Pages.Employee
 
         private async Task GetEmployees()
         {
+            await devCode.SetAuthorizeHeader();
             var response = await httpClient.GetAsync("api/Employee/employeeList");
             if (response.IsSuccessStatusCode)
             {
@@ -43,6 +46,7 @@ namespace EmployeeManagementSystem.Wasm.Pages.Employee
 
         private async Task Delete()
         {
+            await devCode.SetAuthorizeHeader();
             var res = await httpClient.DeleteAsync($"api/Employee/deleteEmployee/{DeleteId}");
             if(res.IsSuccessStatusCode)
             {
