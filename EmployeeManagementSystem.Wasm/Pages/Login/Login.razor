@@ -1,10 +1,13 @@
 ﻿@page "/login"
 @using EmployeeManagementSystem.Model.Models
+@using EmployeeManagementSystem.Wasm.Authentication
 @using EmployeeManagementSystem.Wasm.Layout
+@using Newtonsoft.Json
 @layout EmptyLayout
+@inject AuthenticationStateProvider AuthStateProvider
 
-<EditForm Model="_loginModel" FormName="Login" OnValidSubmit="Login">
-    <DataAnnotationsValidator/>
+<EditForm Model="_loginModel" FormName="Login" OnValidSubmit=" HandleLogin">
+    <DataAnnotationsValidator />
     <div class="form-group">
         <label for="username">Username</label>
         <InputText id="username" class="form-control" @bind-Value="_loginModel.Username" />
@@ -19,7 +22,19 @@
 @code {
     private LoginModel _loginModel = new LoginModel();
 
-    private async Task  Login()
+    private async Task HandleLogin()
     {
+        var res = await httpClient.PostAsJsonAsync("api/auth/login", _loginModel);
+        if (res.IsSuccessStatusCode)
+        {
+            var jsonStr = await res.Content.ReadAsStringAsync();
+            var result = JsonConvert.DeserializeObject<LoginResponseModel>(jsonStr);
+
+            if (result is not null && result.Token is not null)
+            {
+                await ((CustomAuthStateProvider)AuthStateProvider).MarkUserAsAuthenticated(result.Token);
+                nav.NavigateTo("/");
+            }
+        }
     }
 }
