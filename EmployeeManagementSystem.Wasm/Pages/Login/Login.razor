@@ -6,17 +6,20 @@
 @layout EmptyLayout
 @inject AuthenticationStateProvider AuthStateProvider
 
-<EditForm Model="_loginModel" FormName="Login" OnValidSubmit=" HandleLogin">
-    <DataAnnotationsValidator />
-    <div class="form-group">
-        <label for="username">Username</label>
-        <InputText id="username" class="form-control" @bind-Value="_loginModel.Username" />
+<EditForm Model="_loginModel" FormName="Login" OnValidSubmit="HandleLogin">
+    <div class="container row d-flex justify-content-center align-items-center">
+        <div class="offset-4 col-4">
+            <div class="form-group mb-3">
+                <label for="exampleInputEmail1">Email address</label>
+                <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Enter Username" @bind-value="_loginModel.Username">
+            </div>
+            <div class="form-group mb-3">
+                <label for="exampleInputPassword1">Password</label>
+                <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" @bind-value="_loginModel.Password">
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
     </div>
-    <div class="form-group">
-        <label for="password">Password</label>
-        <InputText id="password" class="form-control" type="password" @bind-Value="_loginModel.Password" />
-    </div>
-    <button type="submit" class="btn btn-primary mt-3">Login</button>
 </EditForm>
 
 @code {
@@ -34,6 +37,39 @@
             {
                 await ((CustomAuthStateProvider)AuthStateProvider).MarkUserAsAuthenticated(result.Token);
                 nav.NavigateTo("/");
+            }
+            else
+            {
+                toastService.ShowError("Credential Do Not Match.");
+            }
+        }
+        else
+        {
+          
+            var content = await res.Content.ReadAsStringAsync();
+
+            try
+            {
+                var errorResponse = JsonConvert.DeserializeObject<ValidationErrorResponse>(content);
+
+                if (errorResponse?.Errors != null)
+                {
+                    foreach (var fieldErrors in errorResponse.Errors)
+                    {
+                        foreach (var errorMsg in fieldErrors.Value)
+                        {
+                            toastService.ShowError(errorMsg);
+                        }
+                    }
+                }
+                else
+                {
+                    toastService.ShowError("An unknown error occurred.");
+                }
+            }
+            catch
+            {
+                toastService.ShowError("Failed to parse error response.");
             }
         }
     }
