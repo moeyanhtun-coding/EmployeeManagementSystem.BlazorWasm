@@ -31,7 +31,7 @@ namespace EmployeeManagementSystem.WebApi.Controllers
                 {
                     Token = token,
                     RefreshToken = refreshToken,
-                    TokenExpired = DateTimeOffset.UtcNow.AddMinutes(10).ToUnixTimeSeconds()
+                    TokenExpired = DateTimeOffset.UtcNow.AddMinutes(20).ToUnixTimeSeconds()
                 });
             }
             return null;
@@ -47,8 +47,8 @@ namespace EmployeeManagementSystem.WebApi.Controllers
                 return new StatusCodeResult(StatusCodes.Status401Unauthorized);
             }
             var userName = claimsPrincipal.FindFirstValue(ClaimTypes.Name);
-            var newToken = GenerateJwtToken(userName, true);
-            var newRefreshToken = GenerateJwtToken(userName, false);
+            var newToken = GenerateJwtToken(userName, false);
+            var newRefreshToken = GenerateJwtToken(userName, true);
             return new LoginResponseModel
             {
                 Token = newToken,
@@ -96,7 +96,7 @@ namespace EmployeeManagementSystem.WebApi.Controllers
                 issuer: "moeYan",
                 audience: "moeYan",
                 claims: claims,
-                expires: DateTime.UtcNow.AddMinutes(isRefreshToken ? 10 : 10),
+                expires: DateTime.UtcNow.AddMinutes(isRefreshToken ? 30 : 20),
                 signingCredentials: creds
                 );
             return new JwtSecurityTokenHandler().WriteToken(token);
