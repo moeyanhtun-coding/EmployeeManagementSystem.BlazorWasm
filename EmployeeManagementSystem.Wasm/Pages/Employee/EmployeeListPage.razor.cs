@@ -39,7 +39,6 @@ namespace EmployeeManagementSystem.Wasm.Pages.Employee
             else
             {
                 var error = await response.Content.ReadAsStringAsync();
-                toastService.ShowError("One or more field is required");
                 Console.WriteLine("Error occurred: " + error);
             }
         }
