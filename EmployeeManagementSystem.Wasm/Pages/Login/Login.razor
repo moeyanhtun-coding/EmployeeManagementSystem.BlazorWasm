@@ -34,8 +34,8 @@
             var result = JsonConvert.DeserializeObject<LoginResponseModel>(jsonStr);
 
             if (result is not null && result.Token is not null)
-            {
-                await ((CustomAuthStateProvider)AuthStateProvider).MarkUserAsAuthenticated(result.Token);
+            { 
+                await ((CustomAuthStateProvider)AuthStateProvider).MarkUserAsAuthenticated(result);
                 nav.NavigateTo("/");
             }
             else
