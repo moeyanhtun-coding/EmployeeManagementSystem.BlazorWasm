@@ -31,7 +31,7 @@ namespace EmployeeManagementSystem.Wasm
                     await ((CustomAuthStateProvider)authenticationStateProvider).MarkUserAsLogout();
                     nav.NavigateTo("/login");
                 }
-                else if (sessionState.TokenExpired < DateTimeOffset.UtcNow.AddMinutes(5).ToUnixTimeSeconds())
+                else if (sessionState.TokenExpired < DateTimeOffset.UtcNow.AddMinutes(25).ToUnixTimeSeconds())
                 {
                     var res = await httpClient.GetFromJsonAsync<LoginResponseModel>($"/api/auth/loginByRefreshToken?refreshToken={sessionState.RefreshToken}");
                     if (res is not null)
