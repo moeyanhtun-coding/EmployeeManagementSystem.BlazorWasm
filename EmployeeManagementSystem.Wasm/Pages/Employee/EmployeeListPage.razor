@@ -1,4 +1,6 @@
 ﻿@page "/employeeList"
+@using Microsoft.AspNetCore.Authorization
+@attribute [Authorize(Roles = "Admin")]
 
 <PageTitle>Employee List</PageTitle>
 
@@ -28,9 +30,13 @@ else if (employeeModels is not null && employeeModels.Any())
                 <th>Position</th>
                 <th>DateOfBirth</th>
                 <th>DateOfJoining</th>
-                <th>
-                    <NavLink href="employee/create" class="btn btn-primary">Add Employee</NavLink>
-                </th>
+                <AuthorizeView Roles="Admin">
+                    <Authorized>
+                        <th>
+                            <NavLink href="employee/create" class="btn btn-primary">Add Employee</NavLink>
+                        </th>
+                    </Authorized>
+                </AuthorizeView>
             </tr>
         </thead>
         <tbody>
@@ -46,10 +52,14 @@ else if (employeeModels is not null && employeeModels.Any())
                     <td>@employee.PositionCode</td>
                     <td>@employee.DateOfBirth.ToShortDateString()</td>
                     <td>@employee.DateOfJoining.ToShortDateString()</td>
-                    <td>
-                        <NavLink href="@editUrl" class="btn btn-warning">Edit</NavLink>
-                        <button class="btn btn-danger" @onclick="() => {DeleteId = employee.EmployeeId; Modal.Show();}">Delete</button>
-                    </td>
+                    <AuthorizeView Roles="Admin">
+                        <Authorized>
+                            <td>
+                                <NavLink href="@editUrl" class="btn btn-warning">Edit</NavLink>
+                                <button class="btn btn-danger" @onclick="() => { DeleteId = employee.EmployeeId; Modal.Show(); }">Delete</button>
+                            </td>
+                        </Authorized>
+                    </AuthorizeView>
                 </tr>
             }
         </tbody>
@@ -57,7 +67,9 @@ else if (employeeModels is not null && employeeModels.Any())
 
     <AppModal @ref="Modal">
         <Title>Delete Notification</Title>
-        <Body>Are you sure to remove this Employee?</Body>
+        <Body>
+            Are you sure to remove this Employee?
+        </Body>
         <Footer>
             <button class="btn btn-secondary" @onclick="() => Modal.Hide()">Cancel</button>
             <button class="btn btn-danger" @onclick="Delete">Delete</button>
