@@ -22,7 +22,8 @@ namespace EmployeeManagementSystem.WebApi.Controllers
         [HttpPost("login")]
         public ActionResult<LoginResponseModel> Login([FromBody] LoginModel model)
         {
-            if (model.Username == "Admin" && model.Password == "Admin")
+            if (model.Username == "Admin" && model.Password == "Admin" ||
+                model.Username == "User" && model.Password == "User")
             {
                 var token = GenerateJwtToken(model.Username);
                 return Ok(new LoginResponseModel { Token = token });
@@ -35,7 +36,7 @@ namespace EmployeeManagementSystem.WebApi.Controllers
             var claims = new[]
             {
                 new Claim(ClaimTypes.Name, username),
-                new Claim(ClaimTypes.Role, "Admin"),
+                new Claim(ClaimTypes.Role, username == "Admin" ? "Admin" : "User"),
             };
             string secret = _configuration.GetValue<string>("Jwt:Secret")!;
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secret));
