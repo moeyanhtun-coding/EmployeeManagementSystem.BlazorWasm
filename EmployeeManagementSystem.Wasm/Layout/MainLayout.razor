@@ -1,35 +1,72 @@
 ﻿@inherits LayoutComponentBase
 @using Blazored.Toast.Configuration
+@using EmployeeManagementSystem.Wasm.Authentication
 @using Microsoft.AspNetCore.Authorization
 @using Microsoft.AspNetCore.Components.Authorization
+@inject AuthenticationStateProvider authenticationStateProvider
+@inject NavigationManager Navigation
 
-
-<div class="page">
-    <div class="sidebar">
-        <NavMenu />
-    </div>
-
-    <main>
-        <div class="top-row px-4">
-            <AuthorizeView>
-                <Authorized>
-                    <div>Hello, @context.User.Identity!.Name</div>
-                    <a href="/logout" class="btn btn-link">Logout</a>
-                </Authorized>
-                <NotAuthorized>
-                    <a href="login" class="btn btn-link">Login</a>
-                </NotAuthorized>
-            </AuthorizeView>
+@if (IsShowContent)
+{
+    <div class="page">
+        <div class="sidebar">
+            <NavMenu />
         </div>
 
-        <article class="content px-4">
-            @Body
-        </article>
-    </main>
-</div>
-<BlazoredToasts Position="ToastPosition.TopRight"
-                Timeout="5"
-                IconType="IconType.FontAwesome"
-                SuccessClass="success-toast-override"
-                SuccessIcon="fa fa-thumbs-up"
-                ErrorIcon="fa fa-bug" />
+        <main>
+            <div class="top-row px-4">
+                <CultureSelector />
+                <AuthorizeView>
+                    <Authorized>
+                        <div>Hello, @context.User.Identity?.Name!</div>
+                    </Authorized>
+                    <NotAuthorized>
+                        <div>You're not authorized.</div>
+                    </NotAuthorized>
+                </AuthorizeView>
+                <a href="/logout">LogOut</a>
+            </div>
+
+            <article class="content px-4">
+                @Body
+            </article>
+        </main>
+    </div>
+
+    <BlazoredToasts Position="ToastPosition.TopRight"
+                    Timeout="10"
+                    IconType="IconType.FontAwesome"
+                    SuccessClass="success-toast-override"
+                    SuccessIcon="fa fa-thumbs-up"
+                    ErrorIcon="fa fa-bug" />
+
+    <div id="blazor-error-ui">
+        An unhandled error has occurred.
+        <a href="" class="reload">Reload</a>
+        <a class="dismiss">🗙</a>
+    </div>
+}
+
+@code{
+    public bool IsShowContent { get; set; }
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            var authState = await ((CustomAuthStateProvider)authenticationStateProvider).GetAuthenticationStateAsync();
+            var user = authState.User;
+
+            if (!user.Identity.IsAuthenticated)
+            {
+                Navigation.NavigateTo("/login");
+            }
+            else
+            {
+                IsShowContent = true;
+            }
+        }
+        catch(Exception ex){
+            Navigation.NavigateTo("/login", true);
+        }
+    }
+}
