@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using EmployeeManagementSystem.Model.Models;
+using Newtonsoft.Json.Linq;
 
 namespace EmployeeManagementSystem.Wasm.Authentication
 {
@@ -13,16 +14,18 @@ namespace EmployeeManagementSystem.Wasm.Authentication
 
         public async override Task<AuthenticationState> GetAuthenticationStateAsync()
         {
-           var token = await localStorage.GetItemAsync<string>("authToken");
-            var identity = string.IsNullOrEmpty(token) ? new ClaimsIdentity() : GetClaimsIdentity(token);
+            var sessionModel = await localStorage.GetItemAsync<LoginResponseModel>("sessionState");
+            var identity = string.IsNullOrEmpty(sessionModel.Token)
+                ? new ClaimsIdentity()
+                : GetClaimsIdentity(sessionModel.Token);
             var user = new ClaimsPrincipal(identity);
             return new AuthenticationState(user);
         }
 
-        public async Task MarkUserAsAuthenticated(string token)
+        public async Task MarkUserAsAuthenticated(LoginResponseModel loginResponseModel)
         {
-           await localStorage.SetItemAsync("authToken", token);
-           var identity = GetClaimsIdentity(token);
+            await localStorage.SetItemAsync("sessionState", loginResponseModel);
+            var identity = GetClaimsIdentity(loginResponseModel.Token);
             var user = new ClaimsPrincipal(identity);
             NotifyAuthenticationStateChanged(Task.FromResult(new AuthenticationState(user)));
         }
@@ -37,7 +40,7 @@ namespace EmployeeManagementSystem.Wasm.Authentication
 
         public async Task MarkUserAsLogout()
         {
-            await localStorage.RemoveItemAsync("authToken");
+            await localStorage.RemoveItemAsync("sessionState");
             var identity = new ClaimsIdentity();
             var user = new ClaimsPrincipal(identity);
             NotifyAuthenticationStateChanged(Task.FromResult(new AuthenticationState(user)));
