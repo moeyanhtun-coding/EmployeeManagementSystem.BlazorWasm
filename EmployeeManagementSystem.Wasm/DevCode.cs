@@ -1,4 +1,4 @@
-﻿using Blazored.Toast.Services;
+﻿
 using EmployeeManagementSystem.Model.Models;
 using EmployeeManagementSystem.Wasm.Authentication;
 using Microsoft.AspNetCore.Components;
@@ -13,15 +13,15 @@ namespace EmployeeManagementSystem.Wasm
         private readonly HttpClient httpClient;
         private readonly AuthenticationStateProvider authenticationStateProvider;
         private readonly NavigationManager nav;
-        private readonly ToastService toastService;
 
-        public DevCode(ILocalStorageService localStorage, HttpClient httpClient, AuthenticationStateProvider authenticationStateProvider, NavigationManager nav, ToastService toastService)
+
+        public DevCode(ILocalStorageService localStorage, HttpClient httpClient, AuthenticationStateProvider authenticationStateProvider, NavigationManager nav)
         {
             this.localStorage = localStorage;
             this.httpClient = httpClient;
             this.authenticationStateProvider = authenticationStateProvider;
             this.nav = nav;
-            this.toastService = toastService;
+
         }
 
         public async Task SetAuthorizeHeader()
@@ -33,7 +33,6 @@ namespace EmployeeManagementSystem.Wasm
                 {
                     await ((CustomAuthStateProvider)authenticationStateProvider).MarkUserAsLogout();
                     nav.NavigateTo("/login");
-                    toastService.ShowWarning("Session Expired. You Need to Login Again!");
                 }
                 else if (sessionState.TokenExpired < DateTimeOffset.UtcNow.AddMinutes(25).ToUnixTimeSeconds())
                 {
