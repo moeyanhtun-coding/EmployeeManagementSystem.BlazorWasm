@@ -33,11 +33,13 @@ namespace EmployeeManagementSystem.WebApi
         public static IServiceCollection AddRepositories(this IServiceCollection services)
         {
             services.AddScoped<IEmployeeRepository, EmployeeRepository>();
+            services.AddScoped<IAuthService, AuthService>();
             return services;
         }
         public static IServiceCollection AddServices(this IServiceCollection services)
         {
             services.AddScoped<IEmployeeService, EmployeeService>();
+            services.AddScoped<IAuthRepository, AuthRepository>();
             return services;
         }
 
