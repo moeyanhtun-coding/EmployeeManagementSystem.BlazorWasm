@@ -9,9 +9,9 @@ namespace EmployeeManagementSystem.Model.Models
 {
     public class LoginModel
     {
-        [Required]
-        public string Username { get; set; }
-        [Required] 
+        [Required, EmailAddress]
+        public string Email { get; set; }
+        [Required, MinLength(6), MaxLength(20)] 
         public string Password { get; set; }
     }
 }
