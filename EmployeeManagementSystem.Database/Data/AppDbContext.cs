@@ -19,4 +19,8 @@ public class AppDbContext : DbContext
     }
 
     public DbSet<EmployeeModel> Employees { get; set; } = null!;
+    public DbSet<RoleModel> Roles { get; set; } = null!;
+    public DbSet<UserModel> Users { get; set; } = null!;
+    public DbSet<UserRoleModel> UserRoles { get; set; } = null!;
+    public DbSet<RefreshTokenModel> RefreshToken { get; set; } = null!;
 }
