@@ -31,7 +31,7 @@ namespace EmployeeManagementSystem.WebApi.Controllers
         public async Task<ActionResult<LoginResponseModel>> Login([FromBody] LoginModel model)
         {
             var res = await authService.LoginUserAsync(model);
-            if (res is null) return null;
+            if (!res.IsSuccess) return BadRequest(res);
             var user = res.Data as UserModel;
             var token = GenerateJwtToken(user!.UserName, false);
             var refreshToken = GenerateJwtToken(user.UserName, true);
@@ -51,6 +51,11 @@ namespace EmployeeManagementSystem.WebApi.Controllers
             var user = res.Data as UserModel;
             var token = GenerateJwtToken(user!.UserName, false);
             var refreshToken = GenerateJwtToken(user.UserName, true);
+            await authService.AddRefreshTokenAsync(new RefreshTokenModel
+            {
+                UserId = user.UserId,
+                RefreshToken = refreshToken,
+            });
             return Ok(new LoginResponseModel
             {
                 Token = token,
@@ -109,7 +114,6 @@ namespace EmployeeManagementSystem.WebApi.Controllers
             var claims = new[]
             {
                 new Claim(ClaimTypes.Name, username),
-                new Claim(ClaimTypes.Role, username == "Admin" ? "Admin" : "User"),
             };
             string secret =
                 _configuration.GetValue<string>($"Jwt:{(isRefreshToken ? "RefreshTokenSecret" : "Secret")}")!;
