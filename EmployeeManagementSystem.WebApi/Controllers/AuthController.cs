@@ -1,4 +1,5 @@
-﻿using EmployeeManagementSystem.Model.Models;
+﻿using EmployeeManagementSystem.BusinessLogic.Services;
+using EmployeeManagementSystem.Model.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -6,6 +7,10 @@ using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using System.Text.Json.Serialization;
+using System.Threading.Tasks;
+using EmployeeManagementSystem.Model.Entities;
+using Newtonsoft.Json;
 
 namespace EmployeeManagementSystem.WebApi.Controllers
 {
@@ -14,27 +19,44 @@ namespace EmployeeManagementSystem.WebApi.Controllers
     public class AuthController : ControllerBase
     {
         private readonly IConfiguration _configuration;
-        public AuthController(IConfiguration configuration)
+        private readonly IAuthService authService;
+
+        public AuthController(IConfiguration configuration, IAuthService authService)
         {
             _configuration = configuration;
+            this.authService = authService;
         }
 
         [HttpPost("login")]
-        public ActionResult<LoginResponseModel> Login([FromBody] LoginModel model)
+        public async Task<ActionResult<LoginResponseModel>> Login([FromBody] LoginModel model)
         {
-            if (model.Username == "Admin" && model.Password == "Admin" ||
-                model.Username == "User" && model.Password == "User")
+            var res = await authService.LoginUserAsync(model);
+            if (res is null) return null;
+            var user = res.Data as UserModel;
+            var token = GenerateJwtToken(user!.UserName, false);
+            var refreshToken = GenerateJwtToken(user.UserName, true);
+            return Ok(new LoginResponseModel
             {
-                var token = GenerateJwtToken(model.Username, false);
-                var refreshToken = GenerateJwtToken(model.Username, true);
-                return Ok(new LoginResponseModel
-                {
-                    Token = token,
-                    RefreshToken = refreshToken,
-                    TokenExpired = DateTimeOffset.UtcNow.AddMinutes(20).ToUnixTimeSeconds()
-                });
-            }
-            return null;
+                Token = token,
+                RefreshToken = refreshToken,
+                TokenExpired = DateTimeOffset.UtcNow.AddMinutes(20).ToUnixTimeSeconds()
+            });
+        }
+
+        [HttpPost("register")]
+        public async Task<ActionResult<LoginResponseModel>> Register([FromBody] RegisterModel model)
+        {
+            var res = await authService.RegisterUserAsync(model);
+            if (!res.IsSuccess) return BadRequest(res);
+            var user = res.Data as UserModel;
+            var token = GenerateJwtToken(user!.UserName, false);
+            var refreshToken = GenerateJwtToken(user.UserName, true);
+            return Ok(new LoginResponseModel
+            {
+                Token = token,
+                RefreshToken = refreshToken,
+                TokenExpired = DateTimeOffset.UtcNow.AddMinutes(20).ToUnixTimeSeconds()
+            });
         }
 
         [HttpGet("loginByRefreshToken")]
@@ -46,6 +68,7 @@ namespace EmployeeManagementSystem.WebApi.Controllers
             {
                 return new StatusCodeResult(StatusCodes.Status401Unauthorized);
             }
+
             var userName = claimsPrincipal.FindFirstValue(ClaimTypes.Name);
             var newToken = GenerateJwtToken(userName, false);
             var newRefreshToken = GenerateJwtToken(userName, true);
@@ -88,7 +111,8 @@ namespace EmployeeManagementSystem.WebApi.Controllers
                 new Claim(ClaimTypes.Name, username),
                 new Claim(ClaimTypes.Role, username == "Admin" ? "Admin" : "User"),
             };
-            string secret = _configuration.GetValue<string>($"Jwt:{(isRefreshToken ? "RefreshTokenSecret" : "Secret")}")!;
+            string secret =
+                _configuration.GetValue<string>($"Jwt:{(isRefreshToken ? "RefreshTokenSecret" : "Secret")}")!;
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secret));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
@@ -98,7 +122,7 @@ namespace EmployeeManagementSystem.WebApi.Controllers
                 claims: claims,
                 expires: DateTime.UtcNow.AddMinutes(isRefreshToken ? 30 : 20),
                 signingCredentials: creds
-                );
+            );
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
     }
