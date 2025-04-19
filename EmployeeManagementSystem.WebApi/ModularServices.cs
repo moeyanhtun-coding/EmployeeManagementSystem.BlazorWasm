@@ -1,15 +1,4 @@
-﻿using EmployeeManagementSystem.BusinessLogic.Repositories;
-using EmployeeManagementSystem.BusinessLogic.Services;
-using EmployeeManagementSystem.Database.Data;
-using EmployeeManagementSystem.Share;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Components.Authorization;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
-using Microsoft.OpenApi.Models;
-using System.Text;
-
-namespace EmployeeManagementSystem.WebApi
+﻿namespace EmployeeManagementSystem.WebApi
 {
     public static class ModularServices
     {
