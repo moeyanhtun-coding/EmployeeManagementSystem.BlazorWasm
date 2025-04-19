@@ -16,3 +16,5 @@ global using Microsoft.AspNetCore.Mvc;
 global using Microsoft.EntityFrameworkCore;
 global using Microsoft.IdentityModel.Tokens;
 global using Microsoft.OpenApi.Models;
+global using EmployeeManagementSystem.Model.Models.Auth;
+global using Newtonsoft.Json;
