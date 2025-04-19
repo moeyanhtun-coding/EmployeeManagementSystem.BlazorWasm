@@ -1,7 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-
-namespace EmployeeManagementSystem.Model.Entities
+﻿namespace EmployeeManagementSystem.Model.Entities
 {
     [Table("Tbl_User")]
     public class UserModel
