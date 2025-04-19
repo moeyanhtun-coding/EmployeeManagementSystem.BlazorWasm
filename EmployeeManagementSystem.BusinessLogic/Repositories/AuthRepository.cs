@@ -73,53 +73,33 @@ namespace EmployeeManagementSystem.BusinessLogic.Repositories
                     Data = user
                 };
 
-            using (var transaction = await context.Database.BeginTransactionAsync())
+            #region Add User
+            var newUser = new UserModel
             {
-                try
-                {
+                UserName = model.Name,
+                Email = model.Email,
+                Password = BCrypt.Net.BCrypt.HashPassword(model.Password)
+            };
+            await context.Users.AddAsync(newUser);
+            await context.SaveChangesAsync();
+            #endregion
 
-                    #region Add User
-                    var newUser = new UserModel
-                    {
-                        UserName = model.Name,
-                        Email = model.Email,
-                        Password = BCrypt.Net.BCrypt.HashPassword(model.Password)
-                    };
-                    await context.Users.AddAsync(newUser);
-                    await context.SaveChangesAsync();
-                    #endregion
+            #region Add UserRole
+            var userRole = new UserRoleModel
+            {
+                UserId = newUser.UserId,
+                RoleId = 2
+            };
+            context.UserRoles.Add(userRole);
+            await context.SaveChangesAsync();
+            #endregion
 
-                    #region Add UserRole
-                    var userRole = new UserRoleModel
-                    {
-                        UserId = newUser.UserId,
-                        RoleId = 2
-                    };
-                    context.UserRoles.Add(userRole);
-                    await context.SaveChangesAsync();
-                    #endregion
-
-                    return new BaseResponseModel
-                    {
-                        IsSuccess = true,
-                        Message = "User registered!",
-                        Data = newUser
-                    };
-                }
-                catch (Exception ex)
-                {
-                    await transaction.RollbackAsync();
-
-                    return new BaseResponseModel
-                    {
-                        IsSuccess = false,
-                        Message = $"Registration failed: {ex.Message}",
-                        Data = null
-                    };
-                }
-            }
-
-
+            return new BaseResponseModel
+            {
+                IsSuccess = true,
+                Message = "User registered!",
+                Data = newUser
+            };
         }
 
         private async Task<UserModel> GetUserByEmail(string email)
