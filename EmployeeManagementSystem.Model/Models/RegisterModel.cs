@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace EmployeeManagementSystem.Model.Models;
+﻿namespace EmployeeManagementSystem.Model.Models;
 
 public class RegisterModel
 {
