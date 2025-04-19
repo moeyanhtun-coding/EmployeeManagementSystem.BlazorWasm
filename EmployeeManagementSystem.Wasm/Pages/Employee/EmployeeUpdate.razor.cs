@@ -1,10 +1,7 @@
 ﻿using Azure;
 using Blazored.Toast.Services;
 using EmployeeManagementSystem.Model.Entities;
-using EmployeeManagementSystem.Model.Models;
-using Microsoft.AspNetCore.Components;
 using Newtonsoft.Json;
-using System.Net.Http.Json;
 
 namespace EmployeeManagementSystem.Wasm.Pages.Employee
 {
