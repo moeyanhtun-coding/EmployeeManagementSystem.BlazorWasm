@@ -1,4 +1,6 @@
-﻿namespace EmployeeManagementSystem.WebApi.Controllers
+﻿using EmployeeManagementSystem.Model.Models.User;
+
+namespace EmployeeManagementSystem.WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -18,9 +20,10 @@
         {
             var res = await authService.LoginUserAsync(model);
             if (!res.IsSuccess) return BadRequest(res);
-            var user = res.Data as UserModel;
-            var token = GenerateJwtToken(user!.UserName, false);
-            var refreshToken = GenerateJwtToken(user.UserName, true);
+            var user = res.Data as UserDetailModel;
+            Console.WriteLine(JsonConvert.SerializeObject(user));
+            var token = GenerateJwtToken(user, false);
+            var refreshToken = GenerateJwtToken(user, true);
             return Ok(new LoginResponseModel
             {
                 Token = token,
@@ -34,9 +37,11 @@
         {
             var res = await authService.RegisterUserAsync(model);
             if (!res.IsSuccess) return BadRequest(res);
-            var user = res.Data as UserModel;
-            var token = GenerateJwtToken(user!.UserName, false);
-            var refreshToken = GenerateJwtToken(user.UserName, true);
+          
+            var user = res.Data as UserDetailModel;
+            Console.WriteLine(JsonConvert.SerializeObject(user));
+            var token = GenerateJwtToken(user, false);
+            var refreshToken = GenerateJwtToken(user, true);
             await authService.AddRefreshTokenAsync(new RefreshTokenModel
             {
                 UserId = user.UserId,
@@ -61,8 +66,8 @@
             }
 
             var userName = claimsPrincipal.FindFirstValue(ClaimTypes.Name);
-            var newToken = GenerateJwtToken(userName, false);
-            var newRefreshToken = GenerateJwtToken(userName, true);
+            var newToken = GenerateJwtToken(null, false);
+            var newRefreshToken = GenerateJwtToken(null, true);
             return new LoginResponseModel
             {
                 Token = newToken,
@@ -95,12 +100,12 @@
             }
         }
 
-        private string GenerateJwtToken(string username, bool isRefreshToken)
+        private string GenerateJwtToken(UserDetailModel userDetail, bool isRefreshToken)
         {
             var claims = new[]
             {
-                new Claim(ClaimTypes.Name, username),
-                new Claim(ClaimTypes.Role, "Admin"),
+                new Claim(ClaimTypes.Name, userDetail.UserName),
+                new Claim(ClaimTypes.Role, userDetail.RoleName),
              };
             string secret =
                 _configuration.GetValue<string>($"Jwt:{(isRefreshToken ? "RefreshTokenSecret" : "Secret")}")!;
