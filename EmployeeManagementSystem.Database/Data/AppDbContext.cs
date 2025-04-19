@@ -1,7 +1,4 @@
-﻿using EmployeeManagementSystem.Model.Entities;
-using Microsoft.EntityFrameworkCore;
-
-namespace EmployeeManagementSystem.Database.Data;
+﻿namespace EmployeeManagementSystem.Database.Data;
 
 public class AppDbContext : DbContext
 {
