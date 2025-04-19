@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using EmployeeManagementSystem.Model.Models.Auth;
+using Newtonsoft.Json;
 
 namespace EmployeeManagementSystem.Wasm.Pages.Login
 {
