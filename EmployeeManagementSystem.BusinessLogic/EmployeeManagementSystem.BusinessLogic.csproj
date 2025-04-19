@@ -8,6 +8,8 @@
 	<ItemGroup>
 
 		<ProjectReference Include="..\EmployeeManagementSystem.Database\EmployeeManagementSystem.Database.csproj" />
+
+		<ProjectReference Include="..\EmployeeManagementSystem.Share\EmployeeManagementSystem.Share.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
