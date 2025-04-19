@@ -12,8 +12,17 @@
 @using Blazored.Toast.Services
 @using EmployeeManagementSystem.Wasm.Compoments.BaseCompoments
 @using Microsoft.AspNetCore.Components.Authorization
+@using Blazored.Toast.Configuration
+@using Blazored.Toast.Configuration
+@using EmployeeManagementSystem.Wasm.Authentication
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Components.Authorization
 
+@inject AuthenticationStateProvider authenticationStateProvider
+@inject NavigationManager Navigation
 @inject HttpClient httpClient
 @inject IToastService toastService
 @inject NavigationManager nav
 @inject Blazored.LocalStorage.ILocalStorageService localStorage
+
+@inherits LayoutComponentBase
