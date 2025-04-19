@@ -1,11 +1,4 @@
-﻿
-using EmployeeManagementSystem.Model.Models;
-using EmployeeManagementSystem.Wasm.Authentication;
-using Microsoft.AspNetCore.Components;
-using System.Net.Http.Headers;
-using System.Net.Http.Json;
-
-namespace EmployeeManagementSystem.Wasm
+﻿namespace EmployeeManagementSystem.Wasm
 {
     public class DevCode
     {
