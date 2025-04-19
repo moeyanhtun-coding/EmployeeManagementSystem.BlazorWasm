@@ -1,7 +1,4 @@
-﻿using EmployeeManagementSystem.Model.Models;
-using Newtonsoft.Json.Linq;
-
-namespace EmployeeManagementSystem.Wasm.Authentication
+﻿namespace EmployeeManagementSystem.Wasm.Authentication
 {
     public class CustomAuthStateProvider : AuthenticationStateProvider
     {
