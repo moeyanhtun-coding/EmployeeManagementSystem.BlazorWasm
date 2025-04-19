@@ -15,6 +15,7 @@
   <ItemGroup>
     <ProjectReference Include="..\EmployeeManagementSystem.BusinessLogic\EmployeeManagementSystem.BusinessLogic.csproj" />
     <ProjectReference Include="..\EmployeeManagementSystem.Model\EmployeeManagementSystem.Model.csproj" />
+    <ProjectReference Include="..\EmployeeManagementSystem.Share\EmployeeManagementSystem.Share.csproj" />
   </ItemGroup>
 
 </Project>

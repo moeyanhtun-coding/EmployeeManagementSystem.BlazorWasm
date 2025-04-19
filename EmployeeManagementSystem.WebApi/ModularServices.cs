@@ -1,6 +1,7 @@
 ﻿using EmployeeManagementSystem.BusinessLogic.Repositories;
 using EmployeeManagementSystem.BusinessLogic.Services;
 using EmployeeManagementSystem.Database.Data;
+using EmployeeManagementSystem.Share;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.EntityFrameworkCore;
@@ -15,6 +16,7 @@ namespace EmployeeManagementSystem.WebApi
         public static IServiceCollection AddModularServices(this IServiceCollection services, IConfiguration configuration, WebApplicationBuilder builder)
         {
             services.AddDbContext(configuration);
+            services.AddDapperService(configuration);
             services.AddRepositories();
             services.AddServices();
             services.AddAuthService(builder);
@@ -29,7 +31,12 @@ namespace EmployeeManagementSystem.WebApi
                 ServiceLifetime.Transient);
             return services;
         }
-
+        public static IServiceCollection AddDapperService(this IServiceCollection services, IConfiguration configuration)
+        {
+            services.AddScoped<IDapperService, DapperService>(provider =>
+                new DapperService(configuration.GetConnectionString("DbConnection")!));
+            return services;
+        }
         public static IServiceCollection AddRepositories(this IServiceCollection services)
         {
             services.AddScoped<IEmployeeRepository, EmployeeRepository>();

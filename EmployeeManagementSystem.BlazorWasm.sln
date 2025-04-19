@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmployeeManagementSystem.Da
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmployeeManagementSystem.BusinessLogic", "EmployeeManagementSystem.BusinessLogic\EmployeeManagementSystem.BusinessLogic.csproj", "{8E25B5AD-3B19-4A07-A59C-67CD9171346B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmployeeManagementSystem.Share", "EmployeeManagementSystem.Share\EmployeeManagementSystem.Share.csproj", "{C7ADEB26-D362-4CEB-AF6F-94D1A6705A0F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{8E25B5AD-3B19-4A07-A59C-67CD9171346B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8E25B5AD-3B19-4A07-A59C-67CD9171346B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8E25B5AD-3B19-4A07-A59C-67CD9171346B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C7ADEB26-D362-4CEB-AF6F-94D1A6705A0F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C7ADEB26-D362-4CEB-AF6F-94D1A6705A0F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C7ADEB26-D362-4CEB-AF6F-94D1A6705A0F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C7ADEB26-D362-4CEB-AF6F-94D1A6705A0F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
