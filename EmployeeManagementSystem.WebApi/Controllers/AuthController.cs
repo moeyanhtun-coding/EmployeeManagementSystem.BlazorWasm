@@ -114,7 +114,8 @@ namespace EmployeeManagementSystem.WebApi.Controllers
             var claims = new[]
             {
                 new Claim(ClaimTypes.Name, username),
-            };
+                new Claim(ClaimTypes.Role, "Admin"),
+             };
             string secret =
                 _configuration.GetValue<string>($"Jwt:{(isRefreshToken ? "RefreshTokenSecret" : "Secret")}")!;
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secret));
