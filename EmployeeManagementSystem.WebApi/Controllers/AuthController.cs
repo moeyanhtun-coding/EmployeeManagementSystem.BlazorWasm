@@ -1,18 +1,4 @@
-﻿using EmployeeManagementSystem.BusinessLogic.Services;
-using EmployeeManagementSystem.Model.Models;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.IdentityModel.Tokens;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using System.Text;
-using System.Text.Json.Serialization;
-using System.Threading.Tasks;
-using EmployeeManagementSystem.Model.Entities;
-using Newtonsoft.Json;
-
-namespace EmployeeManagementSystem.WebApi.Controllers
+﻿namespace EmployeeManagementSystem.WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
