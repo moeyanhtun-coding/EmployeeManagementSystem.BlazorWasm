@@ -1,13 +1,4 @@
-﻿using EmployeeManagementSystem.BusinessLogic.Services;
-using EmployeeManagementSystem.Model.Entities;
-using EmployeeManagementSystem.Model.Models;
-using EmployeeManagementSystem.Share;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
-
-namespace EmployeeManagementSystem.WebApi.Controllers
+﻿namespace EmployeeManagementSystem.WebApi.Controllers
 {
     [Authorize]
     [Route("api/[controller]")]
