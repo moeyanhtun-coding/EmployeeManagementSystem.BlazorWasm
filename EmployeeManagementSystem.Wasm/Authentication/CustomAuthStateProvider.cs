@@ -1,4 +1,6 @@
-﻿namespace EmployeeManagementSystem.Wasm.Authentication
+﻿using EmployeeManagementSystem.Model.Models.Auth;
+
+namespace EmployeeManagementSystem.Wasm.Authentication
 {
     public class CustomAuthStateProvider : AuthenticationStateProvider
     {
