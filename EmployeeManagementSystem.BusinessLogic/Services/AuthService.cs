@@ -1,8 +1,4 @@
-﻿using EmployeeManagementSystem.BusinessLogic.Repositories;
-using EmployeeManagementSystem.Model.Entities;
-using EmployeeManagementSystem.Model.Models;
-
-namespace EmployeeManagementSystem.BusinessLogic.Services
+﻿namespace EmployeeManagementSystem.BusinessLogic.Services
 {
     public interface IAuthService
     {
