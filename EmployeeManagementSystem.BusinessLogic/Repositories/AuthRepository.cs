@@ -1,9 +1,4 @@
-﻿using EmployeeManagementSystem.Database.Data;
-using EmployeeManagementSystem.Model.Entities;
-using EmployeeManagementSystem.Model.Models;
-using Microsoft.EntityFrameworkCore;
-
-namespace EmployeeManagementSystem.BusinessLogic.Repositories
+﻿namespace EmployeeManagementSystem.BusinessLogic.Repositories
 {
     public interface IAuthRepository
     {
