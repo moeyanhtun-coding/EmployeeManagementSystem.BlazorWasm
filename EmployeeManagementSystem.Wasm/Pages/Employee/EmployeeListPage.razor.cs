@@ -1,11 +1,8 @@
 ﻿using EmployeeManagementSystem.Model.Entities;
-using EmployeeManagementSystem.Model.Models;
 using EmployeeManagementSystem.Wasm.Compoments.BaseCompoments;
-using Microsoft.AspNetCore.Components;
 using Microsoft.EntityFrameworkCore.Storage.Json;
 using Newtonsoft.Json;
 using System.Dynamic;
-using System.Net.Http.Json;
 
 namespace EmployeeManagementSystem.Wasm.Pages.Employee
 {
