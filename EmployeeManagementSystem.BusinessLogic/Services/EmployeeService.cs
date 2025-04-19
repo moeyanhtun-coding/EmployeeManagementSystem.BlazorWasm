@@ -1,14 +1,4 @@
-﻿using EmployeeManagementSystem.BusinessLogic.Repositories;
-using EmployeeManagementSystem.Database.Data;
-using EmployeeManagementSystem.Model.Entities;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace EmployeeManagementSystem.BusinessLogic.Services
+﻿namespace EmployeeManagementSystem.BusinessLogic.Services
 {
     public interface IEmployeeService
     {
