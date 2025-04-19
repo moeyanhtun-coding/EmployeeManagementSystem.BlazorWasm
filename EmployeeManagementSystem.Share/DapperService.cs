@@ -15,21 +15,21 @@
             _connectionString = connectionString;
         }
 
-        public async Task<int> ExecuteAsync(string query, object param = null)
+        public async Task<int> ExecuteAsync(string query, object? param = null)
         {
             using IDbConnection dbConnection = new SqlConnection(_connectionString);
             var result = await dbConnection.ExecuteAsync(query, param);
             return result;
         }
 
-        public async Task<List<T>> QueryAsync<T>(string query, object param = null)
+        public async Task<List<T>> QueryAsync<T>(string query, object? param = null)
         {
             using IDbConnection dbConnection = new SqlConnection(_connectionString);
             var lst = await dbConnection.QueryAsync<T>(query, param);
             return lst.ToList();
         }
 
-        public async Task<T> QueryFirstOrDefaultAsync<T>(string query, object param = null)
+        public async Task<T> QueryFirstOrDefaultAsync<T>(string query, object? param = null)
         {
             using IDbConnection dbConnection = new SqlConnection(_connectionString);
             var item = await dbConnection.QueryFirstOrDefaultAsync<T>(query, param); 
