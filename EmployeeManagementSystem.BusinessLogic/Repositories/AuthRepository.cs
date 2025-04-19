@@ -1,4 +1,6 @@
-﻿namespace EmployeeManagementSystem.BusinessLogic.Repositories
+﻿using EmployeeManagementSystem.Model.Models.User;
+
+namespace EmployeeManagementSystem.BusinessLogic.Repositories
 {
     public interface IAuthRepository
     {
@@ -10,10 +12,12 @@
     public class AuthRepository : IAuthRepository
     {
         private readonly AppDbContext context;
+        private readonly IDapperService dapperService;
 
-        public AuthRepository(AppDbContext context)
+        public AuthRepository(AppDbContext context, IDapperService dapperService)
         {
             this.context = context;
+            this.dapperService = dapperService;
         }
 
         public async Task AddRefreshTokenAsync(RefreshTokenModel model)
@@ -48,11 +52,14 @@
                 {
                     IsSuccess = false,
                 };
+            #region GetUserDetail
+            var userDetail = await dapperService.QueryFirstOrDefaultAsync<UserDetailModel>(CommonQuery.GetUserDetail,new { UserId = user.UserId });
+            #endregion
             return new BaseResponseModel
             {
                 IsSuccess = true,
                 Message = "Login Successful",
-                Data = user
+                Data = userDetail
             };
         }
 
@@ -83,17 +90,20 @@
             var userRole = new UserRoleModel
             {
                 UserId = newUser.UserId,
-                RoleId = 2
+                RoleId = 1
             };
             context.UserRoles.Add(userRole);
             await context.SaveChangesAsync();
             #endregion
 
+            #region GetUserDetail
+            var userDetail = await dapperService.QueryFirstOrDefaultAsync<UserDetailModel>(CommonQuery.GetUserDetail, new { UserId = user.UserId });
+            #endregion
             return new BaseResponseModel
             {
                 IsSuccess = true,
                 Message = "User registered!",
-                Data = newUser
+                Data = userDetail
             };
         }
 
