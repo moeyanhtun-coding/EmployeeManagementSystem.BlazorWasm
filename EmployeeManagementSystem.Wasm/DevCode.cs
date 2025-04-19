@@ -1,4 +1,6 @@
-﻿namespace EmployeeManagementSystem.Wasm
+﻿using EmployeeManagementSystem.Model.Models.Auth;
+
+namespace EmployeeManagementSystem.Wasm
 {
     public class DevCode
     {
