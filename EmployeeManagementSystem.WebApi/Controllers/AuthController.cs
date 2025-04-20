@@ -1,6 +1,4 @@
-﻿using EmployeeManagementSystem.Model.Models.User;
-
-namespace EmployeeManagementSystem.WebApi.Controllers
+﻿namespace EmployeeManagementSystem.WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
