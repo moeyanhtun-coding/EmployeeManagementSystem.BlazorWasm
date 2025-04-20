@@ -1,9 +1,4 @@
-﻿using Azure;
-using Blazored.Toast.Services;
-using EmployeeManagementSystem.Model.Entities;
-using Newtonsoft.Json;
-
-namespace EmployeeManagementSystem.Wasm.Pages.Employee
+﻿namespace EmployeeManagementSystem.Wasm.Pages.Employee
 {
     public partial class EmployeeUpdate
     {
