@@ -21,9 +21,13 @@ namespace EmployeeManagementSystem.WebApi.Controllers
             var res = await authService.LoginUserAsync(model);
             if (!res.IsSuccess) return BadRequest(res);
             var user = res.Data as UserDetailModel;
-            Console.WriteLine(JsonConvert.SerializeObject(user));
             var token = GenerateJwtToken(user, false);
             var refreshToken = GenerateJwtToken(user, true);
+            await authService.AddRefreshTokenAsync(new RefreshTokenModel
+            {
+                UserId = user.UserId,
+                RefreshToken = refreshToken,
+            });
             return Ok(new LoginResponseModel
             {
                 Token = token,
@@ -37,7 +41,7 @@ namespace EmployeeManagementSystem.WebApi.Controllers
         {
             var res = await authService.RegisterUserAsync(model);
             if (!res.IsSuccess) return BadRequest(res);
-          
+
             var user = res.Data as UserDetailModel;
             Console.WriteLine(JsonConvert.SerializeObject(user));
             var token = GenerateJwtToken(user, false);
@@ -55,50 +59,70 @@ namespace EmployeeManagementSystem.WebApi.Controllers
             });
         }
 
-        [HttpGet("loginByRefreshToken")]
-        public ActionResult<LoginResponseModel> LoginByRefreshToken(string refreshToken)
+        [HttpGet("loginByRefreshToken/{refreshToken}")]
+        public async Task<ActionResult<LoginResponseModel>> LoginByRefreshToken(string refreshToken)
         {
-            var secret = _configuration.GetValue<string>("Jwt:RefreshTokenSecret");
-            var claimsPrincipal = GetClaimPrincipalFromToken(refreshToken, secret);
-            if (claimsPrincipal is null)
-            {
-                return new StatusCodeResult(StatusCodes.Status401Unauthorized);
-            }
-
-            var userName = claimsPrincipal.FindFirstValue(ClaimTypes.Name);
-            var newToken = GenerateJwtToken(null, false);
-            var newRefreshToken = GenerateJwtToken(null, true);
-            return new LoginResponseModel
-            {
-                Token = newToken,
-                RefreshToken = newRefreshToken,
-                TokenExpired = DateTimeOffset.UtcNow.AddMinutes(10).ToUnixTimeSeconds()
-            };
-        }
-
-        private ClaimsPrincipal GetClaimPrincipalFromToken(string refreshToken, string? secret)
-        {
-            var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.ASCII.GetBytes(secret);
             try
             {
-                var principal = tokenHandler.ValidateToken(refreshToken, new TokenValidationParameters
+                var refreshTokenDetail = await authService.GetRefreshTokenModelAsync(refreshToken);
+                if (refreshTokenDetail == null)
                 {
-                    ValidateAudience = true,
-                    ValidAudience = "moeYan",
-                    ValidateIssuer = true,
-                    ValidIssuer = "moeYan",
-                    ValidateIssuerSigningKey = true,
-                    IssuerSigningKey = new SymmetricSecurityKey(key),
-                }, out var validatedToken);
-                return principal;
+                    return Unauthorized("Invalid refresh token.");
+                }
+
+                var userDetail = await authService.GetUserDetailModelAsync(refreshTokenDetail.RefreshTokenId);
+                if (userDetail == null)
+                {
+                    return Unauthorized("User not found.");
+                }
+
+                var newToken = GenerateJwtToken(userDetail, false);
+                var newRefreshToken = GenerateJwtToken(userDetail, true);
+                await authService.AddRefreshTokenAsync(new RefreshTokenModel
+                {
+                    UserId = userDetail.UserId,
+                    RefreshToken = newRefreshToken,
+                });
+
+                return Ok(new LoginResponseModel
+                {
+                    Token = newToken,
+                    RefreshToken = newRefreshToken,
+                    TokenExpired = DateTimeOffset.UtcNow.AddMinutes(10).ToUnixTimeSeconds()
+                });
             }
-            catch (Exception ex)
+            catch(Exception ex)
             {
                 Console.WriteLine(ex.ToString());
-                return null;
+                return StatusCode(500, ex.ToString());
             }
+           
         }
+
+
+        //private ClaimsPrincipal GetClaimPrincipalFromToken(string refreshToken, string? secret)
+        //
+        //    var tokenHandler = new JwtSecurityTokenHandler();
+        //    var key = Encoding.ASCII.GetBytes(secret);
+        //    try
+        //    {
+        //        var principal = tokenHandler.ValidateToken(refreshToken, new TokenValidationParameters
+        //        {
+        //            ValidateAudience = true,
+        //            ValidAudience = "moeYan",
+        //            ValidateIssuer = true,
+        //            ValidIssuer = "moeYan",
+        //            ValidateIssuerSigningKey = true,
+        //            IssuerSigningKey = new SymmetricSecurityKey(key),
+        //        }, out var validatedToken);
+        //        return principal;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Console.WriteLine(ex.ToString());
+        //        return null;
+        //    }
+        //}
 
         private string GenerateJwtToken(UserDetailModel userDetail, bool isRefreshToken)
         {
