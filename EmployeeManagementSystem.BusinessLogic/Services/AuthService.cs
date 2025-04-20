@@ -1,5 +1,4 @@
 ﻿using EmployeeManagementSystem.Model.Models.Auth;
-using EmployeeManagementSystem.Model.Models.User;
 
 namespace EmployeeManagementSystem.BusinessLogic.Services
 {
