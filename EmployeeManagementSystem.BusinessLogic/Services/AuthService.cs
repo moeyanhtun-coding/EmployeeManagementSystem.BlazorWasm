@@ -1,4 +1,5 @@
 ﻿using EmployeeManagementSystem.Model.Models.Auth;
+using EmployeeManagementSystem.Model.Models.User;
 
 namespace EmployeeManagementSystem.BusinessLogic.Services
 {
@@ -7,6 +8,8 @@ namespace EmployeeManagementSystem.BusinessLogic.Services
         Task<BaseResponseModel> LoginUserAsync(LoginModel model);
         Task<BaseResponseModel> RegisterUserAsync(RegisterModel model);
         Task AddRefreshTokenAsync(RefreshTokenModel model);
+        Task<RefreshTokenModel> GetRefreshTokenModelAsync(string refreshToken);
+        Task<UserDetailModel> GetUserDetailModelAsync(int refreshTokenId);
     }
     public class AuthService : IAuthService
     {
@@ -21,6 +24,17 @@ namespace EmployeeManagementSystem.BusinessLogic.Services
         {
             await authRepository.AddRefreshTokenAsync(model);
         }
+
+        public async Task<RefreshTokenModel> GetRefreshTokenModelAsync(string refreshToken)
+        {
+            return await authRepository.GetRefreshTokenModelAsync(refreshToken);
+        }
+
+        public async Task<UserDetailModel> GetUserDetailModelAsync(int refreshTokenId)
+        {
+           return await authRepository.GetUserDetailModelAsync(refreshTokenId);
+        }
+
 
         public async Task<BaseResponseModel> LoginUserAsync(LoginModel model)
         {
