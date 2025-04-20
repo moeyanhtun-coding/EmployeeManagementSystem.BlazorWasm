@@ -1,4 +1,5 @@
 ﻿using EmployeeManagementSystem.Model.Models.Auth;
+using System.Net.Http.Json;
 
 namespace EmployeeManagementSystem.Wasm
 {
@@ -19,33 +20,40 @@ namespace EmployeeManagementSystem.Wasm
 
         }
 
-        public async Task SetAuthorizeHeader()
+        public async Task  SetAuthorizeHeader()
         {
-            var sessionState = (await localStorage.GetItemAsync<LoginResponseModel>("sessionState"));
-            if (sessionState is not null && !string.IsNullOrEmpty(sessionState.Token))
+            try
             {
-                if (sessionState.TokenExpired < DateTimeOffset.UtcNow.ToUnixTimeSeconds())
+                var sessionState = (await localStorage.GetItemAsync<LoginResponseModel>("sessionState"));
+                if (sessionState is not null && !string.IsNullOrEmpty(sessionState.Token))
                 {
-                    await ((CustomAuthStateProvider)authenticationStateProvider).MarkUserAsLogout();
-                    nav.NavigateTo("/login");
-                }
-                else if (sessionState.TokenExpired < DateTimeOffset.UtcNow.AddMinutes(25).ToUnixTimeSeconds())
-                {
-                    var res = await httpClient.GetFromJsonAsync<LoginResponseModel>($"/api/auth/loginByRefreshToken?refreshToken={sessionState.RefreshToken}");
-                    if (res is not null)
+                    if (sessionState.TokenExpired < DateTimeOffset.UtcNow.ToUnixTimeSeconds())
                     {
-                        await ((CustomAuthStateProvider)authenticationStateProvider).MarkUserAsAuthenticated(res);
-                        httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", res.Token);
+                        await ((CustomAuthStateProvider)authenticationStateProvider).MarkUserAsLogout();
+                        nav.NavigateTo("/login");
+                    }
+                    else if (sessionState.TokenExpired < DateTimeOffset.UtcNow.AddMinutes(25).ToUnixTimeSeconds())
+                    {
+                        var res = await httpClient.GetFromJsonAsync<LoginResponseModel>($"/api/auth/loginByRefreshToken/{sessionState.RefreshToken}");
+                        if (res is not null)
+                        {
+                            await ((CustomAuthStateProvider)authenticationStateProvider).MarkUserAsAuthenticated(res);
+                            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", res.Token);
+                        }
+                        else
+                        {
+                            await ((CustomAuthStateProvider)authenticationStateProvider).MarkUserAsLogout();
+                        }
                     }
                     else
                     {
-                        await ((CustomAuthStateProvider)authenticationStateProvider).MarkUserAsLogout();
+                        httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", sessionState.Token);
                     }
                 }
-                else
-                {
-                    httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", sessionState.Token);
-                }
+            }
+            catch(HttpRequestException ex)
+            {
+                Console.WriteLine(ex.ToString());
             }
         }
     }
