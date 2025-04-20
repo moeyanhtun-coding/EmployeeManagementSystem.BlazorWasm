@@ -1,10 +1,4 @@
-﻿using EmployeeManagementSystem.Model.Entities;
-using EmployeeManagementSystem.Wasm.Compoments.BaseCompoments;
-using Microsoft.EntityFrameworkCore.Storage.Json;
-using Newtonsoft.Json;
-using System.Dynamic;
-
-namespace EmployeeManagementSystem.Wasm.Pages.Employee
+﻿namespace EmployeeManagementSystem.Wasm.Pages.Employee
 {
     public partial class EmployeeListPage
     {
