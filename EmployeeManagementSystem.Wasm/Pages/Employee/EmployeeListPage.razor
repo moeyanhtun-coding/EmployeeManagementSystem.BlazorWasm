@@ -68,9 +68,9 @@ else if (employeeModels is not null && employeeModels.Any())
 
     <AppModal @ref="Modal">
         <Title>Delete Notification</Title>
-        <Body>
+        <ChildContent>
             Are you sure to remove this Employee?
-        </Body>
+        </ChildContent>
         <Footer>
             <button class="btn btn-secondary" @onclick="() => Modal.Hide()">Cancel</button>
             <button class="btn btn-danger" @onclick="Delete">Delete</button>
