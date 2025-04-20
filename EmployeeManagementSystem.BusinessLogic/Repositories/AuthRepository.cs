@@ -1,8 +1,4 @@
-﻿using Dapper;
-using EmployeeManagementSystem.Model.Models.User;
-using System.Data;
-
-namespace EmployeeManagementSystem.BusinessLogic.Repositories
+﻿namespace EmployeeManagementSystem.BusinessLogic.Repositories
 {
     public interface IAuthRepository
     {
