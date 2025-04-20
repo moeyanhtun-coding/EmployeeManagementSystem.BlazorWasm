@@ -1,4 +1,6 @@
-﻿using EmployeeManagementSystem.Model.Models.User;
+﻿using Dapper;
+using EmployeeManagementSystem.Model.Models.User;
+using System.Data;
 
 namespace EmployeeManagementSystem.BusinessLogic.Repositories
 {
@@ -7,6 +9,8 @@ namespace EmployeeManagementSystem.BusinessLogic.Repositories
         Task<BaseResponseModel> LoginUserAsync(LoginModel model);
         Task<BaseResponseModel> RegisterUserAsync(RegisterModel model);
         Task AddRefreshTokenAsync(RefreshTokenModel model);
+        Task<RefreshTokenModel> GetRefreshTokenModelAsync(string refreshToken);
+        Task<UserDetailModel> GetUserDetailModelAsync(int refreshTokenId);
     }
 
     public class AuthRepository : IAuthRepository
@@ -34,6 +38,18 @@ namespace EmployeeManagementSystem.BusinessLogic.Repositories
                 context.Entry(refreshToken).State = EntityState.Modified;
                 await context.SaveChangesAsync();
             }
+        }
+
+        public async Task<RefreshTokenModel> GetRefreshTokenModelAsync(string refreshToken)
+        {
+            var tokenDetail = await context.RefreshToken.FirstOrDefaultAsync(x => x.RefreshToken == refreshToken);
+            return tokenDetail;
+        }
+
+        public async Task<UserDetailModel> GetUserDetailModelAsync(int refreshTokenId)
+        {
+            var userDetail = await dapperService.QueryFirstOrDefaultAsync<UserDetailModel>(CommonQuery.GetUserDetailByRefreshTokenId, new { RefreshTokenId = refreshTokenId });
+            return userDetail;
         }
 
         public async Task<BaseResponseModel> LoginUserAsync(LoginModel model)
