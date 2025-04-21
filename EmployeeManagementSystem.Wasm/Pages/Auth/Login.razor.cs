@@ -1,4 +1,4 @@
-﻿namespace EmployeeManagementSystem.Wasm.Pages.Login
+﻿namespace EmployeeManagementSystem.Wasm.Pages.Auth
 {
     public partial class Login
     {
