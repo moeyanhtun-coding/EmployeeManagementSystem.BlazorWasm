@@ -1,10 +1,12 @@
-﻿namespace EmployeeManagementSystem.Wasm.Pages.Employee
+﻿using EmployeeManagementSystem.Model.Models.Employee;
+
+namespace EmployeeManagementSystem.Wasm.Pages.Employee
 {
     public partial class EmployeeCreate
     {
         [Inject]
         private DevCode devCode { get; set; }
-        public EmployeeModel EmployeeModel { get; set; } = new();
+        public EmployeeRequestModel EmployeeModel { get; set; } = new();
 
         public BaseResponseModel? BaseResponseModel { get; set; } = new();
         public async Task Submit()
