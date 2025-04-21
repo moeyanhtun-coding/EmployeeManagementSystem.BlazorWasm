@@ -47,12 +47,17 @@
     {
         try
         {
+            var currentUri = Navigation.ToBaseRelativePath(Navigation.Uri).ToLower();
             var authState = await ((CustomAuthStateProvider)authenticationStateProvider).GetAuthenticationStateAsync();
             var user = authState.User;
 
             if (!user.Identity.IsAuthenticated)
             {
-                Navigation.NavigateTo("/login");
+                if (currentUri != "login" && currentUri != "register")
+                {
+                    Navigation.NavigateTo("/login");
+                    return;
+                }
             }
             else
             {
