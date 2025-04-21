@@ -1,8 +1,4 @@
 ﻿@page "/login"
-@using EmployeeManagementSystem.Model.Models
-@using EmployeeManagementSystem.Wasm.Authentication
-@using EmployeeManagementSystem.Wasm.Layout
-@using Newtonsoft.Json
 @layout EmptyLayout
 @inject AuthenticationStateProvider AuthStateProvider
 
@@ -19,6 +15,10 @@
                     <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" @bind-value="_loginModel.Password">
                 </div>
                 <button type="submit" class="btn btn-primary">Submit</button>
+                <div>
+                    Need an account?
+                    <NavLink href="register" class="nav-link d-inline">Sign Up</NavLink>
+                </div>
             </div>
         </div>
     </div>
