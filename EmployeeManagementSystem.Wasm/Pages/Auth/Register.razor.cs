@@ -11,8 +11,7 @@
 
             if (user.Identity != null && user.Identity.IsAuthenticated)
             {
-                // 👇 Redirect if already logged in
-                nav.NavigateTo("/", true); // true = force reload
+                nav.NavigateTo("/");
             }
         }
         protected override void OnAfterRender(bool firstRender)
