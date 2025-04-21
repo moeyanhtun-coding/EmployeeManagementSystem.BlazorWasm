@@ -5,6 +5,17 @@
 
         private LoginModel _loginModel = new LoginModel();
 
+        protected override async Task OnInitializedAsync()
+        {
+            var authState = await AuthStateProvider.GetAuthenticationStateAsync();
+            var user = authState.User;
+
+            if (user.Identity != null && user.Identity.IsAuthenticated)
+            {
+                
+                nav.NavigateTo("/");
+            }
+        }
         private async Task HandleLogin()
         {
             var res = await httpClient.PostAsJsonAsync("api/auth/login", _loginModel);
@@ -14,7 +25,9 @@
                 var result = JsonConvert.DeserializeObject<LoginResponseModel>(jsonStr);
 
                 await ((CustomAuthStateProvider)AuthStateProvider).MarkUserAsAuthenticated(result);
+                 toastService.ShowSuccess("Successfully Login");
                 nav.NavigateTo("/");
+                
             }
             else
             {
