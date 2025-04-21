@@ -109,7 +109,7 @@
             #endregion
 
             #region GetUserDetail
-            var userDetail = await dapperService.QueryFirstOrDefaultAsync<UserDetailModel>(CommonQuery.GetUserDetail, new { UserId = user.UserId });
+            var userDetail = await dapperService.QueryFirstOrDefaultAsync<UserDetailModel>(CommonQuery.GetUserDetail, new { UserId = newUser.UserId });
             #endregion
             return new BaseResponseModel
             {
