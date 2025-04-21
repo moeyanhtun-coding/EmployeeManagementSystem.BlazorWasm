@@ -1,4 +1,6 @@
-﻿namespace EmployeeManagementSystem.WebApi.Controllers
+﻿using EmployeeManagementSystem.Model.Models.Employee;
+
+namespace EmployeeManagementSystem.WebApi.Controllers
 {
     [Authorize]
     [Route("api/[controller]")]
@@ -24,7 +26,7 @@
         }
 
         [HttpPost("createEmployee")]
-        public async Task<ActionResult<BaseResponseModel>> CreateEmployee(EmployeeModel employeeModel)
+        public async Task<ActionResult<BaseResponseModel>> CreateEmployee(EmployeeRequestModel employeeModel)
         {
             var res = await employeeService.CreateEmployee(employeeModel);
             if (res > 0) return Ok(new BaseResponseModel { Data = employeeModel, IsSuccess = true, Message = "Employee Creation Successful" });
