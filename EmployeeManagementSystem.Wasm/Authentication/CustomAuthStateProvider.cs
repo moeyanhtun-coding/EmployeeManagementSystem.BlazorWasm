@@ -12,7 +12,6 @@
         public override async Task<AuthenticationState> GetAuthenticationStateAsync()
         {
             var jsonStr = await localStorage.GetItemAsync<string>("sessionState");
-
             if (string.IsNullOrWhiteSpace(jsonStr))
             {
                 // No user is logged in
