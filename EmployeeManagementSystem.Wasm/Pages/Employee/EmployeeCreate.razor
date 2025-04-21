@@ -8,13 +8,6 @@
 
     <div class="container">
         <div class="row mb-3">
-            <div class="col-8 offset-2">
-                <label for="employeeCode" class="form-label">Employee Code</label>
-                <InputText id="employeeCode" class="form-control" @bind-Value="EmployeeModel.EmployeeCode" />
-                <ValidationMessage For="() => EmployeeModel.EmployeeCode" />
-            </div>
-        </div>
-        <div class="row mb-3">
             <div class="col-4 offset-2">
                 <label for="FirstName" class="form-label">First Name</label>
                 <InputText id="FirstName" class="form-control" @bind-Value="EmployeeModel.FirstName"/>
@@ -26,8 +19,6 @@
                 <ValidationMessage For="() => EmployeeModel.LastName" />
             </div>
         </div>
-
-
         <div class="row mb-3">
             <div class="col-4 offset-2">
                 <label for="Email" class="form-label">Email</label>
@@ -36,7 +27,7 @@
             </div>
             <div class="col-4">
                 <label for="PhoneNumber" class="form-label">Phone Number</label>
-                <InputText id="PhoneNumber" class="form-control" @bind-Value="EmployeeModel.PhoneNumber"/>
+                <input type="number" id="PhoneNumber" class="form-control" @bind-Value="EmployeeModel.PhoneNumber"/>
                 <ValidationMessage For="() => EmployeeModel.PhoneNumber" />
             </div>
         </div>
