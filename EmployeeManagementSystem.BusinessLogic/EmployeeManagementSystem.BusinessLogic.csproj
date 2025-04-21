@@ -9,6 +9,8 @@
 
 		<ProjectReference Include="..\EmployeeManagementSystem.Database\EmployeeManagementSystem.Database.csproj" />
 
+		<ProjectReference Include="..\EmployeeManagementSystem.Mapper\EmployeeManagementSystem.Mapper.csproj" />
+
 		<ProjectReference Include="..\EmployeeManagementSystem.Share\EmployeeManagementSystem.Share.csproj" />
 	</ItemGroup>
 
