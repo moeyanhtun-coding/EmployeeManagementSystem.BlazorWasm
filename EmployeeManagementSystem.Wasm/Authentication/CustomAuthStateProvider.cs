@@ -9,15 +9,32 @@
             this.localStorage = localStorage;
         }
 
-        public async override Task<AuthenticationState> GetAuthenticationStateAsync()
+        public override async Task<AuthenticationState> GetAuthenticationStateAsync()
         {
-            var sessionModel = await localStorage.GetItemAsync<LoginResponseModel>("sessionState");
-            var identity = string.IsNullOrEmpty(sessionModel.Token)
-                ? new ClaimsIdentity()
-                : GetClaimsIdentity(sessionModel.Token);
-            var user = new ClaimsPrincipal(identity);
-            return new AuthenticationState(user);
+            var jsonStr = await localStorage.GetItemAsync<string>("sessionState");
+
+            if (string.IsNullOrWhiteSpace(jsonStr))
+            {
+                // No user is logged in
+                return new AuthenticationState(new ClaimsPrincipal(new ClaimsIdentity()));
+            }
+
+            try
+            {
+                var sessionModel = JsonConvert.DeserializeObject<LoginResponseModel>(jsonStr);
+                var identity = string.IsNullOrEmpty(sessionModel?.Token)
+                    ? new ClaimsIdentity()
+                    : GetClaimsIdentity(sessionModel.Token);
+                var user = new ClaimsPrincipal(identity);
+                return new AuthenticationState(user);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Failed to parse sessionState: {ex.Message}");
+                return new AuthenticationState(new ClaimsPrincipal(new ClaimsIdentity()));
+            }
         }
+
 
         public async Task MarkUserAsAuthenticated(LoginResponseModel loginResponseModel)
         {
