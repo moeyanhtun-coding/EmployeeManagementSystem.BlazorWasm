@@ -1,0 +1,42 @@
+﻿@page "/register"
+@inject AuthenticationStateProvider AuthStateProvider
+@layout EmptyLayout
+
+<EditForm Model="_registerModel" OnValidSubmit="HandleRegister" autocomplete="off">
+    <DataAnnotationsValidator/>
+    <ValidationSummary/>
+    <div class="container d-flex justify-content-center align-items-center" style="height: 70vh;">
+        <div class="row w-75">
+            <div class="col-4 offset-4">
+                <div class="form-group mb-3">
+                    <label for="">Username</label>
+                    <input type="text" class="form-control" id="" placeholder="Enter Username"
+                           autocomplete="off"
+                           @bind-value="_registerModel.Name">
+                </div>
+                <div class="form-group mb-3">
+                    <label for="">Email address</label>
+                    <input type="text" class="form-control" id="" placeholder="Enter Email" autocomplete="off"
+                           @bind-value="_registerModel.Email">
+                </div>
+                <div class="form-group mb-3">
+                    <label for="">Password</label>
+                    <input type="password" class="form-control" id="" placeholder="Password" autocomplete="off"
+                           @bind-value="_registerModel.Password">
+                </div>
+                <div class="form-group mb-3">
+                    <label for="confirmPassword">Confirm Password</label>
+                    <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm Password"
+                           autocomplete="off"
+                           @bind-value="_registerModel.ConfirmPassword">
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+                <div>
+                    Have you already an account?
+                    <NavLink href="login" class="nav-link d-inline">Login</NavLink>
+                </div>
+            </div>
+        </div>
+    </div>
+</EditForm>
+
