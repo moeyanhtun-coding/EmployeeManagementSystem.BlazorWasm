@@ -1,6 +1,4 @@
-﻿
-
-@if (IsShowContent)
+﻿@if (IsShowContent)
 {
     <div class="page">
         <div class="sidebar">
@@ -27,13 +25,6 @@
         </main>
     </div>
 
-    <BlazoredToasts Position="ToastPosition.TopRight"
-                    Timeout="10"
-                    IconType="IconType.FontAwesome"
-                    SuccessClass="success-toast-override"
-                    SuccessIcon="fa fa-thumbs-up"
-                    ErrorIcon="fa fa-bug" />
-
     <div id="blazor-error-ui">
         An unhandled error has occurred.
         <a href="" class="reload">Reload</a>
@@ -41,6 +32,12 @@
     </div>
 }
 
+<BlazoredToasts Position="ToastPosition.TopRight"
+                Timeout="10"
+                IconType="IconType.FontAwesome"
+                SuccessClass="success-toast-override"
+                SuccessIcon="fa fa-thumbs-up"
+                ErrorIcon="fa fa-bug" />
 @code{
     public bool IsShowContent { get; set; }
     protected override async Task OnInitializedAsync()
