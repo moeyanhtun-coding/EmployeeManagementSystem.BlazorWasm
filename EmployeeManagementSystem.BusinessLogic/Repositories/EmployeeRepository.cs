@@ -1,9 +1,12 @@
-﻿namespace EmployeeManagementSystem.BusinessLogic.Repositories
+﻿using EmployeeManagementSystem.Mapper;
+using EmployeeManagementSystem.Model.Models.Employee;
+
+namespace EmployeeManagementSystem.BusinessLogic.Repositories
 {
     public interface IEmployeeRepository
     {
         Task<List<EmployeeModel>> GetEmployeeList();
-        Task<int> CreateEmployee(EmployeeModel employeeModel);
+        Task<int> CreateEmployee(EmployeeRequestModel employeeModel);
         Task<EmployeeModel> GetEmployeeById(int id);
         Task<int> UpdateEmployee(int id, EmployeeModel employeeModel);
         Task<int> DeleteEmployee(int id);
@@ -14,9 +17,9 @@
         {
             return await _context.Employees.ToListAsync();
         }
-        public async Task<int> CreateEmployee(EmployeeModel employeeModel)
+        public async Task<int> CreateEmployee(EmployeeRequestModel employeeModel)
         {
-            await _context.Employees.AddAsync(employeeModel);
+            await _context.Employees.AddAsync(employeeModel.Change());
             return await _context.SaveChangesAsync();
         }
 
