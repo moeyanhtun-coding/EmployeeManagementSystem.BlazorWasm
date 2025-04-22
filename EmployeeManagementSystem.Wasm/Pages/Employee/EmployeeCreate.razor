@@ -27,8 +27,8 @@
             </div>
             <div class="col-4">
                 <label for="PhoneNumber" class="form-label">Phone Number</label>
-                <InputText id="PhoneNumber" class="form-control" @bind-Value="EmployeeModel.PhoneNumber"/>
-                <ValidationMessage For="() => EmployeeModel.PhoneNumber" />
+                <input type="number" id="PhoneNumber" class="form-control" @bind="EmployeeModel.PhoneNumber"/>
+                <ValidationMessage For="() => EmployeeModel.PhoneNumber"/>
             </div>
         </div>
 
