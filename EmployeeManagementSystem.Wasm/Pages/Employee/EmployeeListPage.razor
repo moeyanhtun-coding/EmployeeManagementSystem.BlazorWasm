@@ -1,80 +1,149 @@
 ﻿@page "/employeeList"
-@attribute [Authorize(Roles = "Admin, User")]
-
 <PageTitle>Employee List</PageTitle>
 
-<h3>EmployeeListPage</h3>
 
+<!-- DataTales Example -->
+<div class="card shadow mb-4">
+    <div class="card-header ">
+        <h6 class="m-0 font-weight-bold text-primary">Employee List</h6>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                <tr>
+                    <th>No</th>
+                    <th>Employee Code</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Department</th>
+                    <th>Position</th>
+                    <th>JOD</th>
+                </tr>
+                </thead>
+                <tfoot>
+                <tr>
+                    <th>No</th>
+                    <th>Employee Code</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Department</th>
+                    <th>Position</th>
+                    <th>JOD</th>
+                </tr>
+                </tfoot>
+                <tbody>
 
-@if (employeeModels is null)
-{
-    <div class="d-flex flex-column justify-content-center align-items-center vh-60">
-        <div class="spinner-border text-warning mb-4" role="status">
-            <span class="visually-hidden">Loading...</span>
-        </div>
-        <div>
-            <h5>Loading ... </h5>
+                <tr>
+                    <td>Tiger Nixon</td>
+                    <td>System Architect</td>
+                    <td>Edinburgh</td>
+                    <td>61</td>
+                    <td>2011/04/25</td>
+                    <td>$320,800</td>
+                </tr>
+                <tr>
+                    <td>Garrett Winters</td>
+                    <td>Accountant</td>
+                    <td>Tokyo</td>
+                    <td>63</td>
+                    <td>2011/07/25</td>
+                    <td>$170,750</td>
+                </tr>
+                <tr>
+                    <td>Ashton Cox</td>
+                    <td>Junior Technical Author</td>
+                    <td>San Francisco</td>
+                    <td>66</td>
+                    <td>2009/01/12</td>
+                    <td>$86,000</td>
+                </tr>
+                <tr>
+                    <td>Cedric Kelly</td>
+                    <td>Senior Javascript Developer</td>
+                    <td>Edinburgh</td>
+                    <td>22</td>
+                    <td>2012/03/29</td>
+                    <td>$433,060</td>
+                </tr>
+
+                </tbody>
+            </table>
         </div>
     </div>
-}
-else if (employeeModels is not null && employeeModels.Any())
-{
-    <table class="table table-hover">
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Phone</th>
-                <th>Address</th>
-                <th>Department</th>
-                <th>Position</th>
-                <th>DateOfBirth</th>
-                <th>DateOfJoining</th>
-                <AuthorizeView Roles="Admin">
-                    <Authorized>
-                        <th>
-                            <NavLink href="employee/create" class="btn btn-primary">Add Employee</NavLink>
-                        </th>
-                    </Authorized>
-                </AuthorizeView>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var employee in employeeModels)
-            {
-                var editUrl = $"/employee/update/{employee.EmployeeId}";
-                <tr>
-                    <td>@($"{employee.FirstName} {employee.LastName}")</td>
-                    <td>@employee.Email</td>
-                    <td>@employee.PhoneNumber</td>
-                    <td>@employee.Address</td>
-                    <td>@employee.DepartmentCode</td>
-                    <td>@employee.PositionCode</td>
-                    <td>@employee.DateOfBirth.ToShortDateString()</td>
-                    <td>@employee.DateOfJoining.ToShortDateString()</td>
-                    <AuthorizeView Roles="Admin">
-                        <Authorized>
-                            <td>
-                                <NavLink href="@editUrl" class="btn btn-warning">Edit</NavLink>
-                                <button class="btn btn-danger" @onclick="() => { DeleteId = employee.EmployeeId; Modal.Show(); }">Delete</button>
-                            </td>
-                        </Authorized>
-                    </AuthorizeView>
-                </tr>
-            }
-        </tbody>
-    </table>
+</div>
 
-    <AppModal @ref="Modal">
-        <Title>Delete Notification</Title>
-        <ChildContent>
-            Are you sure to remove this Employee?
-        </ChildContent>
-        <Footer>
-            <button class="btn btn-secondary" @onclick="() => Modal.Hide()">Cancel</button>
-            <button class="btn btn-danger" @onclick="Delete">Delete</button>
-        </Footer>
-    </AppModal>
-}
+@* *@
+@* @if (employeeModels is null) *@
+@* { *@
+@*     <div class="d-flex flex-column justify-content-center align-items-center vh-60"> *@
+@*         <div class="spinner-border text-warning mb-4" role="status"> *@
+@*         </div> *@
+@*         <div> *@
+@*             <h5>Loading ... </h5> *@
+@*         </div> *@
+@*     </div> *@
+@* } *@
+@* else if (employeeModels is not null && employeeModels.Any()) *@
+@* { *@
+@*     <table class="table table-hover"> *@
+@*         <thead> *@
+@*         <tr> *@
+@*             <th>Name</th> *@
+@*             <th>Email</th> *@
+@*             <th>Phone</th> *@
+@*             <th>Address</th> *@
+@*             <th>Department</th> *@
+@*             <th>Position</th> *@
+@*             <th>DateOfBirth</th> *@
+@*             <th>DateOfJoining</th> *@
+@*             <AuthorizeView Roles="Admin"> *@
+@*                 <Authorized> *@
+@*                     <th> *@
+@*                         <NavLink href="employee/create" class="btn btn-primary">Add Employee</NavLink> *@
+@*                     </th> *@
+@*                 </Authorized> *@
+@*             </AuthorizeView> *@
+@*         </tr> *@
+@*         </thead> *@
+@*         <tbody> *@
+@*         @foreach (var employee in employeeModels) *@
+@*         { *@
+@*             var editUrl = $"/employee/update/{employee.EmployeeId}"; *@
+@*             <tr> *@
+@*                 <td>@($"{employee.FirstName} {employee.LastName}")</td> *@
+@*                 <td>@employee.Email</td> *@
+@*                 <td>@employee.PhoneNumber</td> *@
+@*                 <td>@employee.Address</td> *@
+@*                 <td>@employee.DepartmentCode</td> *@
+@*                 <td>@employee.PositionCode</td> *@
+@*                 <td>@employee.DateOfBirth.ToShortDateString()</td> *@
+@*                 <td>@employee.DateOfJoining.ToShortDateString()</td> *@
+@*                 <AuthorizeView Roles="Admin"> *@
+@*                     <Authorized> *@
+@*                         <td> *@
+@*                             <NavLink href="@editUrl" class="btn btn-warning">Edit</NavLink> *@
+@*                             <button class="btn btn-danger" *@
+@*                                     @onclick="() => { DeleteId = employee.EmployeeId; Modal.Show(); }">Delete *@
+@*                             </button> *@
+@*                         </td> *@
+@*                     </Authorized> *@
+@*                 </AuthorizeView> *@
+@*             </tr> *@
+@*         } *@
+@*         </tbody> *@
+@*     </table> *@
+@* *@
+@*     <AppModal @ref="Modal"> *@
+@*         <Title>Delete Notification</Title> *@
+@*         <ChildContent> *@
+@*             Are you sure to remove this Employee? *@
+@*         </ChildContent> *@
+@*         <Footer> *@
+@*             <button class="btn btn-secondary" @onclick="() => Modal.Hide()">Cancel</button> *@
+@*             <button class="btn btn-danger" @onclick="Delete">Delete</button> *@
+@*         </Footer> *@
+@*     </AppModal> *@
+@* } *@
 
 
