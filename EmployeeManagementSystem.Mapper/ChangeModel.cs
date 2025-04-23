@@ -5,12 +5,12 @@ namespace EmployeeManagementSystem.Mapper;
 
 public static class ChangeModel
 {
-    static string fullUlid = Ulid.NewUlid().ToString();
+
     public static EmployeeModel Change(this EmployeeRequestModel employeeRequestModel)
     {
         EmployeeModel employeeModel = new EmployeeModel()
         {
-            EmployeeCode = string.Concat("EID-", fullUlid.AsSpan(0,10)),
+            EmployeeCode = string.Concat("EID-", Ulid.NewUlid().ToString().AsSpan(5, 10)),
             FirstName = employeeRequestModel.FirstName,
             LastName = employeeRequestModel.LastName,
             Email = employeeRequestModel.Email,
@@ -18,8 +18,8 @@ public static class ChangeModel
             Address = employeeRequestModel.Address,
             DepartmentCode = employeeRequestModel.DepartmentCode,
             PositionCode = employeeRequestModel.PositionCode,
-            DateOfJoining = employeeRequestModel.DateOfJoining,
-            DateOfBirth = employeeRequestModel.DateOfBirth,
+            DateOfJoining = (DateTime)employeeRequestModel.DateOfJoining,
+            DateOfBirth = (DateTime)employeeRequestModel.DateOfBirth,
         };
         return employeeModel;
     }
