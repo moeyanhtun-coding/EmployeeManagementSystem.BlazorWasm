@@ -9,7 +9,9 @@
     </div>
     <EditForm Model="EmployeeModel" OnValidSubmit="Submit">
         <div class="card-body row " style="height: 74vh; padding: 0 100px">
-            <div class=" col-6"></div>
+            <div class=" col-6 " style="padding-top: 100px">
+               <img class="w-75" src="/img/undraw_personal.svg" alt="Alternate Text" />
+            </div>
             <div class="col-6 px-5 my-auto">
                 <div class="row  mb-2 ">
                     <div class="form-group col-6">
@@ -68,7 +70,7 @@
                                @bind="EmployeeModel.PositionCode">
                     </div>
                 </div>
-                <div class="row ">
+                <div class="row mb-2">
                     <div class="form-group col-6">
                         <label class="form-label">Date Of Birth</label>
                         <input type="date" class="form-control form-control-user"
