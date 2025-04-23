@@ -1,5 +1,7 @@
 ﻿@using EmployeeManagementSystem.Wasm.Compoments
 
+@if (IsShowContent)
+{
 <div id="wrapper">
     <SidebarComponent/>
     <div id="content-wrapper" class="d-flex flex-column">
@@ -44,7 +46,7 @@
                 >
                     Cancel
                 </button>
-                <a class="btn btn-primary" href="login.html">Logout</a>
+                <a class="btn btn-primary" href="logout">Logout</a>
             </div>
         </div>
     </div>
@@ -55,32 +57,37 @@
                 IconType="IconType.FontAwesome"
                 SuccessClass="success-toast-override"
                 SuccessIcon="fa fa-thumbs-up"
-                ErrorIcon="fa fa-bug"/>
-@* @code{ *@
-@*     public bool IsShowContent { get; set; } *@
-@*     protected override async Task OnInitializedAsync() *@
-@*     { *@
-@*         try *@
-@*         { *@
-@*             var currentUri = Navigation.ToBaseRelativePath(Navigation.Uri).ToLower(); *@
-@*             var authState = await ((CustomAuthStateProvider)authenticationStateProvider).GetAuthenticationStateAsync(); *@
-@*             var user = authState.User; *@
-@* *@
-@*             if (!user.Identity.IsAuthenticated) *@
-@*             { *@
-@*                 if (currentUri != "login" && currentUri != "register") *@
-@*                 { *@
-@*                     Navigation.NavigateTo("/login"); *@
-@*                     return; *@
-@*                 } *@
-@*             } *@
-@*             else *@
-@*             { *@
-@*                 IsShowContent = true; *@
-@*             } *@
-@*         } *@
-@*         catch(Exception ex){ *@
-@*             Navigation.NavigateTo("/login", true); *@
-@*         } *@
-@*     } *@
-@* } *@
+                ErrorIcon="fa fa-bug"/>  
+}
+
+@code{
+    public bool IsShowContent { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            var currentUri = Navigation.ToBaseRelativePath(Navigation.Uri).ToLower();
+            var authState = await ((CustomAuthStateProvider)authenticationStateProvider).GetAuthenticationStateAsync();
+            var user = authState.User;
+
+            if (!user.Identity.IsAuthenticated)
+            {
+                if (currentUri != "login" && currentUri != "register")
+                {
+                    Navigation.NavigateTo("/login");
+                    return;
+                }
+            }
+            else
+            {
+                IsShowContent = true;
+            }
+        }
+        catch (Exception ex)
+        {
+            Navigation.NavigateTo("/login", true);
+        }
+    }
+
+}
