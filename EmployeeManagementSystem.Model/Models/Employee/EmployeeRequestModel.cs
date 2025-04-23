@@ -17,7 +17,7 @@ public class EmployeeRequestModel
     [Required]
     public string PositionCode { get; set; }
     [Required]
-    public DateTime DateOfBirth { get; set; }
+    public DateTime? DateOfBirth { get; set; }
     [Required]
-    public DateTime DateOfJoining { get; set; }
+    public DateTime? DateOfJoining { get; set; }
 }
