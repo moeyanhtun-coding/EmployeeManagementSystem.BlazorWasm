@@ -2,7 +2,8 @@
 {
     public partial class Login
     {
-
+        private string _errorMessage;
+        private bool _isLoading = false;
         private LoginModel _loginModel = new LoginModel();
 
         protected override async Task OnInitializedAsync()
@@ -12,29 +13,28 @@
 
             if (user.Identity != null && user.Identity.IsAuthenticated)
             {
-                
                 nav.NavigateTo("/");
             }
         }
         private async Task HandleLogin()
         {
-            var res = await httpClient.PostAsJsonAsync("api/auth/login", _loginModel);
-            if (res.IsSuccessStatusCode)
+            _errorMessage = "";
+            _isLoading = true;
+            try
             {
-                var jsonStr = await res.Content.ReadAsStringAsync();
-                var result = JsonConvert.DeserializeObject<LoginResponseModel>(jsonStr);
-
-                await ((CustomAuthStateProvider)AuthStateProvider).MarkUserAsAuthenticated(result);
-                toastService.ShowSuccess("Successfully Login");
-                nav.NavigateTo("/");
-                
-            }
-            else
-            {
-
-                var content = await res.Content.ReadAsStringAsync();
-                try
+                var res = await httpClient.PostAsJsonAsync("api/auth/login", _loginModel);
+                if (res.IsSuccessStatusCode)
                 {
+                    var jsonStr = await res.Content.ReadAsStringAsync();
+                    var result = JsonConvert.DeserializeObject<LoginResponseModel>(jsonStr);
+
+                    await ((CustomAuthStateProvider)AuthStateProvider).MarkUserAsAuthenticated(result);
+                    toastService.ShowSuccess("Successfully Login");
+                    nav.NavigateTo("/");
+                }
+                else
+                {
+                    var content = await res.Content.ReadAsStringAsync();
                     var errorResponse = JsonConvert.DeserializeObject<ValidationErrorResponse>(content);
 
                     if (errorResponse?.Errors is not null)
@@ -43,21 +43,22 @@
                         {
                             foreach (var errorMsg in fieldErrors.Value)
                             {
-                                toastService.ShowError(errorMsg);
+                                _errorMessage = errorMsg.ToString();
+                                Console.WriteLine(errorMsg.ToString());
                             }
                         }
                     }
                     else
                     {
                         var resError = JsonConvert.DeserializeObject<BaseResponseModel>(content);
-                        toastService.ShowError(resError.Message);
+                        _errorMessage = resError.Message;
+                        Console.WriteLine(resError.Message);
                     }
                 }
-                catch
-                {
-                    toastService.ShowError("Failed to parse error response.");
-                }
-                Console.WriteLine("Credential Do Not Match.");
+            }
+            finally
+            {
+                _isLoading = false;
             }
         }
     }
