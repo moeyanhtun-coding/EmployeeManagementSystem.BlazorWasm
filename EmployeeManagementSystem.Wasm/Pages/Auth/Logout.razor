@@ -5,6 +5,6 @@
     protected async override Task OnInitializedAsync()
     {
         await((CustomAuthStateProvider)AuthStateProvider).MarkUserAsLogout();
-        nav.NavigateTo("/login");
+        nav.NavigateTo("/login", true);
     }
 }
