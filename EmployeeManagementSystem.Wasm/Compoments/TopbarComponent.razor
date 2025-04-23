@@ -82,8 +82,16 @@
         aria-haspopup="true"
         aria-expanded="false"
       >
-                  <span class="mr-2 d-none d-lg-inline text-gray-600 small"
-                  >Douglas McGee</span>
+        <span class="mr-2 d-none d-lg-inline text-gray-600 small">
+          <AuthorizeView>
+          <Authorized>
+            Hello, @context.User.Identity.Name!
+          </Authorized>
+          <NotAuthorized>
+            <a href="AzureAD/Account/SignIn">Log in</a>
+          </NotAuthorized>
+        </AuthorizeView>
+        </span>
         <img
           class="img-profile rounded-circle"
           src="img/undraw_profile.svg"
