@@ -1,14 +1,21 @@
 ﻿using EmployeeManagementSystem.Model.Models.Employee;
+using Microsoft.JSInterop;
 
 namespace EmployeeManagementSystem.Wasm.Pages.Employee
 {
     public partial class EmployeeCreate
     {
-        [Inject]
-        private DevCode devCode { get; set; }
+        [Inject] private DevCode devCode { get; set; }
         public EmployeeRequestModel EmployeeModel { get; set; } = new();
 
         public BaseResponseModel? BaseResponseModel { get; set; } = new();
+
+        public async Task ClearData()
+        {
+            EmployeeModel = new EmployeeRequestModel();
+            StateHasChanged(); // Force UI refresh
+        }
+
         public async Task Submit()
         {
             await devCode.SetAuthorizeHeader();
@@ -31,4 +38,3 @@ namespace EmployeeManagementSystem.Wasm.Pages.Employee
         }
     }
 }
-
