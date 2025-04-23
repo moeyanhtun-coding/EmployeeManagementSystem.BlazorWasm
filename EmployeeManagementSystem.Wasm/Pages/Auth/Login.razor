@@ -1,70 +1,93 @@
 ﻿@page "/login"
-@layout AuthLayout
 @inject AuthenticationStateProvider AuthStateProvider
+@layout AuthLayout
 
 <PageTitle>EMS | Login</PageTitle>
-<div class="container">
 
-    <!-- Outer Row -->
-    <div class="row justify-content-center">
+@if (_isLoading)
+{
+    <div class="d-flex flex-column h-100 justify-content-center align-items-center" style="padding: 40vh">
+        <div class="spinner-border text-primary mb-3" role="status">
+        </div>
+        <div>
+            <div style="font-size: larger; font-weight: 800; color: black;">Loading ... </div>
+        </div>
+    </div>
+}
+else
+{
+    <div class="container">
 
-        <div class="col-xl-10 col-lg-12 col-md-9">
+        <!-- Outer Row -->
+        <div class="row justify-content-center">
 
-            <div class="card o-hidden border-0 shadow-lg" style="margin-top: 100px">
-                <div class="card-body p-0">
-                    <!-- Nested Row within Card Body -->
-                    <div class="row">
-                        <div class="col-6" style="padding:50px">
-                            <img src="/img/undraw_secure-login.svg" class="w-100" style="margin-top: 75px" alt="Alternate Text" />
-                        </div>
-                        <div class="col-6">
-                            <div class="p-5">
-                                <div class="text-center">
-                                    <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
-                                </div>
-                                <EditForm Model="_loginModel" FormName="Login" OnValidSubmit="HandleLogin">
-                                    <div class="form-group">
-                                        <input type="email" class="form-control form-control-user"
-                                               id="exampleInputEmail" aria-describedby="emailHelp"
-                                               placeholder="Enter Email Address..." required 
-                                               @bind="_loginModel.Email">
+            <div class="col-xl-10 col-lg-12 col-md-9">
+
+                <div class="card o-hidden border-0 shadow-lg" style="margin-top: 100px">
+                    <div class="card-body p-0">
+                        <!-- Nested Row within Card Body -->
+                        <div class="row">
+                            <div class="col-6" style="padding:50px">
+                                <img src="/img/undraw_secure-login.svg" class="w-100" style="margin-top: 75px" alt="Alternate Text" />
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="p-5">
+                                    <div class="text-center">
+                                        <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
                                     </div>
-                                    <div class="form-group">
-                                        <input type="password" class="form-control form-control-user"
-                                               id="exampleInputPassword" placeholder="Password" required
-                                               @bind="_loginModel.Password">
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="custom-control custom-checkbox small">
-                                            <input type="checkbox" class="custom-control-input" id="customCheck">
-                                            <label class="custom-control-label" for="customCheck">Remember
-                                                Me</label>
+                                    @if (!string.IsNullOrEmpty(_errorMessage))
+                                    {
+                                        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                                            <strong>@_errorMessage</strong>
+
                                         </div>
-                                    </div>
-                                    <button type="submit" class="btn btn-primary btn-user btn-block">Login</button>
+                                    }
+                                    <EditForm Model="_loginModel" class="user" FormName="Login" OnValidSubmit="HandleLogin">
+                                        <div class="form-group">
+                                            <input type="email" class="form-control form-control-user"
+                                                   id="exampleInputEmail" aria-describedby="emailHelp" required
+                                                   placeholder="Enter Email Address..." @bind="_loginModel.Email">
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="password" class="form-control form-control-user" required
+                                                   id="exampleInputPassword" placeholder="Password" @bind="_loginModel.Password">
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="custom-control custom-checkbox small">
+                                                <input type="checkbox" class="custom-control-input" id="customCheck">
+                                                <label class="custom-control-label" for="customCheck">
+                                                    Remember
+                                                    Me
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <button type="submit" class="btn btn-primary btn-user btn-block">
+                                            Login
+                                        </button>
+                                        <hr>
+                                        <a href="index.html" class="btn btn-google btn-user btn-block">
+                                            <i class="fab fa-google fa-fw"></i> Login with Google
+                                        </a>
+                                        <a href="index.html" class="btn btn-facebook btn-user btn-block">
+                                            <i class="fab fa-facebook-f fa-fw"></i> Login with Facebook
+                                        </a>
+
+                                    </EditForm>
                                     <hr>
-                                    <a href="" class="btn btn-google btn-user btn-block">
-                                        <i class="fab fa-google fa-fw"></i> Login with Google
-                                    </a>
-                                    <a href="" class="btn btn-facebook btn-user btn-block">
-                                        <i class="fab fa-facebook-f fa-fw"></i> Login with Facebook
-                                    </a>
-                                </EditForm>
-                                <hr>
-                                <div class="text-center">
-                                    <a class="small" href="">Forgot Password?</a>
-                                </div>
-                                <div class="text-center">
-                                    <a class="small" href="">Create an Account!</a>
+                                    <div class="text-center">
+                                        <a class="small" href="forgot-password.html">Forgot Password?</a>
+                                    </div>
+                                    <div class="text-center">
+                                        <a class="small" href="/register">Create an Account!</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-
         </div>
-
     </div>
+}
 
-</div>
+
