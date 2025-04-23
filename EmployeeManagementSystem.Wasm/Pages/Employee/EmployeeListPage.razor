@@ -16,64 +16,67 @@
 }
 else
 {
-    <div class="card shadow mb-4">
+    <div class="card shadow">
         <div class="card-header  d-flex justify-content-between align-items-center">
             <h6 class="m-0 font-weight-bold text-primary">Employee List</h6>
             <NavLink href="employeeCreate" class="btn btn-success"> <i class="fas fa-user-plus fa-sm"></i> New Employee</NavLink>
         </div>
-        <div class="card-body">
+        <div class="card-body" style="height: 610px; overflow-y: auto;">
             <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
-                    <tr>
-                        <th>No</th>
-                        <th>Employee Code</th>
-                        <th>Name</th>
-                        <th>Email</th>
-                        <th>Department</th>
-                        <th>Position</th>
-                        <th>JOD</th>
-                        <th></th>
-                    </tr>
+                        <tr>
+                            <th>No</th>
+                            <th>Employee Code</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Department</th>
+                            <th>Position</th>
+                            <th>JOD</th>
+                            <th></th>
+                        </tr>
                     </thead>
                     <tfoot>
-                    <tr>
-                        <th>No</th>
-                        <th>Employee Code</th>
-                        <th>Name</th>
-                        <th>Email</th>
-                        <th>Department</th>
-                        <th>Position</th>
-                        <th>JOD</th>
-                        <th></th>
-                    </tr>
+                        <tr>
+                            <th>No</th>
+                            <th>Employee Code</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Department</th>
+                            <th>Position</th>
+                            <th>JOD</th>
+                            <th></th>
+                        </tr>
                     </tfoot>
                     <tbody>
-                    @foreach (var employee in employeeModels)
-                    {
-                        employeeNo++;
-                        <tr>
-                            <td>@employeeNo</td>
-                            <td>@employee.EmployeeCode</td>
-                            <td>@($"{employee.FirstName} {employee.LastName}")</td>
-                            <td>@employee.Email</td>
-                            <td>@employee.DepartmentCode</td>
-                            <td>@employee.PositionCode</td>
-                            <td>@employee.DateOfJoining.ToShortDateString()</td>
-                            <td>
-                                <NavLink href="" class="btn btn-warning"><i class="fas fa-edit fa-sm"></i></NavLink>
-                                <button class="btn btn-danger"
-                                        @onclick="() => { DeleteId = employee.EmployeeId; Modal.Show(); }"><i class="fas fa-trash fa-sm"></i>
-                                </button>
-                            </td>
-                        </tr>
-                    }
+                        @foreach (var employee in employeeModels)
+                        {
+                            employeeNo++;
+                            <tr>
+                                <td>@employeeNo</td>
+                                <td>@employee.EmployeeCode</td>
+                                <td>@($"{employee.FirstName} {employee.LastName}")</td>
+                                <td>@employee.Email</td>
+                                <td>@employee.DepartmentCode</td>
+                                <td>@employee.PositionCode</td>
+                                <td>@employee.DateOfJoining.ToShortDateString()</td>
+                                <td>
+                                    <div class="align-items-end">
+                                        <NavLink href="" class="btn btn-warning"><i class="fas fa-edit fa-sm"></i></NavLink>
+                                        <button class="btn btn-danger"
+                                                @onclick="() => { DeleteId = employee.EmployeeId; Modal.Show(); }">
+                                            <i class="fas fa-trash fa-sm"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
-    
+
     <AppModal @ref="Modal">
         <Title>Delete Notification</Title>
         <ChildContent>
