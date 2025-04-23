@@ -6,7 +6,7 @@
 }
 @if (employeeModels is null)
 {
-    <div class="d-flex flex-column justify-content-center align-items-center vh-60">
+    <div class="d-flex flex-column h-75 justify-content-center align-items-center vh-60">
         <div class="spinner-border text-warning mb-4" role="status">
         </div>
         <div>
@@ -51,6 +51,7 @@ else
                     <tbody>
                         @foreach (var employee in employeeModels)
                         {
+                            var editUrl = $"/employee/update/{employee.EmployeeId}";
                             employeeNo++;
                             <tr>
                                 <td>@employeeNo</td>
@@ -62,7 +63,7 @@ else
                                 <td>@employee.DateOfJoining.ToShortDateString()</td>
                                 <td>
                                     <div class="align-items-end">
-                                        <NavLink href="" class="btn btn-warning"><i class="fas fa-edit fa-sm"></i></NavLink>
+                                        <NavLink href="editUrl" class="btn btn-warning"><i class="fas fa-edit fa-sm"></i></NavLink>
                                         <button class="btn btn-danger"
                                                 @onclick="() => { DeleteId = employee.EmployeeId; Modal.Show(); }">
                                             <i class="fas fa-trash fa-sm"></i>
