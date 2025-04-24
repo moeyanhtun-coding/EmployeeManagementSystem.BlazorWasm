@@ -1,16 +1,32 @@
-﻿namespace EmployeeManagementSystem.Wasm.Pages.Employee
+﻿using EmployeeManagementSystem.Model.Models.Employee;
+
+namespace EmployeeManagementSystem.Wasm.Pages.Employee
 {
     public partial class EmployeeUpdate
     {
         [Parameter]
         public int Id { get; set; }
-        private EmployeeModel employee = new();
+        private EmployeeModel employeeModel = new();
         [Inject]
         private DevCode devCode { get; set; }
 
         protected override async Task OnInitializedAsync()
         {
             await GetEmployeeData();
+        }
+
+        public async Task ClearData()
+        {
+            employeeModel.FirstName = "";
+            employeeModel.LastName = "";
+            employeeModel.PhoneNumber = "";
+            employeeModel.Email = "";
+            employeeModel.Address = "";
+            employeeModel.DepartmentCode = "";
+            employeeModel.PositionCode = "";
+            employeeModel.DateOfJoining = DateTime.Now;
+            employeeModel.DateOfBirth = DateTime.Now;
+            StateHasChanged(); // Force UI refresh
         }
 
         public async Task GetEmployeeData()
@@ -21,22 +37,20 @@
             var data = JsonConvert.DeserializeObject<BaseResponseModel>(result);
             if (data.IsSuccess)
             {
-                employee = JsonConvert.DeserializeObject<EmployeeModel>(data.Data.ToString()!)!;
+                employeeModel = JsonConvert.DeserializeObject<EmployeeModel>(data.Data.ToString()!)!;
             }
-
         }
 
         public async Task Submit()
         {
             await devCode.SetAuthorizeHeader();
-            var res = await httpClient.PatchAsJsonAsync<EmployeeModel>($"api/Employee/updateEmployee/{Id}", employee);
+            var res = await httpClient.PatchAsJsonAsync<EmployeeModel>($"api/Employee/updateEmployee/{Id}", employeeModel);
             if (res.IsSuccessStatusCode)
             {
                 var jsonStr = await res.Content.ReadAsStringAsync();
                 var result = JsonConvert.DeserializeObject<BaseResponseModel>(jsonStr);
                 if (result.IsSuccess)
                     nav.NavigateTo("/employeeList");
-                toastService.ShowSuccess(result.Message);
             }
             else
             {
