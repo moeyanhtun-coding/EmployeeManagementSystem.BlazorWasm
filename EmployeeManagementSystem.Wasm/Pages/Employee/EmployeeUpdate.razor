@@ -1,80 +1,105 @@
-﻿@page "/employee/update/{Id:int}"
+﻿@page "/employeeUpdate/{Id:int}"
 
 <PageTitle>Employee Update</PageTitle>
-<h3>EmployeeUpdate</h3>
 
-<EditForm Model="employee" OnValidSubmit="Submit">
-    <DataAnnotationsValidator />
-    <ValidationSummary />
-
-    <div class="container">
-        <div class="row mb-3">
-            <div class="col-8 offset-2">
-                <label for="employeeCode" class="form-label">Employee Code</label>
-                <InputText id="employeeCode" class="form-control" @bind-Value="employee.EmployeeCode" />
-                <ValidationMessage For="() => employee.EmployeeCode" />
-            </div>
-        </div>
-        <div class="row mb-3">
-            <div class="col-4 offset-2">
-                <label for="FirstName" class="form-label">First Name</label>
-                <InputText id="FirstName" class="form-control" @bind-Value="employee.FirstName" />
-                <ValidationMessage For="() => employee.FirstName" />
-            </div>
-            <div class="col-4">
-                <label for="LastName" class="form-label">Last Name</label>
-                <InputText id="LastName" class="form-control" @bind-Value="employee.LastName" />
-                <ValidationMessage For="() => employee.LastName" />
-            </div>
-        </div>
-        <div class="row mb-3">
-            <div class="col-4 offset-2">
-                <label for="Email" class="form-label">Email</label>
-                <InputText id="Email" class="form-control" @bind-Value="employee.Email" />
-                <ValidationMessage For="() => employee.Email" />
-            </div>
-            <div class="col-4">
-                <label for="PhoneNumber" class="form-label">Phone Number</label>
-                <InputText id="PhoneNumber" class="form-control" @bind-Value="employee.PhoneNumber" />
-                <ValidationMessage For="() => employee.PhoneNumber" />
-            </div>
-        </div>
-        <div class="row mb-3">
-            <div class="col-8 offset-2">
-                <label for="Address" class="form-label">Address</label>
-                <InputText id="Address" class="form-control" @bind-Value="employee.Address" />
-                <ValidationMessage For="() => employee.Address" />
-            </div>
-        </div>
-        <div class="row mb-3">
-            <div class="col-4 offset-2">
-                <label for="PositionCode" class="form-label">Department</label>
-                <InputText id="DepartmentCode" class="form-control" @bind-Value="employee.DepartmentCode" />
-                <ValidationMessage For="() => employee.DepartmentCode" />
-            </div>
-            <div class="col-4">
-                <label for="PositionCode" class="form-label">Position</label>
-                <InputText id="PositionCode" class="form-control" @bind-Value="employee.PositionCode" />
-                <ValidationMessage For="() => employee.PositionCode" />
-            </div>
-        </div>
-        <div class="row mb-3">
-            <div class="col-4 offset-2">
-                <label for="DateOfJoining" class="form-label">Date of Joining</label>
-                <InputDate id="DateOfJoining" class="form-control" @bind-Value="employee.DateOfJoining" />
-                <ValidationMessage For="() => employee.DateOfJoining" />
-            </div>
-            <div class="col-4">
-                <label for="DateOfBirth" class="form-label">Date of Birth</label>
-                <InputDate id="DateOfBirth" class="form-control" @bind-Value="employee.DateOfBirth" />
-                <ValidationMessage For="() => employee.DateOfBirth" />
-            </div>
-        </div>
-        <div class="row mb-3">
-            <div class="col-8 offset-2 text-end">
-                <NavLink class="btn btn-dark" href="employeeList">Back</NavLink>
-                <button type="submit" class="btn btn-success">Update Employee</button>
-            </div>
-        </div>
+<div class="card shadow">
+    <div class="card-header d-flex align-items-center">
+        <NavLink class="btn btn-dark mr-3" href="/employeeList"><i class="fas fa-left-long fa-sm"></i> Back</NavLink>
+        <h6 class="m-0 font-weight-bold text-primary">Employee Update</h6>
     </div>
-</EditForm>
+    <EditForm Model="employeeModel" OnValidSubmit="Submit">
+        <div class="card-body row " style="height: 74vh; padding: 0 100px">
+            <div class=" col-6 " style="padding-top: 100px">
+                <img class="w-75" src="/img/undraw_personal.svg" alt="Alternate Text" />
+            </div>
+            <div class="col-6 px-5 my-auto">
+                <div class="row  mb-2 ">
+                    <div class="form-group col-6">
+                        <label class="form-label">First Name</label>
+                        <input type="text" class="form-control form-control-user"
+                               id="firstName"
+                               placeholder="First Name" required
+                               @bind="employeeModel.FirstName">
+                    </div>
+                    <div class="form-group col-6">
+                        <label class="form-label">Last Name</label>
+                        <input type="text" class="form-control form-control-user"
+                               id=""
+                               placeholder="Last Name" required
+                               @bind="employeeModel.LastName">
+                    </div>
+                </div>
+                <div class="row  mb-2">
+                    <div class="form-group col-6">
+                        <label class="form-label">Email Address</label>
+                        <input type="email" class="form-control form-control-user"
+                               id="email"
+                               placeholder="Email Address" required
+                               @bind="employeeModel.Email">
+                    </div>
+                    <div class="form-group col-6">
+                        <label class="form-label">Phone Number</label>
+                        <input type="number" class="form-control form-control-user"
+                               id="phoneNumber"
+                               placeholder="Enter Phone" required
+                               @bind="employeeModel.PhoneNumber">
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="form-group col-12">
+                        <label class="form-label">Address</label>
+                        <input type="text" class="form-control form-control-user"
+                               id="Address"
+                               placeholder="Address" required
+                               @bind="employeeModel.Address">
+                    </div>
+                </div>
+                <div class="row  mb-2">
+                    <div class="form-group col-6">
+                        <label class="form-label">Department</label>
+                        <input type="text" class="form-control form-control-user"
+                               id="department"
+                               placeholder="Department" required
+                               @bind="employeeModel.DepartmentCode">
+                    </div>
+                    <div class="form-group col-6">
+                        <label class="form-label">Position</label>
+                        <input type="text" class="form-control form-control-user"
+                               id="position"
+                               placeholder="Position" required
+                               @bind="employeeModel.PositionCode">
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="form-group col-6">
+                        <label class="form-label">Date Of Birth</label>
+                        <input type="date" class="form-control form-control-user"
+                               id="dateOfBirth" required
+                               @bind="employeeModel.DateOfBirth">
+                    </div>
+                    <div class="form-group col-6">
+                        <label class="form-label">Date Of Joining</label>
+                        <input type="date" class="form-control form-control-user"
+                               id="dateOfJoining"
+                               required
+                               @bind="employeeModel.DateOfJoining">
+                    </div>
+                </div>
+                <div class="row ">
+                    <div class="col-6">
+                        <button type="button" class="btn btn-danger w-100" @onclick="ClearData">
+                            <i class="fas fa-eraser fa-sm"></i> Clear Data
+                        </button>
+                    </div>
+                    <div class="col-6">
+                        <button type="submit" class="btn btn-primary w-100">
+                            <i class="fas fa-user-plus fa-sm"></i>
+                            Update Employee
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </EditForm>
+</div>
