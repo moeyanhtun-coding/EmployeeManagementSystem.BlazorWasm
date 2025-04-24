@@ -14,7 +14,7 @@
         public string DepartmentCode { get; set; }
         public string PositionCode { get; set; }
         public DateTime DateOfBirth { get; set; }
-        public DateTime DateOfJoining { get; set; }
+        public DateTime DateOfJoining { get; set; } 
         
     }
 }
