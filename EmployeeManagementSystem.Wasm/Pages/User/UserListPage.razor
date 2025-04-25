@@ -1,0 +1,115 @@
+﻿@page "/userList"
+@using EmployeeManagementSystem.Model.Models.User
+
+<PageTitle>User List</PageTitle>
+
+@{
+    int userNo = 0;
+}
+@if (UserDetailModels is null)
+{
+    <div class="d-flex flex-column h-100 justify-content-center align-items-center" style="padding: 30vh">
+        <div class="spinner-border text-primary mb-3" role="status">
+        </div>
+        <div>
+            <div style="font-size: larger; font-weight: 800; color: black;">Loading ... </div>
+        </div>
+    </div>
+}
+else
+{
+    <div class="card shadow">
+        <div class="card-header  d-flex justify-content-between align-items-center">
+            <h6 class="m-0 font-weight-bold text-primary">Employee List</h6>
+        </div>
+        <div class="card-body" style="height: 6410px; overflow-y: auto;">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>User Code</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Role</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <th>No</th>
+                            <th>User Code</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Role</th>
+                            <th></th>
+                        </tr>
+                    </tfoot>
+                    <tbody>
+                        @foreach (var user in UserDetailModels)
+                        {
+                            <tr>
+                                <td>@userNo</td>
+                                <td></td>
+                                <td>@user.UserName</td>
+                                <td>@user.Email</td>
+                                <td>@user.RoleName</td>
+                                <td></td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <AppModal @ref="Modal">
+        <Title>Delete Notification</Title>
+        <ChildContent>
+            Are you sure to remove this Employee?
+        </ChildContent>
+        <Footer>
+            <button class="btn btn-secondary" @onclick="() => Modal.Hide()">Cancel</button>
+            <button class="btn btn-danger">Delete</button>
+        </Footer>
+    </AppModal>
+}
+
+@code {
+    private List<UserDetailModel> UserDetailModels;
+    private BaseResponseModel baseResponseModel;
+    private AppModal Modal;
+    [Inject] private DevCode devCode { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await GetUserList();
+    }
+
+    public async Task GetUserList()
+    {
+        try
+        {
+            await devCode.SetAuthorizeHeader();
+            var response = await httpClient.GetAsync("api/User/getUserList");
+            if (response.IsSuccessStatusCode)
+            {
+                var JsonStr = await response.Content.ReadAsStringAsync();
+                baseResponseModel = JsonConvert.DeserializeObject<BaseResponseModel>(JsonStr)!;
+                if (baseResponseModel.IsSuccess)
+                {
+                    UserDetailModels = JsonConvert.DeserializeObject<List<UserDetailModel>>(baseResponseModel.Data!.ToString()!)!;
+                }
+            }
+            else
+            {
+                var error = await response.Content.ReadAsStringAsync();
+                Console.WriteLine(error);
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.ToString());
+        }
+    }
+}
