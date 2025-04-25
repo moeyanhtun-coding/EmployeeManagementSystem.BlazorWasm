@@ -1,4 +1,6 @@
-﻿namespace EmployeeManagementSystem.BusinessLogic.Services
+﻿using EmployeeManagementSystem.Model.Models.User;
+
+namespace EmployeeManagementSystem.BusinessLogic.Services
 {
     public interface IAuthService
     {
