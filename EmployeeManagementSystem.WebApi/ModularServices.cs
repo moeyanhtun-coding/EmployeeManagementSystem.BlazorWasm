@@ -30,12 +30,14 @@
         {
             services.AddScoped<IEmployeeRepository, EmployeeRepository>();
             services.AddScoped<IAuthService, AuthService>();
+            services.AddScoped<IUserService, UserService>();
             return services;
         }
         public static IServiceCollection AddServices(this IServiceCollection services)
         {
             services.AddScoped<IEmployeeService, EmployeeService>();
             services.AddScoped<IAuthRepository, AuthRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
             return services;
         }
 
