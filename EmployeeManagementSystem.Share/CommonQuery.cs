@@ -16,5 +16,12 @@
             JOIN Tbl_UserRole ON Tbl_User.UserId = Tbl_UserRole.UserId
             JOIN Tbl_Role ON Tbl_UserRole.RoleId = Tbl_Role.RoleId 
             WHERE Tbl_RefreshToken.RefreshTokenId = @RefreshTokenId";
+
+        public static string GetUserDetailList { get; } =
+            @"SELECT  Tbl_User.*, Tbl_Role.RoleName
+            FROM Tbl_RefreshToken
+            JOIN Tbl_User ON Tbl_RefreshToken.UserId = Tbl_User.UserId
+            JOIN Tbl_UserRole ON Tbl_User.UserId = Tbl_UserRole.UserId
+            JOIN Tbl_Role ON Tbl_UserRole.RoleId = Tbl_Role.RoleId";
     }
 }
