@@ -24,7 +24,6 @@
                 if (baseResponseModel!.IsSuccess)
                 {
                     employeeModels = JsonConvert.DeserializeObject<List<EmployeeModel>>(baseResponseModel.Data!.ToString()!)!;
-                     
                 }
             }
             else
