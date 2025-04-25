@@ -64,7 +64,7 @@ else
                                 <td>@employee.DateOfJoining.ToString("yyyy-MM-dd")</td>
                                 <td>
                                     <div class="align-items-end">
-                                        <NavLink  class="btn btn-warning" href="@editUrl" ><i class="fas fa-edit fa-sm"></i></NavLink>
+                                        <NavLink class="btn btn-warning" href="@editUrl"><i class="fas fa-edit fa-sm"></i></NavLink>
                                         <button class="btn btn-danger"
                                                 @onclick="() => { DeleteId = employee.EmployeeId; Modal.Show(); }">
                                             <i class="fas fa-trash fa-sm"></i>
@@ -90,78 +90,3 @@ else
         </Footer>
     </AppModal>
 }
-<!-- DataTales Example -->
-@* *@
-@* @if (employeeModels is null) *@
-@* { *@
-@*     <div class="d-flex flex-column justify-content-center align-items-center vh-60"> *@
-@*         <div class="spinner-border text-warning mb-4" role="status"> *@
-@*         </div> *@
-@*         <div> *@
-@*             <h5>Loading ... </h5> *@
-@*         </div> *@
-@*     </div> *@
-@* } *@
-@* else if (employeeModels is not null && employeeModels.Any()) *@
-@* { *@
-@*     <table class="table table-hover"> *@
-@*         <thead> *@
-@*         <tr> *@
-@*             <th>Name</th> *@
-@*             <th>Email</th> *@
-@*             <th>Phone</th> *@
-@*             <th>Address</th> *@
-@*             <th>Department</th> *@
-@*             <th>Position</th> *@
-@*             <th>DateOfBirth</th> *@
-@*             <th>DateOfJoining</th> *@
-@*             <AuthorizeView Roles="Admin"> *@
-@*                 <Authorized> *@
-@*                     <th> *@
-@*                         <NavLink href="employee/create" class="btn btn-primary">Add Employee</NavLink> *@
-@*                     </th> *@
-@*                 </Authorized> *@
-@*             </AuthorizeView> *@
-@*         </tr> *@
-@*         </thead> *@
-@*         <tbody> *@
-@*         @foreach (var employee in employeeModels) *@
-@*         { *@
-@*             var editUrl = $"/employee/update/{employee.EmployeeId}"; *@
-@*             <tr> *@
-@*                 <td>@($"{employee.FirstName} {employee.LastName}")</td> *@
-@*                 <td>@employee.Email</td> *@
-@*                 <td>@employee.PhoneNumber</td> *@
-@*                 <td>@employee.Address</td> *@
-@*                 <td>@employee.DepartmentCode</td> *@
-@*                 <td>@employee.PositionCode</td> *@
-@*                 <td>@employee.DateOfBirth.ToShortDateString()</td> *@
-@*                 <td>@employee.DateOfJoining.ToShortDateString()</td> *@
-@*                 <AuthorizeView Roles="Admin"> *@
-@*                     <Authorized> *@
-@*                         <td> *@
-@*                             <NavLink href="@editUrl" class="btn btn-warning">Edit</NavLink> *@
-@*                             <button class="btn btn-danger" *@
-@*                                     @onclick="() => { DeleteId = employee.EmployeeId; Modal.Show(); }">Delete *@
-@*                             </button> *@
-@*                         </td> *@
-@*                     </Authorized> *@
-@*                 </AuthorizeView> *@
-@*             </tr> *@
-@*         } *@
-@*         </tbody> *@
-@*     </table> *@
-@* *@
-@*     <AppModal @ref="Modal"> *@
-@*         <Title>Delete Notification</Title> *@
-@*         <ChildContent> *@
-@*             Are you sure to remove this Employee? *@
-@*         </ChildContent> *@
-@*         <Footer> *@
-@*             <button class="btn btn-secondary" @onclick="() => Modal.Hide()">Cancel</button> *@
-@*             <button class="btn btn-danger" @onclick="Delete">Delete</button> *@
-@*         </Footer> *@
-@*     </AppModal> *@
-@* } *@
-
-
