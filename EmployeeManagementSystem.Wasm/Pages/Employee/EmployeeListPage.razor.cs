@@ -2,7 +2,7 @@
 {
     public partial class EmployeeListPage
     {
-        private List<EmployeeModel>? employeeModels;
+        private List<EmployeeModel> employeeModels;
         private BaseResponseModel? baseResponseModel = new();
         private int DeleteId;
         private AppModal Modal;
@@ -23,7 +23,8 @@
                 baseResponseModel = JsonConvert.DeserializeObject<BaseResponseModel>(jsonResponse)!;
                 if (baseResponseModel!.IsSuccess)
                 {
-                    employeeModels = baseResponseModel.Data as List<EmployeeModel>;
+                    employeeModels = JsonConvert.DeserializeObject<List<EmployeeModel>>(baseResponseModel.Data!.ToString()!)!;
+                     
                 }
             }
             else
