@@ -6,8 +6,7 @@
         private BaseResponseModel? baseResponseModel = new();
         private int DeleteId;
         private AppModal Modal;
-        [Inject]
-        private DevCode devCode { get; set; }
+        [Inject] private DevCode devCode { get; set; }
 
         protected override async Task OnInitializedAsync()
         {
@@ -24,7 +23,7 @@
                 baseResponseModel = JsonConvert.DeserializeObject<BaseResponseModel>(jsonResponse)!;
                 if (baseResponseModel!.IsSuccess)
                 {
-                    employeeModels = JsonConvert.DeserializeObject<List<EmployeeModel>>(baseResponseModel.Data.ToString()!)!;
+                    employeeModels = baseResponseModel.Data as List<EmployeeModel>;
                 }
             }
             else
