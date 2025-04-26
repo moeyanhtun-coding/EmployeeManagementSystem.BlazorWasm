@@ -2,6 +2,9 @@
 {
     public partial class EmployeeListPage
     {
+        private string? AlertMessage;
+        private string AlertIcon;
+        private string AlertColor;
         private List<EmployeeModel> employeeModels;
         private BaseResponseModel? baseResponseModel = new();
         private int DeleteId;
@@ -43,17 +46,23 @@
                 var result = JsonConvert.DeserializeObject<BaseResponseModel>(jsonStr);
                 if (result.IsSuccess)
                 {
+                    AlertFunction("Employee Delete Successful", "fa-check-circle", "#1cc88a");
                     Modal.Hide();
                     await GetEmployees();
-                    toastService.ShowError(result.Message);
                 }
             }
             else
             {
                 var error = await res.Content.ReadAsStringAsync();
-                toastService.ShowError("One or more field is required");
                 Console.WriteLine("Error occurred: " + error);
             }
+        }
+
+        private void AlertFunction(string alertMessage, string icon,  string alertColor)
+        {
+            AlertIcon = icon;
+            AlertColor = alertColor;
+            AlertMessage = alertMessage;
         }
     }
 }
