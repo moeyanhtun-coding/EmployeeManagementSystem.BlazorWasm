@@ -20,7 +20,11 @@ else
     <div class="card shadow">
         <div class="card-header  d-flex justify-content-between align-items-center">
             <h6 class="m-0 font-weight-bold text-primary">Employee List</h6>
-            <NavLink href="employeeCreate" class="btn btn-primary"> <i class="fas fa-user-plus fa-sm"></i> New Employee</NavLink>
+            <AuthorizeView Roles="Admin">
+                <Authorized>
+                    <NavLink href="employeeCreate" class="btn btn-primary"> <i class="fas fa-user-plus fa-sm"></i> New Employee</NavLink>
+                </Authorized>
+            </AuthorizeView>
         </div>
         <div class="card-body" style="height: 610px; overflow-y: auto;">
             <div class="table-responsive">
@@ -34,7 +38,11 @@ else
                             <th>Department</th>
                             <th>Position</th>
                             <th>JOD</th>
-                            <th></th>
+                            <AuthorizeView Roles="Admin">
+                                <Authorized>
+                                    <th></th>
+                                </Authorized>
+                            </AuthorizeView>
                         </tr>
                     </thead>
                     <tfoot>
@@ -46,7 +54,11 @@ else
                             <th>Department</th>
                             <th>Position</th>
                             <th>JOD</th>
-                            <th></th>
+                            <AuthorizeView Roles="Admin">
+                                <Authorized>
+                                    <th></th>
+                                </Authorized>
+                            </AuthorizeView>
                         </tr>
                     </tfoot>
                     <tbody>
@@ -62,15 +74,19 @@ else
                                 <td>@employee.DepartmentCode</td>
                                 <td>@employee.PositionCode</td>
                                 <td>@employee.DateOfJoining.ToString("yyyy-MM-dd")</td>
-                                <td>
-                                    <div class="align-items-end">
-                                        <NavLink class="btn btn-warning" href="@editUrl"><i class="fas fa-edit fa-sm"></i></NavLink>
-                                        <button class="btn btn-danger"
-                                                @onclick="() => { DeleteId = employee.EmployeeId; Modal.Show(); }">
-                                            <i class="fas fa-trash fa-sm"></i>
-                                        </button>
-                                    </div>
-                                </td>
+                                <AuthorizeView Roles="Admin">
+                                    <Authorized>
+                                        <td>
+                                            <div class="align-items-end">
+                                                <NavLink class="btn btn-warning" href="@editUrl"><i class="fas fa-edit fa-sm"></i></NavLink>
+                                                <button class="btn btn-danger"
+                                                        @onclick="() => { DeleteId = employee.EmployeeId; Modal.Show(); }">
+                                                    <i class="fas fa-trash fa-sm"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </Authorized>
+                                </AuthorizeView>
                             </tr>
                         }
                     </tbody>
