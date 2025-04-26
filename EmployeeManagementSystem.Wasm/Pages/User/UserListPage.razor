@@ -19,10 +19,18 @@
 else
 {
     <div class="card shadow">
-        <div class="card-header  d-flex justify-content-between align-items-center">
+        <div class="card-header d-flex justify-content-between align-items-center">
             <h6 class="m-0 font-weight-bold text-primary">Employee List</h6>
+            <button class="btn btn-info btn-sm dropdown-toggle" type="button" id="roleDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width: 100px;">
+                @(role + " ")
+            </button>
+            <div class="dropdown-menu" aria-labelledby="roleDropdown">
+                <a class="dropdown-item"  @onclick=@(() => GetUserListByRole("All"))>All</a>
+                <a class="dropdown-item" @onclick=@(() => GetUserListByRole("Admin"))>Admin</a>
+                <a class="dropdown-item" @onclick=@(() => GetUserListByRole("User"))>User</a>
+            </div>
         </div>
-        <div class="card-body" style="height: 6410px; overflow-y: auto;">
+        <div class="card-body" style="max-height: 75vh; overflow-y: auto;">
             <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
@@ -46,8 +54,9 @@ else
                         </tr>
                     </tfoot>
                     <tbody>
-                        @foreach (var user in UserDetailModels)
+                        @foreach (var user in UserLists)
                         {
+                            userNo++;
                             <tr>
                                 <td>@userNo</td>
                                 <td></td>
@@ -75,41 +84,3 @@ else
     </AppModal>
 }
 
-@code {
-    private List<UserDetailModel> UserDetailModels;
-    private BaseResponseModel baseResponseModel;
-    private AppModal Modal;
-    [Inject] private DevCode devCode { get; set; }
-
-    protected override async Task OnInitializedAsync()
-    {
-        await GetUserList();
-    }
-
-    public async Task GetUserList()
-    {
-        try
-        {
-            await devCode.SetAuthorizeHeader();
-            var response = await httpClient.GetAsync("api/User/getUserList");
-            if (response.IsSuccessStatusCode)
-            {
-                var JsonStr = await response.Content.ReadAsStringAsync();
-                baseResponseModel = JsonConvert.DeserializeObject<BaseResponseModel>(JsonStr)!;
-                if (baseResponseModel.IsSuccess)
-                {
-                    UserDetailModels = JsonConvert.DeserializeObject<List<UserDetailModel>>(baseResponseModel.Data!.ToString()!)!;
-                }
-            }
-            else
-            {
-                var error = await response.Content.ReadAsStringAsync();
-                Console.WriteLine(error);
-            }
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine(ex.ToString());
-        }
-    }
-}
