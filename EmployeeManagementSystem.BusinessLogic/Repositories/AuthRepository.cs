@@ -1,4 +1,5 @@
-﻿using EmployeeManagementSystem.Model.Models.User;
+﻿using EmployeeManagementSystem.Mapper;
+using EmployeeManagementSystem.Model.Models.User;
 
 namespace EmployeeManagementSystem.BusinessLogic.Repositories
 {
@@ -90,12 +91,7 @@ namespace EmployeeManagementSystem.BusinessLogic.Repositories
                 };
 
             #region Add User
-            var newUser = new UserModel
-            {
-                UserName = model.Name,
-                Email = model.Email,
-                Password = BCrypt.Net.BCrypt.HashPassword(model.Password)
-            };
+            var newUser = model.Change();
             await context.Users.AddAsync(newUser);
             await context.SaveChangesAsync();
             #endregion
@@ -104,7 +100,7 @@ namespace EmployeeManagementSystem.BusinessLogic.Repositories
             var userRole = new UserRoleModel
             {
                 UserId = newUser.UserId,
-                RoleId = 1
+                RoleId = 2
             };
             context.UserRoles.Add(userRole);
             await context.SaveChangesAsync();
