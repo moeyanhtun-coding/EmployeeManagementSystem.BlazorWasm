@@ -1,5 +1,8 @@
+using BCrypt.Net;
 using EmployeeManagementSystem.Model.Entities;
+using EmployeeManagementSystem.Model.Models.Auth;
 using EmployeeManagementSystem.Model.Models.Employee;
+using Microsoft.Identity.Client;
 
 namespace EmployeeManagementSystem.Mapper;
 
@@ -22,5 +25,18 @@ public static class ChangeModel
             DateOfBirth = (DateTime)employeeRequestModel.DateOfBirth,
         };
         return employeeModel;
+    }
+
+    public static UserModel Change(this RegisterModel registerModel) 
+    {
+        UserModel userModel = new UserModel()
+        {
+            UserCode = string.Concat("UID-", Ulid.NewUlid().ToString().AsSpan(5, 10)),
+            UserName = registerModel.Name,
+            Email = registerModel.Email,
+            Password = BCrypt.Net.BCrypt.HashPassword(registerModel.Password),
+            CreatedAt = DateTime.Now,
+        };
+        return userModel;
     }
 }
