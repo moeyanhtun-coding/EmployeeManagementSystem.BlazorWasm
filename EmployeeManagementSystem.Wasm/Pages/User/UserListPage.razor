@@ -20,12 +20,12 @@ else
 {
     <div class="card shadow">
         <div class="card-header d-flex justify-content-between align-items-center">
-            <h6 class="m-0 font-weight-bold text-primary">Employee List</h6>
+            <h6 class="m-0 font-weight-bold text-primary">User List</h6>
             <button class="btn btn-info btn-sm dropdown-toggle" type="button" id="roleDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width: 100px;">
                 @(role + " ")
             </button>
             <div class="dropdown-menu" aria-labelledby="roleDropdown">
-                <a class="dropdown-item"  @onclick=@(() => GetUserListByRole("All"))>All</a>
+                <a class="dropdown-item" @onclick=@(() => GetUserListByRole("All"))>All</a>
                 <a class="dropdown-item" @onclick=@(() => GetUserListByRole("Admin"))>Admin</a>
                 <a class="dropdown-item" @onclick=@(() => GetUserListByRole("User"))>User</a>
             </div>
@@ -66,8 +66,7 @@ else
                                 <td>
                                     <div class="align-items-end">
                                         <NavLink class="btn btn-warning" href=""><i class="fas fa-edit fa-sm"></i></NavLink>
-                                        <button class="btn btn-danger"
-                                                @onclick="() => { DeleteId = employee.EmployeeId; Modal.Show(); }">
+                                        <button class="btn btn-danger">
                                             <i class="fas fa-trash fa-sm"></i>
                                         </button>
                                     </div>
