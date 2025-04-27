@@ -1,6 +1,4 @@
-﻿
-
-namespace EmployeeManagementSystem.BusinessLogic.Repositories
+﻿namespace EmployeeManagementSystem.BusinessLogic.Repositories
 {
     public interface IAuthRepository
     {
