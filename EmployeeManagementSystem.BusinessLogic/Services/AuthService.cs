@@ -1,6 +1,4 @@
-﻿
-
-namespace EmployeeManagementSystem.BusinessLogic.Services
+﻿namespace EmployeeManagementSystem.BusinessLogic.Services
 {
     public interface IAuthService
     {
