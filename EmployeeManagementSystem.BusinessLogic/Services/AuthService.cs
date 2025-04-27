@@ -1,4 +1,4 @@
-﻿using EmployeeManagementSystem.Model.Models.User;
+﻿
 
 namespace EmployeeManagementSystem.BusinessLogic.Services
 {
@@ -10,6 +10,7 @@ namespace EmployeeManagementSystem.BusinessLogic.Services
         Task<RefreshTokenModel> GetRefreshTokenModelAsync(string refreshToken);
         Task<UserDetailModel> GetUserDetailModelAsync(int refreshTokenId);
     }
+
     public class AuthService : IAuthService
     {
         private readonly IAuthRepository authRepository;
@@ -31,7 +32,7 @@ namespace EmployeeManagementSystem.BusinessLogic.Services
 
         public async Task<UserDetailModel> GetUserDetailModelAsync(int refreshTokenId)
         {
-           return await authRepository.GetUserDetailModelAsync(refreshTokenId);
+            return await authRepository.GetUserDetailModelAsync(refreshTokenId);
         }
 
 
