@@ -1,5 +1,4 @@
 ﻿namespace EmployeeManagementSystem.Database.Data;
-
 public class AppDbContext : DbContext
 {
     public AppDbContext(DbContextOptions options) : base(options)
