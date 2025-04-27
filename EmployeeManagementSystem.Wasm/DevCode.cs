@@ -3,6 +3,10 @@ namespace EmployeeManagementSystem.Wasm
 {
     public class DevCode
     {
+        private bool isShow = false;
+        private string AlertIcon;
+        private string AlertColor;
+        private string AlertMessage;
         private readonly ILocalStorageService localStorage;
         private readonly HttpClient httpClient;
         private readonly AuthenticationStateProvider authenticationStateProvider;
@@ -54,5 +58,6 @@ namespace EmployeeManagementSystem.Wasm
                 Console.WriteLine(ex.ToString());
             }
         }
+
     }
 }
