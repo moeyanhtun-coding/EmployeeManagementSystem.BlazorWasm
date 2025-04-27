@@ -1,5 +1,4 @@
 namespace EmployeeManagementSystem.Model.Models.Employee;
-
 public class EmployeeRequestModel
 {
     [Required]
