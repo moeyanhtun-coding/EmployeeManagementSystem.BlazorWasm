@@ -1,8 +1,4 @@
-using BCrypt.Net;
-using EmployeeManagementSystem.Model.Entities;
-using EmployeeManagementSystem.Model.Models.Auth;
-using EmployeeManagementSystem.Model.Models.Employee;
-using Microsoft.Identity.Client;
+
 
 namespace EmployeeManagementSystem.Mapper;
 
