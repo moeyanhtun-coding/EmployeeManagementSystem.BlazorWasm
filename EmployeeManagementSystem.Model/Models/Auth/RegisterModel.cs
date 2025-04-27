@@ -1,5 +1,4 @@
 ﻿namespace EmployeeManagementSystem.Model.Models.Auth;
-
 public class RegisterModel
 {
     [Required] public string Name { get; set; }
