@@ -1,11 +1,4 @@
-﻿using EmployeeManagementSystem.Model.Models.User;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace EmployeeManagementSystem.BusinessLogic.Repositories
+﻿namespace EmployeeManagementSystem.BusinessLogic.Repositories
 {
     public interface IUserRepository
     {
