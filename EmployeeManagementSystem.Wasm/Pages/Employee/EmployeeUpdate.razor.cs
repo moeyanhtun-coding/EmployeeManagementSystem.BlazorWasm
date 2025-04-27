@@ -50,7 +50,7 @@ namespace EmployeeManagementSystem.Wasm.Pages.Employee
                 var jsonStr = await res.Content.ReadAsStringAsync();
                 var result = JsonConvert.DeserializeObject<BaseResponseModel>(jsonStr);
                 if (result.IsSuccess)
-                    nav.NavigateTo("/employeeList");
+                    nav.NavigateTo("/employeeList?updated=true");
             }
             else
             {
