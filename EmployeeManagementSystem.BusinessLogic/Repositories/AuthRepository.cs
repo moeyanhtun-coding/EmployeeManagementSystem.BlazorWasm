@@ -1,5 +1,4 @@
-﻿using EmployeeManagementSystem.Mapper;
-using EmployeeManagementSystem.Model.Models.User;
+﻿
 
 namespace EmployeeManagementSystem.BusinessLogic.Repositories
 {
