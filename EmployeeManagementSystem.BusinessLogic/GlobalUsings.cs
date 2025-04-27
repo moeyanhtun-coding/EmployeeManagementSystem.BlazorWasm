@@ -9,3 +9,6 @@ global using EmployeeManagementSystem.Model.Models;
 global using Microsoft.EntityFrameworkCore;
 global using EmployeeManagementSystem.Model.Models.Auth;
 global using EmployeeManagementSystem.Share;
+global using EmployeeManagementSystem.Mapper;
+global using EmployeeManagementSystem.Model.Models.User;
+global using EmployeeManagementSystem.Model.Models.Employee;
