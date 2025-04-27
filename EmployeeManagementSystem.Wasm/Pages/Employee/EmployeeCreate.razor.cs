@@ -26,8 +26,7 @@ namespace EmployeeManagementSystem.Wasm.Pages.Employee
                 var result = await response.Content.ReadAsStringAsync();
                 var res = JsonConvert.DeserializeObject<BaseResponseModel>(result);
                 if (res.IsSuccess)
-                    nav.NavigateTo("/employeeList");
-                toastService.ShowInfo(res.Message);
+                    nav.NavigateTo("/employeeList?created=true");
             }
             else
             {
