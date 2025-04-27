@@ -2,6 +2,7 @@
 {
     public partial class EmployeeListPage
     {
+        private bool isShow = false;
         private string? AlertMessage;
         private string AlertIcon;
         private string AlertColor;
@@ -46,9 +47,14 @@
                 var result = JsonConvert.DeserializeObject<BaseResponseModel>(jsonStr);
                 if (result.IsSuccess)
                 {
-                    AlertFunction("Employee Delete Successful", "fa-check-circle", "#1cc88a");
                     Modal.Hide();
                     await GetEmployees();
+                    AlertFunction("Employee Delete Successful", "fa-check-circle", "#1cc88a");
+                    isShow = true;
+                    StateHasChanged();
+                    await Task.Delay(3000);
+                    isShow = false;
+                    StateHasChanged();
                 }
             }
             else
@@ -58,7 +64,7 @@
             }
         }
 
-        private void AlertFunction(string alertMessage, string icon,  string alertColor)
+        public void AlertFunction(string alertMessage, string icon, string alertColor)
         {
             AlertIcon = icon;
             AlertColor = alertColor;
