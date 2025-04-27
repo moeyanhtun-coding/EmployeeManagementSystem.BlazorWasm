@@ -1,7 +1,4 @@
-
-
 namespace EmployeeManagementSystem.Mapper;
-
 public static class ChangeModel
 {
 
