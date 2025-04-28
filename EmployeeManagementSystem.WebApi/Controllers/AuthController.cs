@@ -97,31 +97,6 @@
            
         }
 
-
-        //private ClaimsPrincipal GetClaimPrincipalFromToken(string refreshToken, string? secret)
-        //
-        //    var tokenHandler = new JwtSecurityTokenHandler();
-        //    var key = Encoding.ASCII.GetBytes(secret);
-        //    try
-        //    {
-        //        var principal = tokenHandler.ValidateToken(refreshToken, new TokenValidationParameters
-        //        {
-        //            ValidateAudience = true,
-        //            ValidAudience = "moeYan",
-        //            ValidateIssuer = true,
-        //            ValidIssuer = "moeYan",
-        //            ValidateIssuerSigningKey = true,
-        //            IssuerSigningKey = new SymmetricSecurityKey(key),
-        //        }, out var validatedToken);
-        //        return principal;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        Console.WriteLine(ex.ToString());
-        //        return null;
-        //    }
-        //}
-
         private string GenerateJwtToken(UserDetailModel userDetail, bool isRefreshToken)
         {
             var claims = new[]
