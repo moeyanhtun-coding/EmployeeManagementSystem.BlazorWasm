@@ -13,6 +13,14 @@ namespace EmployeeManagementSystem.Wasm.Pages.User
 
         protected override async Task OnInitializedAsync()
         {
+            var authState = await ((CustomAuthStateProvider)authenticationStateProvider).GetAuthenticationStateAsync();
+            var user = authState.User;
+
+            if (!user.Identity.IsAuthenticated || !user.IsInRole("Admin"))
+            {
+                // Redirect to a 404 Not Found page
+                nav.NavigateTo("/404", forceLoad: false);
+            }
             await GetUserList();
         }
         public void GetUserListByRole(string roleName)
