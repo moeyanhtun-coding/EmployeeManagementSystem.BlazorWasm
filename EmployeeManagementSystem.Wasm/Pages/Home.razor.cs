@@ -1,7 +1,6 @@
 ﻿using EmployeeManagementSystem.Model.Entities;
 using EmployeeManagementSystem.Model.Models;
 using EmployeeManagementSystem.Model.Models.User;
-using EmployeeManagementSystem.Wasm.Pages.Employee;
 
 namespace EmployeeManagementSystem.Wasm.Pages
 {

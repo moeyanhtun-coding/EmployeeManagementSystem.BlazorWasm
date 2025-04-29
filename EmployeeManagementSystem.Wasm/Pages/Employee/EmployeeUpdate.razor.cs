@@ -33,18 +33,11 @@ namespace EmployeeManagementSystem.Wasm.Pages.Employee
         {
             await devCode.SetAuthorizeHeader();
             var res = await httpClient.GetAsync($"api/Employee/getEmployee/{Id}");
-            if (res.IsSuccessStatusCode)
+            var result = await res.Content.ReadAsStringAsync();
+            var data = JsonConvert.DeserializeObject<BaseResponseModel>(result);
+            if (data.IsSuccess)
             {
-                var result = await res.Content.ReadAsStringAsync();
-                var data = JsonConvert.DeserializeObject<BaseResponseModel>(result);
-                if (data.IsSuccess)
-                {
-                    employeeModel = JsonConvert.DeserializeObject<EmployeeModel>(data.Data.ToString()!)!;
-                }
-            }
-            else
-            {
-                Console.WriteLine(res.ToString());
+                employeeModel = JsonConvert.DeserializeObject<EmployeeModel>(data.Data.ToString()!)!;
             }
         }
 

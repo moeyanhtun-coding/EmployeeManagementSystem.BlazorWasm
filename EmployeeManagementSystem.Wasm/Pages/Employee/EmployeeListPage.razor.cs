@@ -50,7 +50,7 @@ namespace EmployeeManagementSystem.Wasm.Pages.Employee
                 }
             }
         }
-        public async Task GetEmployees()
+        private async Task GetEmployees()
         {
             await devCode.SetAuthorizeHeader();
             var response = await httpClient.GetAsync("api/Employee/employeeList");
