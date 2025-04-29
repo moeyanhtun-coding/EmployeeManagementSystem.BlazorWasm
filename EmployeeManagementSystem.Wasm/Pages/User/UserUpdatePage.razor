@@ -1,4 +1,4 @@
-﻿@page "/userUpdate/{UserCode}"
+﻿@page "/userUpdate/{Id:int}"
 @using EmployeeManagementSystem.Model.Models.User
 <PageTitle>User Update</PageTitle>
 
@@ -7,58 +7,99 @@
         <NavLink class="btn btn-dark mr-3" href="/employeeList"><i class="fas fa-left-long fa-sm"></i> Back</NavLink>
         <h6 class="m-0 font-weight-bold text-primary">Employee Update</h6>
     </div>
-    <EditForm Model="userModel" OnValidSubmit="Submit">
+    <EditForm Model="" OnValidSubmit="">
         <div class="card-body row " style="height: 74vh; padding: 0 100px">
             <div class=" col-6 " style="padding-top: 100px">
                 <img class="w-75" src="/img/undraw_personal.svg" alt="Alternate Text" />
             </div>
             <div class="col-6 px-5 my-auto">
-                <div class="row mb-2">
-                    <div class="form-group col-12">
-                        <label class="form-label">User Code</label>
+                <div class="row  mb-2 ">
+                    <div class="form-group col-6">
+                        <label class="form-label">First Name</label>
                         <input type="text" class="form-control form-control-user"
-                               id="userCode"
-                               placeholder="UserCode" required
-                               @bind="userModel.UserCode" disabled>
+                               id="firstName"
+                               placeholder="First Name" required
+                               @bind="employeeModel.FirstName">
+                    </div>
+                    <div class="form-group col-6">
+                        <label class="form-label">Last Name</label>
+                        <input type="text" class="form-control form-control-user"
+                               id=""
+                               placeholder="Last Name" required
+                               @bind="employeeModel.LastName">
                     </div>
                 </div>
                 <div class="row  mb-2">
+                    <div class="form-group col-6">
+                        <label class="form-label">Email Address</label>
+                        <input type="email" class="form-control form-control-user"
+                               id="email"
+                               placeholder="Email Address" required
+                               @bind="employeeModel.Email">
+                    </div>
+                    <div class="form-group col-6">
+                        <label class="form-label">Phone Number</label>
+                        <input type="number" class="form-control form-control-user"
+                               id="phoneNumber"
+                               placeholder="Enter Phone" required
+                               @bind="employeeModel.PhoneNumber">
+                    </div>
+                </div>
+                <div class="row mb-2">
                     <div class="form-group col-12">
-                        <label class="form-label">Username</label>
+                        <label class="form-label">Address</label>
+                        <input type="text" class="form-control form-control-user"
+                               id="Address"
+                               placeholder="Address" required
+                               @bind="employeeModel.Address">
+                    </div>
+                </div>
+                <div class="row  mb-2">
+                    <div class="form-group col-6">
+                        <label class="form-label">Department</label>
                         <input type="text" class="form-control form-control-user"
                                id="department"
                                placeholder="Department" required
-                               @bind="userModel.UserName" disabled>
+                               @bind="employeeModel.DepartmentCode">
+                    </div>
+                    <div class="form-group col-6">
+                        <label class="form-label">Position</label>
+                        <input type="text" class="form-control form-control-user"
+                               id="position"
+                               placeholder="Position" required
+                               @bind="employeeModel.PositionCode">
                     </div>
                 </div>
                 <div class="row mb-2">
-                    <div class="form-group col-12">
-                        <label class="form-label">Email</label>
-                        <input type="email" class="form-control form-control-user"
-                               id="email"
-                               placeholder="Department" required
-                               @bind="userModel.Email" disabled>
+                    <div class="form-group col-6">
+                        <label class="form-label">Date Of Birth</label>
+                        <input type="date" class="form-control form-control-user"
+                               id="dateOfBirth" required
+                               @bind="employeeModel.DateOfBirth">
                     </div>
-                </div>
-                <div class="row mb-2">
-                    <div class="form-group col-12">
-                        <label class="form-label">Change Role</label>
-                        <select class="form-control form-control-user"
-                                @bind="userModel.RoleId">
-                            <option value="1">Admin</option>
-                            <option value="2">User</option>
-                        </select>
+                    <div class="form-group col-6">
+                        <label class="form-label">Date Of Joining</label>
+                        <input type="date" class="form-control form-control-user"
+                               id="dateOfJoining"
+                               required
+                               @bind="employeeModel.DateOfJoining">
                     </div>
                 </div>
                 <div class="row ">
-                    <div class="col-12">
+                    <div class="col-6">
+                        <button type="button" class="btn btn-danger w-100" @onclick="ClearData">
+                            <i class="fas fa-eraser fa-sm"></i> Clear Data
+                        </button>
+                    </div>
+                    <div class="col-6">
                         <button type="submit" class="btn btn-primary w-100">
                             <i class="fas fa-user-plus fa-sm"></i>
-                            Update User
+                            Update Employee
                         </button>
                     </div>
                 </div>
             </div>
+
         </div>
     </EditForm>
 </div>
