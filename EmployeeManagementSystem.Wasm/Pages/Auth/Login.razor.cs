@@ -29,6 +29,7 @@
                     var result = JsonConvert.DeserializeObject<LoginResponseModel>(jsonStr);
 
                     await ((CustomAuthStateProvider)AuthStateProvider).MarkUserAsAuthenticated(result);
+                    toastService.ShowSuccess("Successfully Login");
                     nav.NavigateTo("/");
                 }
                 else
@@ -42,7 +43,7 @@
                         {
                             foreach (var errorMsg in fieldErrors.Value)
                             {
-                                _errorMessage ="error";
+                                _errorMessage = errorMsg.ToString();
                                 Console.WriteLine(errorMsg.ToString());
                             }
                         }
@@ -50,7 +51,7 @@
                     else
                     {
                         var resError = JsonConvert.DeserializeObject<BaseResponseModel>(content);
-                        _errorMessage = "errir";
+                        _errorMessage = resError.Message;
                         Console.WriteLine(resError.Message);
                     }
                 }
