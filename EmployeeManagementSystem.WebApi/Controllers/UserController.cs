@@ -30,24 +30,5 @@
                 return BadRequest(ex.Message);
             }
         }
-
-        [HttpGet("getUser/{userCode}")]
-        public async Task<ActionResult<BaseResponseModel>> GetUserDetailByCode(string userCode)
-        {
-            try
-            {
-                var  userDetail = await userRepository.GetUserDetailByCode(userCode);
-                return Ok(new BaseResponseModel
-                {
-                    IsSuccess = true,
-                    Message = "Get User Detail By Code",
-                    Data = userDetail
-                });
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
     }
 }
