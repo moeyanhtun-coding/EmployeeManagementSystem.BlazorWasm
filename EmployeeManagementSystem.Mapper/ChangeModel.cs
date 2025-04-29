@@ -29,6 +29,7 @@ public static class ChangeModel
             Email = registerModel.Email,
             Password = BCrypt.Net.BCrypt.HashPassword(registerModel.Password),
             CreatedAt = DateTime.Now,
+            UpdatedAt = DateTime.Now
         };
         return userModel;
     }
