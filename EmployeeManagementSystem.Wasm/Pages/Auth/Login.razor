@@ -37,9 +37,11 @@ else
                                     </div>
                                     @if (!string.IsNullOrEmpty(_errorMessage))
                                     {
-                                        <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                                            <strong>@_errorMessage</strong>
-
+                                        <div class="d-flex align-items-center mb-2" >
+                                            <div class="mr-2">
+                                                <i class="fa fa-exclamation-triangle fa-sm" style="color: #e74a3b;"></i>
+                                            </div>
+                                            <div style="font-size: 0.8rem; color:  #e74a3b;" class="fw-bolder">Credential Do Not Match!</div>
                                         </div>
                                     }
                                     <EditForm Model="_loginModel" class="user" FormName="Login" OnValidSubmit="HandleLogin">
