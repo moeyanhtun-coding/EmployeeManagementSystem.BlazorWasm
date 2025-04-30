@@ -34,7 +34,6 @@
             }
         }
 
-
         public async Task MarkUserAsAuthenticated(LoginResponseModel loginResponseModel)
         {
             await localStorage.SetItemAsync("sessionState", loginResponseModel);
