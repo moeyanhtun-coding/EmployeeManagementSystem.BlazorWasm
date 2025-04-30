@@ -89,12 +89,12 @@
                     TokenExpired = DateTimeOffset.UtcNow.AddMinutes(10).ToUnixTimeSeconds()
                 });
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Console.WriteLine(ex.ToString());
                 return StatusCode(500, ex.ToString());
             }
-           
+
         }
 
         private string GenerateJwtToken(UserDetailModel userDetail, bool isRefreshToken)
@@ -103,7 +103,10 @@
             {
                 new Claim(ClaimTypes.Name, userDetail.UserName),
                 new Claim(ClaimTypes.Role, userDetail.RoleName),
+                new Claim(ClaimTypes.Email, userDetail.Email),
+                new Claim(ClaimTypes.NameIdentifier, userDetail.UserCode)
              };
+            Console.WriteLine(claims.Length);
             string secret =
                 _configuration.GetValue<string>($"Jwt:{(isRefreshToken ? "RefreshTokenSecret" : "Secret")}")!;
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secret));
