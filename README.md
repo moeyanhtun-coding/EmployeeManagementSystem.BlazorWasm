@@ -44,3 +44,10 @@ A modern, scalable Employee Management System built with **ASP.NET Core WebAPI**
   - Dapper for performance-critical queries
  
 ---
+
+## 🚀 Getting Started
+
+### Prerequisites
+- .NET SDK 8.0 
+- SQL Server (Microsoft SQL Server (MSSQL))
+- Visual Studio or JetBrain Rider
