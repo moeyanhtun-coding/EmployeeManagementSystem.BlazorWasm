@@ -16,3 +16,5 @@ A modern, scalable Employee Management System built with **ASP.NET Core WebAPI**
 - **Clean Architecture**
 
 ### 🌐 Frontend
+- **Blazor WebAssembly (WASM)**
+- **HttpClient for API Integration**
