@@ -9,3 +9,5 @@ A modern, scalable Employee Management System built with **ASP.NET Core WebAPI**
 ### 🖥 Backend
 - **ASP.NET Core WebAPI**
 - **JWT Authentication**
+- **Role-based Authorization** (Admin, User)
+- **Entity Framework Core (EF Core)**
