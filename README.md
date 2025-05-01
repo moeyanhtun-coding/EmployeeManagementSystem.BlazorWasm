@@ -20,3 +20,5 @@ A modern, scalable Employee Management System built with **ASP.NET Core WebAPI**
 - **HttpClient for API Integration**
 - **Local Storage for JWT Handling**
 - **Role-based UI Rendering**
+
+---
