@@ -24,3 +24,5 @@ A modern, scalable Employee Management System built with **ASP.NET Core WebAPI**
 ---
 
 ## ✅ Features
+
+- 🔐 **Authentication & Authorization**
