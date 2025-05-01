@@ -14,3 +14,5 @@ A modern, scalable Employee Management System built with **ASP.NET Core WebAPI**
 - **Dapper** (for optimized queries)
 - **Dependency Injection**
 - **Clean Architecture**
+
+### 🌐 Frontend
