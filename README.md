@@ -42,3 +42,5 @@ A modern, scalable Employee Management System built with **ASP.NET Core WebAPI**
 - ⚡ **Hybrid ORM**
   - EF Core for full ORM operations
   - Dapper for performance-critical queries
+ 
+---
