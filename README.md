@@ -34,3 +34,4 @@ A modern, scalable Employee Management System built with **ASP.NET Core WebAPI**
   - Authorization applied to each action
  
 - 🧱 **Clean Architecture**
+  - Separation of concerns: Presentation, Business Logic, Data Access
