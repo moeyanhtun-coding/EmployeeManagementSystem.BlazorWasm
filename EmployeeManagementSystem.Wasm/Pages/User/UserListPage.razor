@@ -56,6 +56,7 @@ else
                     <tbody>
                         @foreach (var user in UserLists)
                         {
+                            var userEditUrl = $"userUpdate/{user.UserCode}";
                             userNo++;
                             <tr>
                                 <td>@userNo</td>
@@ -65,7 +66,7 @@ else
                                 <td>@user.RoleName</td>
                                 <td>
                                     <div class="align-items-end">
-                                        <NavLink class="btn btn-warning" href=""><i class="fas fa-edit fa-sm"></i></NavLink>
+                                        <NavLink class="btn btn-warning" href="@userEditUrl"><i class="fas fa-user-edit fa-sm"></i></NavLink>
                                         <button class="btn btn-danger">
                                             <i class="fas fa-trash fa-sm"></i>
                                         </button>
