@@ -21,6 +21,7 @@ namespace EmployeeManagementSystem.Wasm.Pages.User
                 // Redirect to a 404 Not Found page
                 nav.NavigateTo("/404", forceLoad: false);
             }
+           await GetUserData();
         }
 
         public async Task GetUserData()
