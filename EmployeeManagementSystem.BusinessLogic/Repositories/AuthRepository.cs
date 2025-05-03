@@ -22,7 +22,7 @@
 
         public async Task AddRefreshTokenAsync(RefreshTokenModel model)
         {
-            var refreshToken = await context.RefreshToken.FirstOrDefaultAsync(x => x.UserCode == model.UserCode);
+            var refreshToken = await context.RefreshToken.FirstOrDefaultAsync(x => x.UserId == model.UserId);
             if (refreshToken is null)
             {
                 await context.RefreshToken.AddAsync(model);
@@ -65,7 +65,7 @@
                     IsSuccess = false,
                 };
             #region GetUserDetail
-            var userDetail = await dapperService.QueryFirstOrDefaultAsync<UserDetailModel>(CommonQuery.GetUserDetail, new { UserCode = user.UserCode });
+            var userDetail = await dapperService.QueryFirstOrDefaultAsync<UserDetailModel>(CommonQuery.GetUserDetail,new { UserId = user.UserId });
             #endregion
             return new BaseResponseModel
             {
@@ -96,7 +96,7 @@
             #region Add UserRole
             var userRole = new UserRoleModel
             {
-                UserCode = newUser.UserCode,
+                UserId = newUser.UserId,
                 RoleId = 2
             };
             context.UserRoles.Add(userRole);
@@ -104,7 +104,7 @@
             #endregion
 
             #region GetUserDetail
-            var userDetail = await dapperService.QueryFirstOrDefaultAsync<UserDetailModel>(CommonQuery.GetUserDetail, new { UserCode = newUser.UserCode });
+            var userDetail = await dapperService.QueryFirstOrDefaultAsync<UserDetailModel>(CommonQuery.GetUserDetail, new { UserId = newUser.UserId });
             #endregion
             return new BaseResponseModel
             {
