@@ -23,7 +23,7 @@
             var refreshToken = GenerateJwtToken(user, true);
             await authService.AddRefreshTokenAsync(new RefreshTokenModel
             {
-                UserId = user.UserId,
+                UserCode = user.UserCode,
                 RefreshToken = refreshToken,
             });
             return Ok(new LoginResponseModel
@@ -46,7 +46,7 @@
             var refreshToken = GenerateJwtToken(user, true);
             await authService.AddRefreshTokenAsync(new RefreshTokenModel
             {
-                UserId = user.UserId,
+                UserCode = user.UserCode,
                 RefreshToken = refreshToken,
             });
             return Ok(new LoginResponseModel
@@ -78,7 +78,7 @@
                 var newRefreshToken = GenerateJwtToken(userDetail, true);
                 await authService.AddRefreshTokenAsync(new RefreshTokenModel
                 {
-                    UserId = userDetail.UserId,
+                    UserCode = userDetail.UserCode  ,
                     RefreshToken = newRefreshToken,
                 });
 
