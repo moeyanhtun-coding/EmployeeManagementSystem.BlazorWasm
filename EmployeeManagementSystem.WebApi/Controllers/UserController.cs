@@ -49,8 +49,5 @@
                 return BadRequest(ex.Message);
             }
         }
-
-        //[HttpPost("userChangeRole/{userRoleId}")]
-        //public async Task<ActionResult<BaseResponseModel>> UserChangeRole(int userRoleId, )
     }
 }
