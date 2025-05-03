@@ -28,6 +28,7 @@
                 {
                     var jsonStr = await res.Content.ReadAsStringAsync();
                     var loginResponse = JsonConvert.DeserializeObject<LoginResponseModel>(jsonStr)!;
+                    toastService.ShowSuccess("Registration Successful!");
                     await ((CustomAuthStateProvider)AuthStateProvider).MarkUserAsAuthenticated(loginResponse);
                     nav.NavigateTo("/");
                 }
