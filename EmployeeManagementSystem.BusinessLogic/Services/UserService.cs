@@ -4,6 +4,7 @@
     {
         Task<List<UserDetailModel>> GetUserList();
         Task<UserDetailByCodeModel> GetUserDetailByCode(string userCode);
+        Task<UserRoleModel> UserChangeRole(string userCode, int userId);
     }
     public class UserService : IUserService
     {
@@ -22,6 +23,11 @@
         public async Task<List<UserDetailModel>> GetUserList()
         {
             return await userRepository.GetUserList();
+        }
+
+        public async Task<UserRoleModel> UserChangeRole(string userCode, int userId)
+        {
+           return await userRepository.UserChangeRole(userCode, userId);
         }
     }
 }
