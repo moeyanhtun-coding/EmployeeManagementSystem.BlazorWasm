@@ -5,11 +5,11 @@
     [ApiController]
     public class UserController : ControllerBase
     {
-        private readonly IUserRepository userRepository;
+        private readonly IUserService userService;
 
-        public UserController(IUserRepository userRepository)
+        public UserController(IUserService userService)
         {
-            this.userRepository = userRepository;
+            this.userService = userService;
         }
 
         [HttpGet("getUserList")]
@@ -17,7 +17,7 @@
         {
             try
             {
-                var lst = await userRepository.GetUserList();
+                var lst = await userService.GetUserList();
                 return Ok(new BaseResponseModel
                 {
                     IsSuccess = true,
@@ -36,7 +36,7 @@
         {
             try
             {
-                var  userDetail = await userRepository.GetUserDetailByCode(userCode);
+                var userDetail = await userService.GetUserDetailByCode(userCode);
                 return Ok(new BaseResponseModel
                 {
                     IsSuccess = true,
@@ -50,7 +50,23 @@
             }
         }
 
-        //[HttpPost("userChangeRole/{userRoleId}")]
-        //public async Task<ActionResult<BaseResponseModel>> UserChangeRole(int userRoleId, )
+        [HttpPatch("userChangeRole/{userCode}")]
+        public async Task<ActionResult<BaseResponseModel>> UserChangeRole(string userCode, int roleId)
+        {
+            try
+            {
+                var userRoleDetail = await userService.UserChangeRole(userCode, roleId);
+                return Ok(new BaseResponseModel
+                {
+                    IsSuccess = true,
+                    Message = "User Role Changed",
+                    Data = userRoleDetail
+                });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }
