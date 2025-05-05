@@ -4,6 +4,7 @@
     {
         Task<List<UserDetailModel>> GetUserList();
         Task<UserDetailByCodeModel> GetUserDetailByCode(string userCode);
+        Task<UserRoleModel> UserChangeRole(string userCode, int userId);
     }
     public class UserRepository : IUserRepository
     {
@@ -25,6 +26,22 @@
         public async Task<UserDetailByCodeModel> GetUserDetailByCode(string userCode)
         {
             return  await db.QueryFirstOrDefaultAsync<UserDetailByCodeModel>(CommonQuery.GetUserDetailByCode, new { UserCode = userCode });
+        }
+
+        public async Task<UserRoleModel> UserChangeRole(string userCode, int userId)
+        {
+            var userRoleDetail = await context.UserRoles.AsNoTracking().Where(x => x.UserCode == userCode).FirstOrDefaultAsync();
+            if(userRoleDetail is null)
+            {
+                return null;
+            }
+            else
+            {
+                userRoleDetail.RoleId = userId;
+                context.Entry(userRoleDetail).State = EntityState.Modified;
+                await context.SaveChangesAsync();
+                return userRoleDetail;
+            }
         }
     }
 }
