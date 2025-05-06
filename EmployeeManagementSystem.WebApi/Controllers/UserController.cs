@@ -51,17 +51,29 @@
         }
 
         [HttpPatch("userChangeRole/{userCode}")]
-        public async Task<ActionResult<BaseResponseModel>> UserChangeRole(string userCode, int roleId)
+        public async Task<ActionResult<BaseResponseModel>> UserChangeRole(string userCode, UserChangeRoleRequestModel req)
         {
             try
             {
-                var userRoleDetail = await userService.UserChangeRole(userCode, roleId);
-                return Ok(new BaseResponseModel
+                var userRoleDetail = await userService.UserChangeRole(userCode, req);
+                if (userRoleDetail is null)
                 {
-                    IsSuccess = true,
-                    Message = "User Role Changed",
-                    Data = userRoleDetail
-                });
+                    return BadRequest(new BaseResponseModel
+                    {
+                        IsSuccess = false,
+                        Message = "User Role Not Changed",
+                        Data = userRoleDetail
+                    });
+                }
+                else
+                {
+                    return Ok(new BaseResponseModel
+                    {
+                        IsSuccess = true,
+                        Message = "User Role Changed",
+                        Data = userRoleDetail
+                    });
+                }
             }
             catch (Exception ex)
             {
