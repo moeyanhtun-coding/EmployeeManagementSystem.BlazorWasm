@@ -7,6 +7,7 @@ namespace EmployeeManagementSystem.Wasm.Pages.User
         [Parameter]
         public string UserCode { get; set; }
         private UserDetailByCodeModel userModel = new();
+        private UserChangeRoleRequestModel req = new();
 
         [Inject]
         private DevCode devCode { get; set; }
@@ -44,7 +45,18 @@ namespace EmployeeManagementSystem.Wasm.Pages.User
         }
         private async Task Submit()
         {
-
+            await devCode.SetAuthorizeHeader();
+            req.RoleId = userModel.RoleId;
+            var response = await httpClient.PatchAsJsonAsync($"api/User/userChangeRole/{UserCode}", req);
+            if (response.IsSuccessStatusCode)
+            {
+                var result = await response.Content.ReadAsStringAsync();
+                var data = JsonConvert.DeserializeObject<BaseResponseModel>(result);
+                if (data.IsSuccess)
+                {
+                        nav.NavigateTo("/userList");
+                }
+            }
         }
     }
 }
