@@ -46,7 +46,6 @@ namespace EmployeeManagementSystem.Wasm.Pages.Employee
                     await Task.Delay(3000);
                     isShow = false;
                     StateHasChanged();
-
                 }
             }
         }
@@ -96,7 +95,6 @@ namespace EmployeeManagementSystem.Wasm.Pages.Employee
                 Console.WriteLine("Error occurred: " + error);
             }
         }
-
         public void AlertFunction(string alertMessage, string icon, string alertColor)
         {
             AlertIcon = icon;
