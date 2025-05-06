@@ -15,6 +15,6 @@ namespace EmployeeManagementSystem.Model.Models.User
         public string Password { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
-        public string RoleId { get; set; }
+        public int RoleId { get; set; }
     }
 }
