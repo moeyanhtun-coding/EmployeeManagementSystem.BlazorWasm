@@ -4,6 +4,7 @@ namespace EmployeeManagementSystem.Wasm.Pages.User
 {
     public partial class UserListPage
     {
+        private string? currentUserEmail;
         private List<UserDetailModel> UserDetailModels;
         private List<UserDetailModel> UserLists;
         private BaseResponseModel baseResponseModel;
@@ -15,7 +16,8 @@ namespace EmployeeManagementSystem.Wasm.Pages.User
         {
             var authState = await ((CustomAuthStateProvider)authenticationStateProvider).GetAuthenticationStateAsync();
             var user = authState.User;
-
+            currentUserEmail = user.FindFirst(c => c.Type == ClaimTypes.Email || c.Type == "email")?.Value;
+        
             if (!user.Identity.IsAuthenticated || !user.IsInRole("Admin"))
             {
                 // Redirect to a 404 Not Found page
