@@ -65,12 +65,23 @@ else
                                 <td>@user.Email</td>
                                 <td>@user.RoleName</td>
                                 <td>
-                                    <div class="align-items-end">
-                                        <NavLink class="btn btn-warning" href="@userEditUrl"><i class="fas fa-user-edit fa-sm"></i></NavLink>
-                                        <button class="btn btn-danger">
-                                            <i class="fas fa-trash fa-sm"></i>
-                                        </button>
-                                    </div>
+                                    @if (user.Email != currentUserEmail)
+                                    {
+                                        <div class="align-items-end">
+                                            <NavLink class="btn btn-warning" href="@userEditUrl">
+                                                <i class="fas fa-user-edit fa-sm"></i>
+                                            </NavLink>
+                                            <button class="btn btn-danger">
+                                                <i class="fas fa-trash fa-sm"></i>
+                                            </button>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="align-items-end">
+                                           -
+                                        </div>
+                                    }
                                 </td>
                             </tr>
                         }
