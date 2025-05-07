@@ -1,4 +1,6 @@
-﻿namespace EmployeeManagementSystem.WebApi.Controllers
+﻿using System.Diagnostics.Metrics;
+
+namespace EmployeeManagementSystem.WebApi.Controllers
 {
     [Authorize]
     [Route("api/[controller]")]
@@ -78,6 +80,34 @@
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpDelete("userDelete/{userCode}")]
+        public async Task<ActionResult<BaseResponseModel>> UserDelete(string userCode)
+        {
+            int userDelete = await userService.UserDelete(userCode);
+            if (userDelete > 0)
+            {
+                {
+                    return Ok(new BaseResponseModel
+                    {
+                        IsSuccess = true,
+                        Message = "User Role Delete",
+                        Data = userDelete,
+                    });
+                }
+            }
+            else
+            {
+                {
+                    return BadRequest(new BaseResponseModel
+                    {
+                        IsSuccess = true,
+                        Message = "User Role Delete Fail",
+                        Data = 0
+                    });
+                }
             }
         }
     }
