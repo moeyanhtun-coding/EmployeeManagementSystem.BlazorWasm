@@ -29,6 +29,7 @@ A modern, scalable Employee Management System built with **ASP.NET Core WebAPI**
 <PackageReference Include="Microsoft.AspNetCore.Components.Authorization" Version="8.0.15" />
 <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="8.0.15" />
 <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="8.0.15" PrivateAssets="all" />
+<PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.3.0" />
 
 ```
 ---
