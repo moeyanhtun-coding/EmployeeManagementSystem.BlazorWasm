@@ -51,3 +51,5 @@ A modern, scalable Employee Management System built with **ASP.NET Core WebAPI**
 - .NET SDK 8.0 
 - SQL Server (Microsoft SQL Server (MSSQL))
 - Visual Studio or JetBrain Rider
+
+---
