@@ -34,7 +34,7 @@ A modern, scalable Employee Management System built with **ASP.NET Core WebAPI**
 <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
 <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.15" />
 <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-
+<PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
 ```
 ---
 
