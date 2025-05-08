@@ -24,7 +24,7 @@ A modern, scalable Employee Management System built with **ASP.NET Core WebAPI**
 ## 📦 NuGet Packages Used
 
 ```xml
-
+<PackageReference Include="Blazored.LocalStorage" Version="4.5.0" />
 ```
 ---
 
