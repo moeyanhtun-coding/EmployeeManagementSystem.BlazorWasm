@@ -28,9 +28,9 @@ namespace EmployeeManagementSystem.BusinessLogic.Services
             return await attendanceRepository.AttendanceCreate(reqModel);
         }
 
-        //public async Task<BaseResponseModel> AttendanceList()
-        //{
-        //    return await attendanceRepository.AttendanceList();
-        //}
+        public async Task<BaseResponseModel> AttendanceList()
+        {
+            return await attendanceRepository.AttendanceList();
+        }
     }
 }
