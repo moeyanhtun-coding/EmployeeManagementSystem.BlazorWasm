@@ -60,10 +60,7 @@ namespace EmployeeManagementSystem.WebApi.Controllers
             return Ok(new BaseResponseModel { IsSuccess = true, Message = "Employee Delete Successful" });
         }
 
-        [HttpPost("attendanceEmployee/{employeeCode}")]
-        public async Task<ActionResult<BaseResponseModel>> AttendanceEmployee(string employeeCode)
-        {
-            var res = await employeeService.AttendanceEmployee(employeeCode)
+
     }
 }
 
