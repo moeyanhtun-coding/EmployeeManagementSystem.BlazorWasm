@@ -28,10 +28,10 @@ namespace EmployeeManagementSystem.WebApi.Controllers
         }
 
         [HttpGet ("attendanceList")]
-        //public async Task<ActionResult<BaseResponseModel>> AttendanceList()
-        //{
-        //    var res = await _attendanceService.AttendanceList();
-        //    return Ok(res);
-        //}
+        public async Task<ActionResult<BaseResponseModel>> AttendanceList()
+        {
+            var res = await _attendanceService.AttendanceList();
+            return Ok(res);
+        }
     }
 }
