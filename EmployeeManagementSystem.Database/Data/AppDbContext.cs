@@ -14,4 +14,5 @@ public class AppDbContext : DbContext
     public DbSet<UserModel> Users { get; set; } = null!;
     public DbSet<UserRoleModel> UserRoles { get; set; } = null!;
     public DbSet<RefreshTokenModel> RefreshToken { get; set; } = null!;
+    public DbSet<AttendanceModel> Attendances { get; set; }
 }
