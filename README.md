@@ -21,6 +21,21 @@ A modern, scalable Employee Management System built with **ASP.NET Core WebAPI**
 - **Local Storage for JWT Handling**
 - **Role-based UI Rendering**
 
+## 📦 NuGet Packages Used
+
+```xml
+<PackageReference Include="Blazored.LocalStorage" Version="4.5.0" />
+<PackageReference Include="Blazored.Toast" Version="4.2.1" />
+<PackageReference Include="Microsoft.AspNetCore.Components.Authorization" Version="8.0.15" />
+<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="8.0.15" />
+<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="8.0.15" PrivateAssets="all" />
+<PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.3.0" />
+<PackageReference Include="Microsoft.AspNetCore.WebUtilities" Version="8.0.15" />
+<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.15" />
+<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+<PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
+```
 ---
 
 ## ✅ Features
@@ -51,3 +66,5 @@ A modern, scalable Employee Management System built with **ASP.NET Core WebAPI**
 - .NET SDK 8.0 
 - SQL Server (Microsoft SQL Server (MSSQL))
 - Visual Studio or JetBrain Rider
+
+---
