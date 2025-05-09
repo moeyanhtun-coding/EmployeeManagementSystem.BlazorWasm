@@ -31,6 +31,7 @@
             services.AddScoped<IAuthRepository, AuthRepository>();
             services.AddScoped<IEmployeeRepository, EmployeeRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IAttendanceRepository, AttendanceRepository>();
             return services;
         }
         public static IServiceCollection AddServices(this IServiceCollection services)
@@ -38,6 +39,7 @@
             services.AddScoped<IAuthService, AuthService>();
             services.AddScoped<IEmployeeService, EmployeeService>();
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IAttendanceService, AttendanceService>();
             return services;
         }
 
