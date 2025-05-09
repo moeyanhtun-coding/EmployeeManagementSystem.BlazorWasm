@@ -87,14 +87,14 @@ public class AttendanceRepository : IAttendanceRepository
         }
     }
 
-    //public async Task<BaseResponseModel> AttendanceList()
-    //{
-    //    var lst = await _context.Attendances.ToListAsync();
-    //    return new BaseResponseModel
-    //    {
-    //        Data = lst,
-    //        Message = "Attendance List",
-    //        IsSuccess = true
-    //    };
-    //}
+    public async Task<BaseResponseModel> AttendanceList()
+    {
+        var lst = await _context.Attendances.ToListAsync();
+        return new BaseResponseModel
+        {
+            Data = lst,
+            Message = "Attendance List",
+            IsSuccess = true
+        };
+    }
 }
