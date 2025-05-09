@@ -1,3 +1,5 @@
+using EmployeeManagementSystem.Model.Models.Attendance;
+
 namespace EmployeeManagementSystem.Mapper;
 public static class ChangeModel
 {
@@ -32,5 +34,17 @@ public static class ChangeModel
             UpdatedAt = DateTime.Now
         };
         return userModel;
+    }
+
+    public static AttendanceModel Change(this AttendanceCreateRequestModel model, string type ) 
+    {
+        AttendanceModel attendanceModel = new AttendanceModel()
+        {
+            AttendanceCode = string.Concat("AID-", Ulid.NewUlid().ToString().AsSpan(5, 10)),
+            EmployeeCode = model.EmployeeCode,
+            LogTime = DateTime.Now,
+            Type = type
+        };
+        return attendanceModel;
     }
 }
