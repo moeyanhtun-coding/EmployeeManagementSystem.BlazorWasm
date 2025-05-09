@@ -1,4 +1,5 @@
 ﻿using EmployeeManagementSystem.BusinessLogic.Services;
+using EmployeeManagementSystem.Model.Models.Attendance;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,10 +9,29 @@ namespace EmployeeManagementSystem.WebApi.Controllers
     [ApiController]
     public class AttendanceController : ControllerBase
     {
-        [HttpPost("attendanceEmployee/{employeeCode}")]
-        public async Task<ActionResult<BaseResponseModel>> AttendanceEmployee(string employeeCode)
+        private readonly IAttendanceService _attendanceService;
+
+        public AttendanceController(IAttendanceService attendanceService)
         {
-            var res = await employeeService.AttendanceEmployee(employeeCode);
+            _attendanceService = attendanceService;
         }
+
+        [HttpPost("attendanceEmployee")]
+        public async Task<ActionResult<BaseResponseModel>> AttendanceEmployee(AttendanceCreateRequestModel requestModel)
+        {
+            var res = await _attendanceService.AttendanceCreate(requestModel);
+            if (res.IsSuccess)
+            {
+                return Ok(res);
+            }
+            return BadRequest(res);
+        }
+
+        [HttpGet ("attendanceList")]
+        //public async Task<ActionResult<BaseResponseModel>> AttendanceList()
+        //{
+        //    var res = await _attendanceService.AttendanceList();
+        //    return Ok(res);
+        //}
     }
 }
