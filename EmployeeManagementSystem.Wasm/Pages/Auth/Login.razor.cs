@@ -4,7 +4,7 @@
     {
         private string _errorMessage;
         private bool _isLoading = false;
-        private LoginModel _loginModel = new LoginModel();
+        private LoginModel _loginModel = new();
 
         protected override async Task OnInitializedAsync()
         {
@@ -42,7 +42,7 @@
                         {
                             foreach (var errorMsg in fieldErrors.Value)
                             {
-                                _errorMessage ="error";
+                                _errorMessage = "error";
                                 Console.WriteLine(errorMsg.ToString());
                             }
                         }
