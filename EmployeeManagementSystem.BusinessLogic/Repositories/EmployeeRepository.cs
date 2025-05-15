@@ -42,6 +42,7 @@
             employee.PositionCode = employeeModel.PositionCode;
             employee.DateOfBirth = employeeModel.DateOfBirth;
             employee.DateOfJoining = employeeModel.DateOfJoining;
+            employee.UpdatedAt = DateTime.Now;
 
             _context.Entry(employee).State = EntityState.Modified;
             return await _context.SaveChangesAsync();
