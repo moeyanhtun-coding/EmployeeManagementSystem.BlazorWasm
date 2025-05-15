@@ -37,6 +37,7 @@ public class EmployeeService : IEmployeeService
     {
         var employee = await employeeRepository.GetEmployeeById(id);
         if (employee is null) return 0;
+
         employee.FirstName = employeeModel.FirstName;
         employee.LastName = employeeModel.LastName;
         employee.Email = employeeModel.Email;
@@ -45,6 +46,7 @@ public class EmployeeService : IEmployeeService
         employee.DepartmentCode = employeeModel.DepartmentCode;
         employee.PositionCode = employeeModel.PositionCode;
         employee.UpdatedAt = DateTime.Now;
+
         return await employeeRepository.UpdateEmployee(employee);
     }
 
