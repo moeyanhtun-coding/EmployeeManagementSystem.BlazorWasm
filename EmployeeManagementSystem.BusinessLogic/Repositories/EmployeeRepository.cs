@@ -3,6 +3,8 @@
 public interface IEmployeeRepository
 {
     Task<List<EmployeeModel>> GetEmployeeList();
+
+    Task<EmployeeListResponseModel> GetEmployeeList(int pageNo, int pageSize);
     Task<EmployeeModel> GetEmployeeById(int id);
     Task<int> CreateEmployee(EmployeeRequestModel employeeModel);
     Task<int> UpdateEmployee(EmployeeModel employeeModel);
@@ -20,7 +22,22 @@ public class EmployeeRepository : IEmployeeRepository
 
     public async Task<List<EmployeeModel>> GetEmployeeList()
     {
-        return await _dbContext.Employees.ToListAsync();
+        return await _dbContext.Employees.AsNoTracking().ToListAsync();
+    }
+
+    public async Task<EmployeeListResponseModel> GetEmployeeList(int pageNo, int pageSize)
+    {
+        var query = _dbContext.Employees.AsNoTracking();
+        var totalCount = await query.CountAsync();
+        var pageCount = totalCount / pageSize;
+        if (totalCount % pageSize > 0)
+            pageCount++;
+        var response = new EmployeeListResponseModel()
+        {
+            PageSetting = new PageSettingModel(pageNo, pageSize, totalCount, pageCount),
+            DataList = await query.ToListAsync(),
+        };
+        return response;
     }
 
     public async Task<int> CreateEmployee(EmployeeRequestModel employeeModel)
