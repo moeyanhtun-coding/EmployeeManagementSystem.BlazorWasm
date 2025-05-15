@@ -17,5 +17,6 @@ global using Microsoft.EntityFrameworkCore;
 global using Microsoft.IdentityModel.Tokens;
 global using Microsoft.OpenApi.Models;
 global using EmployeeManagementSystem.Model.Models.Auth;
+global using EmployeeManagementSystem.Model.Models.Employee;
 global using EmployeeManagementSystem.Model.Models.User;
 global using Newtonsoft.Json;
