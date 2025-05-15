@@ -18,6 +18,8 @@ public static class ChangeModel
             PositionCode = employeeRequestModel.PositionCode,
             DateOfJoining = (DateTime)employeeRequestModel.DateOfJoining,
             DateOfBirth = (DateTime)employeeRequestModel.DateOfBirth,
+            CreatedAt = DateTime.Now,
+            UpdatedAt = DateTime.Now,
         };
         return employeeModel;
     }
