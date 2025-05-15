@@ -13,7 +13,7 @@
         <div class="spinner-border text-primary mb-3" role="status">
         </div>
         <div>
-            <div style="font-size: larger; font-weight: 800; color: black;">Loading ... </div>
+            <div style="font-size: larger; font-weight: 800; color: black;">Loading ...</div>
         </div>
     </div>
 }
@@ -23,82 +23,99 @@ else
         <div class="card-header d-flex justify-content-between align-items-center">
             <h6 class="m-0 font-weight-bold text-primary">Employee List</h6>
             <div class="d-flex align-items-center">
-                <div class="mr-4 d-flex align-items-center fade @(isShow ? "show" : "")" style="transition: opacity 0.5s;">
+                <div class="mr-4 d-flex align-items-center fade @(isShow ? "show" : "")"
+                     style="transition: opacity 0.5s;">
                     <div class="mr-2">
                         <i class="fa @AlertIcon" style="color: @AlertColor;"></i>
                     </div>
                     <div style="font-size: 1rem; color: @AlertColor;" class="fw-bolder">@AlertMessage</div>
                 </div>
+
+                <button class="btn btn-success dropdown-toggle mr-2" type="button" id="roleDropdown" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false" style="width: 150px;">
+                    @(sortName + " ")
+                </button>
+                <div class="dropdown-menu" aria-labelledby="roleDropdown">
+                    <a class="dropdown-item" @onclick=@(() => EmployeeListSorting("Ascending"))>Ascending</a>
+                    <a class="dropdown-item" @onclick=@(() => EmployeeListSorting("Descending"))>Descending</a>
+                </div>
+
                 <AuthorizeView Roles="Admin">
                     <Authorized>
-                        <NavLink href="employeeCreate" class="btn btn-primary"> <i class="fas fa-user-plus fa-sm"></i> New Employee</NavLink>
+                        <NavLink href="employeeCreate" class="btn btn-primary"><i class="fas fa-user-plus fa-sm"></i>
+                            New
+                            Employee
+                        </NavLink>
                     </Authorized>
                 </AuthorizeView>
+
             </div>
+
         </div>
         <div class="card-body" style="height: 74vh; overflow-y: auto;">
             <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
-                        <tr>
-                            <th>No</th>
-                            <th>Employee Code</th>
-                            <th>Name</th>
-                            <th>Email</th>
-                            <th>Department</th>
-                            <th>Position</th>
-                            <th>JOD</th>
-                            <AuthorizeView Roles="Admin">
-                                <Authorized>
-                                    <th></th>
-                                </Authorized>
-                            </AuthorizeView>
-                        </tr>
+                    <tr>
+                        <th>No</th>
+                        <th>Employee Code</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Department</th>
+                        <th>Position</th>
+                        <th>JOD</th>
+                        <AuthorizeView Roles="Admin">
+                            <Authorized>
+                                <th></th>
+                            </Authorized>
+                        </AuthorizeView>
+                    </tr>
                     </thead>
                     <tfoot>
+                    <tr>
+                        <th>No</th>
+                        <th>Employee Code</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Department</th>
+                        <th>Position</th>
+                        <th>JOD</th>
+                        <AuthorizeView Roles="Admin">
+                            <Authorized>
+                                <th></th>
+                            </Authorized>
+                        </AuthorizeView>
+                    </tr>
+                    </tfoot>
+                    <tbody>
+                    @foreach (var employee in employeeModels)
+                    {
+                        var editUrl = $"employeeUpdate/{employee.EmployeeId}";
+                        employeeNo++;
                         <tr>
-                            <th>No</th>
-                            <th>Employee Code</th>
-                            <th>Name</th>
-                            <th>Email</th>
-                            <th>Department</th>
-                            <th>Position</th>
-                            <th>JOD</th>
+                            <td>@employeeNo</td>
+                            <td>@employee.EmployeeCode</td>
+                            <td>@($"{employee.FirstName} {employee.LastName}")</td>
+                            <td>@employee.Email</td>
+                            <td>@employee.DepartmentCode</td>
+                            <td>@employee.PositionCode</td>
+                            <td>@employee.DateOfJoining.ToString("yyyy-MM-dd")</td>
                             <AuthorizeView Roles="Admin">
                                 <Authorized>
-                                    <th></th>
+                                    <td>
+                                        <div class="align-items-end">
+                                            <NavLink class="btn btn-warning" href="@editUrl"><i
+                                                    class="fas fa-edit fa-sm"></i></NavLink>
+                                            <button class="btn btn-danger"
+                                                    @onclick="() => { DeleteId = employee.EmployeeId; Modal.Show(); }">
+                                                <i class="fas fa-trash fa-sm"></i>
+                                            </button>
+                                        </div>
+                                    </td>
                                 </Authorized>
                             </AuthorizeView>
                         </tr>
-                    </tfoot>
-                    <tbody>
-                        @foreach (var employee in employeeModels)
-                        {
-                            var editUrl = $"employeeUpdate/{employee.EmployeeId}";
-                            employeeNo++;
-                            <tr>
-                                <td>@employeeNo</td>
-                                <td>@employee.EmployeeCode</td>
-                                <td>@($"{employee.FirstName} {employee.LastName}")</td>
-                                <td>@employee.Email</td>
-                                <td>@employee.DepartmentCode</td>
-                                <td>@employee.PositionCode</td>
-                                <td>@employee.DateOfJoining.ToString("yyyy-MM-dd")</td>
-                                <AuthorizeView Roles="Admin">
-                                    <Authorized>
-                                        <td>
-                                            <div class="align-items-end">
-                                                <NavLink class="btn btn-warning" href="@editUrl"><i class="fas fa-edit fa-sm"></i></NavLink>
-                                                <button class="btn btn-danger"
-                                                        @onclick="() => { DeleteId = employee.EmployeeId; Modal.Show(); }">
-                                                    <i class="fas fa-trash fa-sm"></i>
-                                                </button>
-                                            </div>
-                                        </td>
-                                    </Authorized>
-                                </AuthorizeView>
-                            </tr>
-                        }
+                    }
                     </tbody>
                 </table>
             </div>
