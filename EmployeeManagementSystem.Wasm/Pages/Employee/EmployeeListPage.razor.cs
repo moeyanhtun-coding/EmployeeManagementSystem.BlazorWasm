@@ -4,11 +4,13 @@ namespace EmployeeManagementSystem.Wasm.Pages.Employee
 {
     public partial class EmployeeListPage
     {
+        private string sortName;
         private bool isShow = false;
         private string? AlertMessage;
         private string AlertIcon;
         private string AlertColor;
         private List<EmployeeModel> employeeModels;
+        private List<EmployeeModel> employeeList;
         private BaseResponseModel? baseResponseModel = new();
         private int DeleteId;
         private AppModal Modal;
@@ -49,6 +51,18 @@ namespace EmployeeManagementSystem.Wasm.Pages.Employee
                 }
             }
         }
+
+        public void  EmployeeListSorting(string sort)
+        {
+            sortName = sort;
+            if (sort == "Ascending")
+            {
+                employeeModels = employeeList;
+            }else if (sort == "Descending")
+            {
+                employeeModels = employeeList.OrderByDescending(x => x.EmployeeCode).ToList();
+            }
+        }
         public async Task GetEmployees()
         {
             await devCode.SetAuthorizeHeader();
@@ -59,7 +73,8 @@ namespace EmployeeManagementSystem.Wasm.Pages.Employee
                 baseResponseModel = JsonConvert.DeserializeObject<BaseResponseModel>(jsonResponse)!;
                 if (baseResponseModel!.IsSuccess)
                 {
-                    employeeModels = JsonConvert.DeserializeObject<List<EmployeeModel>>(baseResponseModel.Data!.ToString()!)!;
+                    employeeList = JsonConvert.DeserializeObject<List<EmployeeModel>>(baseResponseModel.Data!.ToString()!)!;
+                    EmployeeListSorting("Ascending");
                 }
             }
             else
