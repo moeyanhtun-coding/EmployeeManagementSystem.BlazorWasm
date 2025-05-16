@@ -24,6 +24,16 @@ public class EmployeeController : ControllerBase
         return Ok(new BaseResponseModel { Data = employees, IsSuccess = true, Message = "Employee List" });
     }
 
+    [HttpGet("employeeList/{pageNo}/{pageSize}")]
+    public async Task<ActionResult<BaseResponseModel>> GetEmployeeList(int pageNo, int pageSize)
+    {
+        var employees = await employeeService.GetEmployeeListAsync(pageNo, pageSize);
+        if (employees is null)
+            return BadRequest(new BaseResponseModel
+                { Data = null, IsSuccess = true, Message = "Employee Not Found" });
+        return Ok(new BaseResponseModel { Data = employees, IsSuccess = true, Message = "Employee List" });
+    }
+
     [HttpPost("createEmployee")]
     public async Task<ActionResult<BaseResponseModel>> CreateEmployee(EmployeeRequestModel employeeModel)
     {
