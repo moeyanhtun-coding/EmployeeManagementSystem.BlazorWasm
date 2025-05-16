@@ -1,11 +1,4 @@
-﻿using EmployeeManagementSystem.Model.Models.Attendance;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace EmployeeManagementSystem.BusinessLogic.Services
+﻿namespace EmployeeManagementSystem.BusinessLogic.Services
 {
     public interface IAttendanceService
     {
