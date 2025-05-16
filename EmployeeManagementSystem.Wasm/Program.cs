@@ -1,4 +1,6 @@
-﻿var builder = WebAssemblyHostBuilder.CreateDefault(args);
+﻿using MudBlazor.Services;
+
+var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");
 builder.RootComponents.Add<HeadOutlet>("head::after");
 
@@ -9,5 +11,6 @@ builder.Services.AddCascadingAuthenticationState();
 builder.Services.AddScoped<AuthenticationStateProvider, CustomAuthStateProvider>();
 builder.Services.AddBlazoredToast();
 builder.Services.AddBlazoredLocalStorage();
+builder.Services.AddMudServices();
 
 await builder.Build().RunAsync();
