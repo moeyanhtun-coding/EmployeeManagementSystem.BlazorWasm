@@ -1,6 +1,7 @@
 ﻿@page "/employeeList"
+@using MudBlazor
 @inject NavigationManager Navigation
-@using Microsoft.AspNetCore.WebUtilities
+
 <PageTitle>Employee List</PageTitle>
 
 @{
@@ -31,7 +32,8 @@ else
                     <div style="font-size: 1rem; color: @AlertColor;" class="fw-bolder">@AlertMessage</div>
                 </div>
 
-                <button class="btn btn-success dropdown-toggle mr-2" type="button" id="roleDropdown" data-toggle="dropdown"
+                <button class="btn btn-success dropdown-toggle mr-2" type="button" id="roleDropdown"
+                        data-toggle="dropdown"
                         aria-haspopup="true" aria-expanded="false" style="width: 150px;">
                     @(sortName + " ")
                 </button>
@@ -52,8 +54,8 @@ else
             </div>
 
         </div>
-        <div class="card-body" style="height: 74vh; overflow-y: auto;">
-            <div class="table-responsive">
+        <div class="card-body" style="">
+            <div class="table-responsive" style="height: 71vh">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                     <tr>
@@ -71,22 +73,6 @@ else
                         </AuthorizeView>
                     </tr>
                     </thead>
-                    <tfoot>
-                    <tr>
-                        <th>No</th>
-                        <th>Employee Code</th>
-                        <th>Name</th>
-                        <th>Email</th>
-                        <th>Department</th>
-                        <th>Position</th>
-                        <th>JOD</th>
-                        <AuthorizeView Roles="Admin">
-                            <Authorized>
-                                <th></th>
-                            </Authorized>
-                        </AuthorizeView>
-                    </tr>
-                    </tfoot>
                     <tbody>
                     @foreach (var employee in employeeModels)
                     {
@@ -94,7 +80,7 @@ else
                         employeeNo++;
                         <tr>
                             <td>@employeeNo</td>
-                            <td>@employee.EmployeeCode</td>
+                            <td>@employee.EmployeeId</td>
                             <td>@($"{employee.FirstName} {employee.LastName}")</td>
                             <td>@employee.Email</td>
                             <td>@employee.DepartmentCode</td>
@@ -119,6 +105,9 @@ else
                     </tbody>
                 </table>
             </div>
+            <div class="d-flex justify-content-end">
+                <MudPagination SelectedChanged="PageChanged" Rectangular="true" Variant="Variant.Filled" Count="@pageCount" Class=""/>
+            </div>
         </div>
     </div>
 
@@ -128,8 +117,8 @@ else
             Are you sure to remove this Employee?
         </ChildContent>
         <Footer>
-            <button class="btn btn-secondary" @onclick="() => Modal.Hide()">Cancel</button>
-            <button class="btn btn-danger" @onclick="Delete">Delete</button>
+            <button class="btn btn-secondary btn-sm" @onclick="() => Modal.Hide()">Cancel</button>
+            <button class="btn btn-danger btn-sm" @onclick="Delete">Delete</button>
         </Footer>
     </AppModal>
 }
