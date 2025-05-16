@@ -1,5 +1,3 @@
-using EmployeeManagementSystem.Model.Models.Attendance;
-
 namespace EmployeeManagementSystem.Mapper;
 public static class ChangeModel
 {
