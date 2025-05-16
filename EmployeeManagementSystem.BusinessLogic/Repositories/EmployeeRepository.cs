@@ -32,10 +32,11 @@ public class EmployeeRepository : IEmployeeRepository
         var pageCount = totalCount / pageSize;
         if (totalCount % pageSize > 0)
             pageCount++;
+        var lst =await query.Pagination(pageNo, pageSize).ToListAsync();
         var response = new EmployeeListResponseModel()
         {
-            PageSetting = new PageSettingModel(pageNo, pageSize, totalCount, pageCount),
-            DataList = await query.ToListAsync(),
+            PageSetting = new PageSettingModel(pageNo, pageSize, pageCount, totalCount),
+            DataList = lst
         };
         return response;
     }
