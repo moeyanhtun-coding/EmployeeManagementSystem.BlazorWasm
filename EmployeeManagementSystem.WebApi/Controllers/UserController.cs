@@ -1,6 +1,4 @@
-﻿using System.Diagnostics.Metrics;
-
-namespace EmployeeManagementSystem.WebApi.Controllers
+﻿namespace EmployeeManagementSystem.WebApi.Controllers
 {
     [Authorize]
     [Route("api/[controller]")]
