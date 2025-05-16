@@ -1,4 +1,4 @@
-﻿using EmployeeManagementSystem.Model.Models.Employee;
+﻿using EmployeeManagementSystem.Wasm.Services.Endpoints;
 
 namespace EmployeeManagementSystem.Wasm.Pages.Employee
 {
@@ -32,7 +32,7 @@ namespace EmployeeManagementSystem.Wasm.Pages.Employee
         public async Task GetEmployeeData()
         {
             await devCode.SetAuthorizeHeader();
-            var res = await httpClient.GetAsync($"api/Employee/getEmployee/{Id}");
+            var res = await httpClient.GetAsync(EmployeeEndpoints.Edit(Id));
             if (res.IsSuccessStatusCode)
             {
                 var result = await res.Content.ReadAsStringAsync();
@@ -51,7 +51,7 @@ namespace EmployeeManagementSystem.Wasm.Pages.Employee
         public async Task Submit()
         {
             await devCode.SetAuthorizeHeader();
-            var res = await httpClient.PatchAsJsonAsync<EmployeeModel>($"api/Employee/updateEmployee/{Id}", employeeModel);
+            var res = await httpClient.PatchAsJsonAsync<EmployeeModel>(EmployeeEndpoints.Update(Id), employeeModel);
             if (res.IsSuccessStatusCode)
             {
                 var jsonStr = await res.Content.ReadAsStringAsync();
