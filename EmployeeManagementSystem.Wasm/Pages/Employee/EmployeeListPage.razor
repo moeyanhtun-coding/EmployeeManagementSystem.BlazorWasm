@@ -91,7 +91,7 @@ else
                                     <td>
                                         <div class="align-items-end">
                                             <NavLink class="btn btn-warning" href="@editUrl"><i
-                                                    class="fas fa-edit fa-sm"></i></NavLink>
+                                                                                                 class="fas fa-edit fa-sm"></i></NavLink>
                                             <button class="btn btn-danger"
                                                     @onclick="() => { DeleteId = employee.EmployeeId; Modal.Show(); }">
                                                 <i class="fas fa-trash fa-sm"></i>
@@ -106,7 +106,7 @@ else
                 </table>
             </div>
             <div class="d-flex justify-content-end">
-                <MudPagination SelectedChanged="PageChanged" Rectangular="true" Variant="Variant.Filled" Count="@pageCount" Class=""/>
+                <MudPagination Color="Color.Success"  SelectedChanged="PageChanged" Rectangular="true" Variant="Variant.Filled" Count="@pageCount"/>
             </div>
         </div>
     </div>
