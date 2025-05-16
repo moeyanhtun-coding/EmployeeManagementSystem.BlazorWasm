@@ -1,4 +1,5 @@
 ﻿@using EmployeeManagementSystem.Wasm.Compoments
+@using MudBlazor
 
 @if (IsShowContent)
 {
@@ -52,6 +53,8 @@
     </div>
 </div> 
 }
+<MudThemeProvider />
+<MudPopoverProvider />
 
 @code{
     public bool IsShowContent { get; set; }
