@@ -1,9 +1,4 @@
-﻿using EmployeeManagementSystem.BusinessLogic.Services;
-using EmployeeManagementSystem.Model.Models.Attendance;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-
-namespace EmployeeManagementSystem.WebApi.Controllers
+﻿namespace EmployeeManagementSystem.WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
