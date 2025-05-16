@@ -1,5 +1,3 @@
-using EmployeeManagementSystem.Model.Entities;
-
 namespace EmployeeManagementSystem.Model.Models.Employee;
 
 public class EmployeeListResponseModel
