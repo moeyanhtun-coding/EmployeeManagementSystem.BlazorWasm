@@ -3,6 +3,7 @@
 public interface IEmployeeService
 {
     Task<List<EmployeeModel>> GetEmployeeListAsync();
+    Task<EmployeeListResponseModel> GetEmployeeListAsync(int pageNo , int pageSize);
     Task<int> CreateEmployee(EmployeeRequestModel employeeModel);
     Task<EmployeeModel> GetEmployeeById(int id);
     Task<int> UpdateEmployee(int id, EmployeeModel employeeModel);
@@ -21,6 +22,11 @@ public class EmployeeService : IEmployeeService
     public async Task<List<EmployeeModel>> GetEmployeeListAsync()
     {
         return await employeeRepository.GetEmployeeList();
+    }
+
+    public async Task<EmployeeListResponseModel> GetEmployeeListAsync(int pageNo, int pageSize)
+    {
+        return await employeeRepository.GetEmployeeList(pageNo, pageSize);
     }
 
     public async Task<EmployeeModel> GetEmployeeById(int id)
