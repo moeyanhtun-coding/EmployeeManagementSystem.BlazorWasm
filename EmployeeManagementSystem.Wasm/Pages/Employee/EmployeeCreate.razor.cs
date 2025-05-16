@@ -1,4 +1,6 @@
 ﻿using EmployeeManagementSystem.Model.Models.Employee;
+using EmployeeManagementSystem.Wasm.Services;
+using EmployeeManagementSystem.Wasm.Services.Endpoints;
 using Microsoft.JSInterop;
 
 namespace EmployeeManagementSystem.Wasm.Pages.Employee
@@ -7,8 +9,6 @@ namespace EmployeeManagementSystem.Wasm.Pages.Employee
     {
         [Inject] private DevCode devCode { get; set; }
         public EmployeeRequestModel EmployeeModel { get; set; } = new();
-
-        public BaseResponseModel? BaseResponseModel { get; set; } = new();
 
         public async Task ClearData()
         {
@@ -19,7 +19,7 @@ namespace EmployeeManagementSystem.Wasm.Pages.Employee
         public async Task Submit()
         {
             await devCode.SetAuthorizeHeader();
-            var response = await httpClient.PostAsJsonAsync("api/Employee/createEmployee", EmployeeModel);
+            var response = await httpClient.PostAsJsonAsync(EmployeeEndpoints.Create, EmployeeModel);
 
             if (response.IsSuccessStatusCode)
             {
